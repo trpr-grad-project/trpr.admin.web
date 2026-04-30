@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+  -webkit-text-fill-color: #374151 !important; /* text color */
+  transition: background-color 5000s ease-in-out 0s;
+}
+
+
+@theme {
+  --color-primary: #755b00;
+  --color-primary-container: #c49b1a;
+
+  --color-background: #faf9f6;
+  --color-surface: #faf9f6;
+  --color-surface-variant: #e3e2e0;
+
+  --color-surface-container: #efeeeb;
+  --color-surface-container-low: #f4f3f1;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-high: #e9e8e5;
+  --color-surface-container-highest: #e3e2e0;
+
+  --color-on-surface: #1a1c1a;
+  --color-on-surface-variant: #4e4635;
+
+  --color-secondary: #635d5a;
+  --color-secondary-container: #e6ded9;
+
+  --color-tertiary: #715a3e;
+  --color-tertiary-container: #b89c7b;
+
+  --color-error: #ba1a1a;
+  --color-error-container: #ffdad6;
+
+  --color-outline: #7f7662;
+  --color-outline-variant: #d1c5af;
+
+  --color-inverse-primary: #eec142;
+
+  /* text colors */
+  --color-on-primary: #ffffff;
+  --color-on-primary-container: #463500;
+  --color-on-secondary: #ffffff;
+  --color-on-background: #1a1c1a;
+}
+
+@utility container {
+  margin-inline: auto;
+  padding-inline: 0.75rem;
+
+  @media (width >= 40rem /* 640px */) {
+    max-width: 38.75rem /* 620px */;
+  }
+  @media (width >= 48rem /* 768px */) {
+    max-width: 45rem /* 720px */;
+  }
+  @media (width >= 64rem /* 1024px */) {
+    max-width: 60.9375rem /* 975px */;
+  }
+  @media (width >= 75rem /* 1200px */) {
+    max-width: 71.25rem /* 1140px */;
+  }
+  @media (width >= 96rem /* 1536px */) {
+    max-width: 87.5rem /* 1400px */;
+  }
+  @media (width >= 103rem /* 1648px */) {
+    max-width: 93.75rem /* 1500px */;
+  }
+  @media (width >= 120rem /* 1920px */) {
+    max-width: 112.5rem /* 1800px */;
+  }
+  @media (width >= 133rem /* 2128px */) {
+    max-width: 125rem /* 2000px */;
+  }
+}
