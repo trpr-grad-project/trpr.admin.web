@@ -9,7 +9,7 @@ export default function Topbar() {
           TouRA
         </h1>
 
-        <div className="hidden lg:flex items-center bg-surface-container-low px-4 py-2 rounded-full border border-outline-variant/30">
+        <div className="hidden lg:flex items-center bg-white px-4 py-2 rounded-full border border-outline-variant">
           <Search className="text-[#8C7355] mr-2" />
           <input
             className="bg-transparent border-none outline-none focus:outline-none focus:ring-0 text-sm text-[#8C7355] font-medium placeholder-[#8C7355] w-64"
