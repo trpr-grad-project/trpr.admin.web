@@ -1,5 +1,4 @@
 # TRPR Admin Web
-
 Admin dashboard for the TRPR platform.
 
 ## Live Demo
