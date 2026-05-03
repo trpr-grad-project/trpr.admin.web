@@ -2,6 +2,11 @@
 
 :root {
   color-scheme: light only;
+  forced-color-adjust: none;
+}
+
+html {
+  background-color: var(--color-background);
 }
 
 input:-webkit-autofill,
