@@ -1,6 +1,10 @@
-import { Settings, Bell, Search } from "lucide-react";
+import { Settings, Bell, Search, Sun, Moon } from "lucide-react";
+import { useContext } from "react";
+import { ThemeContext } from "../../Context/ThemeContext";
 
 export default function Topbar() {
+  const { theme, changeTheme } = useContext(ThemeContext)!;
+
   return (
     <header className="sticky top-0 z-40 bg-surface/80 backdrop-blur-md border-b border-outline-variant flex justify-between items-center px-8 h-20">
       {/* Left */}
@@ -21,6 +25,16 @@ export default function Topbar() {
 
       {/* Right */}
       <div className="flex items-center gap-6 text-on-surface">
+        <button
+          onClick={changeTheme}
+          className="p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer"
+        >
+          {theme === 'dark'
+            ? <Sun className="text-[#8C7355] hover:text-primary-container transition-colors" />
+            : <Moon className="text-[#8C7355] hover:text-primary-container transition-colors" />
+          }
+        </button>
+
         <button className="relative">
           <Bell className="text-[#8C7355] hover:text-primary-container transition-colors" />
           <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary-container rounded-full border-2 border-surface"></span>
@@ -34,7 +48,6 @@ export default function Topbar() {
           <img
             alt="Administrator Portrait"
             className="w-full h-full object-cover"
-            data-alt="Close-up professional portrait of a distinguished man in a desert-colored linen suit with soft natural lighting"
             src="https://lh3.googleusercontent.com/aida-public/AB6AXuAoACTFaNQukmxgTaIkZzE4aYxSy2X4OtmAKYgVGnSEw2wwgSma7oaZ4SUZwjxQZvJoqZ6R1pUzyJGRve5KJd67SWc7MFelEJ9FLWumMbfDWZqMWlc7jGE-oCysN6rvkbucIW5ZRNYPu43jc-r5CO5PM4CG7rKDhstH_oXVBTulhaVoyrzpgZGP1gFd_LYl-16IpPNoW0ooQ816FIRPe-w_hXEl5wBNatTjbNRNM-QrHPpuhRZ7dQdayIgF2JKd_lT7kTkRm6lvu5gt"
           />
         </div>
