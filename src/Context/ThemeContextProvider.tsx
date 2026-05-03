@@ -5,8 +5,7 @@ type Props = { children: ReactNode };
 
 export default function ThemeContextProvider({ children }: Props) {
   const [theme, setTheme] = useState<string | null>(
-    localStorage.getItem("theme") ?? 
-    (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light')
+    localStorage.getItem("theme") ?? 'light'
   );
 
   function changeTheme(): void {
