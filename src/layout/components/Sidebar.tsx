@@ -19,7 +19,7 @@ export default function Sidebar() {
             TOURA ADMIN
           </h2>
         </div>
-        <p className="text-[#8C7355] text-sm font-medium font-['Noto_Serif'] tracking-widest uppercase">
+        <p className="text-secondary text-sm font-medium font-['Noto_Serif'] tracking-widest uppercase">
           Royal Overseer
         </p>
       </div>
@@ -28,7 +28,7 @@ export default function Sidebar() {
       <nav className="flex-1 space-y-1">
         <NavLink
           to="#"
-          className="text-[#8C7355] hover:text-primary-container hover:bg-[#F2F0EB] px-6 py-4 flex items-center gap-3 transition-all duration-300"
+          className="text-secondary hover:text-primary-container hover:bg-surface-container px-6 py-4 flex items-center gap-3 transition-all duration-300"
         >
           <LayoutDashboard />
           <span className="font-['Noto_Serif'] font-semibold">Dashboard</span>
@@ -36,7 +36,7 @@ export default function Sidebar() {
 
         <NavLink
           to="#"
-          className="bg-[#F2F0EB] dark:bg-[#3E3A37] text-primary-container border-r-4 border-primary-container px-6 py-4 flex items-center gap-3"
+          className="bg-surface-container text-primary-container border-r-4 border-primary-container px-6 py-4 flex items-center gap-3"
         >
           <ArrowUpFromLine />
           <span className="font-['Noto_Serif'] font-semibold">
@@ -47,10 +47,10 @@ export default function Sidebar() {
 
       {/* Bottom */}
       <div className="px-6 mt-auto">
-        <div className="mt-8 border-t border-[#F2F0EB] pt-4">
+        <div className="mt-8 border-t border-outline-variant pt-4">
           <Link
             to="#"
-            className="text-[#8C7355] hover:text-[#C49B1A] px-6 py-4 flex items-center gap-4 transition-colors"
+            className="text-secondary hover:text-primary-container px-6 py-4 flex items-center gap-4 transition-colors"
           >
             <LogOut />
             <button className="font-['Noto_Serif'] font-semibold text-lg">

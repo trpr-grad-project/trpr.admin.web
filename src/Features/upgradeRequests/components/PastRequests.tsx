@@ -7,18 +7,18 @@ interface PastRequestsProps {
 function getStatusStyles(status: RequestStatus): string {
   switch (status) {
     case 'pending':
-      return 'text-primary bg-primary-container/20 border-primary-container/30';
+      return "bg-tertiary/10 text-secondary border-tertiary-container/30";
     case 'approved':
-      return 'text-green-800 bg-green-100 border-green-200';
+      return "bg-success-container/20 text-success border-success-container/50";
     case 'denied':
-      return 'text-error bg-error-container/20 border-error-container/30';
+      return "bg-error-container text-error border-error-container/30";
   }
 }
 
 export default function PastRequests({ pastRequests }: PastRequestsProps) {
   return (
     <>
-      <h4 className="font-h3 text-lg text-[#2D2926] mb-6 border-b border-outline-variant/10 pb-4 font-bold">
+      <h4 className="font-h3 text-lg text-on-surface mb-6 border-b border-outline-variant/10 pb-4 font-bold">
         Past History
       </h4>
 
@@ -33,7 +33,7 @@ export default function PastRequests({ pastRequests }: PastRequestsProps) {
                 day: 'numeric',
               })}
             </p>
-            <p className="font-bold text-sm text-[#2D2926]">{req.title}</p>
+            <p className="font-bold text-sm text-on-surface">{req.title}</p>
             <p className={`text-[10px] font-bold uppercase mt-1 inline-block px-2 py-0.5 rounded border ${getStatusStyles(req.status)}`}>
               {req.status}
             </p>

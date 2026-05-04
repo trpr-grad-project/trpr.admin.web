@@ -24,7 +24,7 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
 
   return (
     <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-      <p className="text-sm text-[#8C7355] font-['Noto_Serif'] italic">
+      <p className="text-sm text-secondary font-['Noto_Serif'] italic">
         Showing {from} to {to} of {totalCount} requests
       </p>
 
@@ -32,7 +32,7 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page === 1}
-          className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-[#8C7355] hover:bg-surface-container transition-colors disabled:opacity-50 cursor-pointer"
+          className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-secondary hover:bg-surface-container transition-colors disabled:opacity-50 cursor-pointer"
         >
           <ChevronLeft />
         </button>
@@ -45,7 +45,7 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
             >
               1
             </button>
-            <span className="px-2 text-[#8C7355]">...</span>
+            <span className="px-2 text-secondary">...</span>
           </>
         )}
 
@@ -65,7 +65,7 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
 
         {showEndEllipsis && (
           <>
-            <span className="px-2 text-[#8C7455]">...</span>
+            <span className="px-2 text-secondary">...</span>
             <button
               onClick={() => onPageChange(totalPages)}
               className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-on-surface hover:bg-surface-container transition-colors font-bold cursor-pointer"
@@ -78,7 +78,7 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
         <button
           onClick={() => onPageChange(page + 1)}
           disabled={page === totalPages}
-          className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-[#8C7355] hover:bg-surface-container transition-colors disabled:opacity-50 cursor-pointer"
+          className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-secondary hover:bg-surface-container transition-colors disabled:opacity-50 cursor-pointer"
         >
           <ChevronRight />
         </button>

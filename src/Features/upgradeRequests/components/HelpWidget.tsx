@@ -5,7 +5,7 @@ export default function HelpWidget() {
     <>
       <Info className="text-tertiary w-5 h-5" />
       <div>
-        <p className="font-bold text-[#281803] text-sm uppercase tracking-tight">
+        <p className="font-bold text-on-surface text-sm uppercase tracking-tight">
           Review Protocol
         </p>
         <p className="text-xs text-secondary mt-2 leading-relaxed">

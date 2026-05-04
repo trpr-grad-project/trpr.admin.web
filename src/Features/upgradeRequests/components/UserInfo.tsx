@@ -8,12 +8,12 @@ export default function UserInfo({ userName, createdAtUtc, languages }: UserInfo
   return (
     <div className="grid grid-cols-3 gap-8 pb-8 border-b border-outline-variant/20">
       <div>
-        <p className="text-label-sm text-[#8C7355] mb-1">USER NAME</p>
-        <p className="font-bold text-xl text-[#2D2926]">{userName}</p>
+        <p className="text-label-sm text-secondary mb-1">USER NAME</p>
+        <p className="font-bold text-xl text-on-surface">{userName}</p>
       </div>
       <div>
-        <p className="text-label-sm text-[#8C7355] mb-1">DATE SUBMITTED</p>
-        <p className="font-bold text-xl text-[#2D2926]">
+        <p className="text-label-sm text-secondary mb-1">DATE SUBMITTED</p>
+        <p className="font-bold text-xl text-on-surface">
           {new Date(createdAtUtc).toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'short',
@@ -22,7 +22,7 @@ export default function UserInfo({ userName, createdAtUtc, languages }: UserInfo
         </p>
       </div>
       <div>
-        <p className="text-label-sm text-[#8C7355] mb-1">LANGUAGES</p>
+        <p className="text-label-sm text-secondary mb-1">LANGUAGES</p>
         <div className="flex flex-wrap gap-1 mt-1">
           {languages.map((lang) => (
             <span

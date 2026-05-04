@@ -37,12 +37,12 @@ export default function UpgradeRequests() {
         <h2 className="text-on-surface mb-2 text-[40px] font-bold font-[Noto_Serif]">
           Upgrade Requests
         </h2>
-        <p className="text-[#8C7355] font-['Noto_Serif'] italic text-sm">
+        <p className="text-secondary font-['Noto_Serif'] italic text-sm">
           Manage and verify royal tier account elevations.
         </p>
       </header>
 
-      <section className="bg-surface-container-lowest rounded-xl shadow-2xl shadow-[#8C7355]/5 border border-outline-variant/20 overflow-hidden">
+      <section className="bg-surface-container-lowest rounded-xl shadow-2xl shadow-secondary/5 border border-outline-variant/20 overflow-hidden">
         <RequestsTable requests={paginatedData.data} />
         <div className="px-8 py-6 bg-surface-container-low rounded-b-xl">
           <Pagination

@@ -12,7 +12,7 @@ export default function Certificates({ certificates }: CertificatesProps) {
         Certificates
       </p>
 
-      <div className="bg-white border border-outline-variant/30 rounded-lg overflow-hidden">
+      <div className="bg-surface border border-outline-variant/30 rounded-lg overflow-hidden">
         <div className="divide-y divide-outline-variant/10">
           {certificates.map((cert) => (
             <div
@@ -22,7 +22,7 @@ export default function Certificates({ certificates }: CertificatesProps) {
               <div className="flex items-center gap-3">
                 <File className="text-primary" />
                 <div>
-                  <p className="text-sm font-bold text-[#2D2926]">
+                  <p className="text-sm font-bold text-on-surface">
                     {cert.name}
                   </p>
                   <p className="text-[10px] text-secondary">

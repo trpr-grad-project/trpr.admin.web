@@ -19,9 +19,9 @@ import type { RequestStatus } from "../../../types/upgradeRequest";
 function getStatusBadgeStyles(status: RequestStatus): string {
   switch (status) {
     case "pending":
-      return "bg-tertiary/20 text-on-tertiary-fixed border-tertiary-container/30";
+      return "bg-tertiary/10 text-secondary border-tertiary-container/30";
     case "approved":
-      return "bg-green-100 text-green-600 border-green-200";
+      return "bg-success-container/20 text-success border-success-container/50";
     case "denied":
       return "bg-error-container text-error border-error-container/30";
   }
@@ -48,13 +48,13 @@ export default function RequestDetails() {
       {/* HEADER */}
       <header className="flex justify-between items-end">
         <div className="space-y-2">
-          <div className="flex items-center gap-2 text-[#8C7355] uppercase text-sm tracking-[0.2em]">
+          <div className="flex items-center gap-2 text-secondary uppercase text-sm tracking-[0.2em]">
             <span className="font-semibold">Requests</span>
             <ChevronRight className="w-3 h-3" />
             <span className="text-primary font-bold">{request.id}</span>
           </div>
 
-          <h2 className="text-[#2D2926] font-bold font-['Noto_Serif'] text-[40px]">
+          <h2 className="text-on-surface font-bold font-['Noto_Serif'] text-[40px]">
             Request Details
           </h2>
         </div>
@@ -80,7 +80,7 @@ export default function RequestDetails() {
         {/* LEFT */}
         <section className="col-span-8 space-y-8">
           {/* USER INFO */}
-          <div className="bg-white rounded-lg border border-outline-variant/30 overflow-hidden">
+          <div className="bg-surface rounded-lg border border-outline-variant/30 overflow-hidden">
             <div className="p-8 space-y-8">
               <UserInfo
                 userName={request.userName}
@@ -97,7 +97,7 @@ export default function RequestDetails() {
 
           {/* DOCUMENTS */}
           <div className="space-y-6">
-            <h4 className="font-h3 text-xl text-[#2D2926] flex items-center gap-2 font-bold">
+            <h4 className="font-h3 text-xl text-on-surface flex items-center gap-2 font-bold">
               <ShieldCheck className="text-primary" />
               Verification Documents
             </h4>
@@ -115,7 +115,7 @@ export default function RequestDetails() {
           {/* ACTIONS (ONLY IF PENDING) */}
           {request.status === "pending" && (
             <div className="pt-10">
-              <div className="p-8 rounded-lg border border-outline-variant/30 space-y-6 bg-white">
+              <div className="p-8 rounded-lg border border-outline-variant/30 space-y-6 bg-surface">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <ApproveRequest />
                   <DenyRequest />
@@ -142,7 +142,7 @@ export default function RequestDetails() {
 
         {/* RIGHT */}
         <section className="col-span-4 space-y-8">
-          <div className="bg-white border border-outline-variant/30 rounded-lg p-6">
+          <div className="bg-surface border border-outline-variant/30 rounded-lg p-6">
             <PastRequests pastRequests={mockPastRequests} />
           </div>
 

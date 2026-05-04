@@ -13,10 +13,10 @@ export default function Topbar() {
           TouRA
         </h1>
 
-        <div className="hidden lg:flex items-center bg-white px-4 py-2 rounded-full border border-outline-variant">
-          <Search className="text-[#8C7355] mr-2" />
+        <div className="hidden lg:flex items-center bg-surface/30 px-4 py-2 rounded-full border border-outline-variant">
+          <Search className="text-secondary mr-2" />
           <input
-            className="bg-transparent border-none outline-none focus:outline-none focus:ring-0 text-sm text-[#8C7355] font-medium placeholder-[#8C7355] w-64"
+            className="bg-transparent border-none outline-none focus:outline-none focus:ring-0 text-sm text-secondary font-medium placeholder-secondary w-64"
             placeholder="Search ..."
             type="text"
           />
@@ -27,24 +27,24 @@ export default function Topbar() {
       <div className="flex items-center gap-6 text-on-surface">
         <button
           onClick={changeTheme}
-          className="p-2 rounded-lg hover:bg-surface-container transition-colors cursor-pointer"
+          className="p-2 rounded-lg cursor-pointer"
         >
           {theme === 'dark'
-            ? <Sun className="text-[#8C7355] hover:text-primary-container transition-colors" />
-            : <Moon className="text-[#8C7355] hover:text-primary-container transition-colors" />
+            ? <Sun className="text-secondary hover:text-primary-container transition-colors" />
+            : <Moon className="text-secondary hover:text-primary-container transition-colors" />
           }
         </button>
 
         <button className="relative">
-          <Bell className="text-[#8C7355] hover:text-primary-container transition-colors" />
+          <Bell className="text-secondary hover:text-primary-container transition-colors cursor-pointer" />
           <span className="absolute -top-1 -right-1 w-2 h-2 bg-primary-container rounded-full border-2 border-surface"></span>
         </button>
 
         <button>
-          <Settings className="text-[#8C7355] hover:text-primary-container transition-colors" />
+          <Settings className="text-secondary hover:text-primary-container transition-colors cursor-pointer" />
         </button>
 
-        <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container">
+        <div className="h-10 w-10 rounded-full overflow-hidden border-2 border-primary-container cursor-pointer">
           <img
             alt="Administrator Portrait"
             className="w-full h-full object-cover"

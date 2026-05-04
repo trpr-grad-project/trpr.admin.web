@@ -10,7 +10,7 @@ function getStatusStyles(status: RequestStatus): string {
     case 'pending':
       return 'bg-primary-container text-on-primary-container';
     case 'approved':
-      return 'bg-green-100 text-green-800';
+      return 'bg-success-container text-success';
     case 'denied':
       return 'bg-error-container text-error';
   }
@@ -24,22 +24,22 @@ export default function RequestsTable({ requests }: RequestsTableProps) {
       <table className="w-full text-left border-collapse">
         <thead>
           <tr className="bg-surface-container-low border-b border-outline-variant/30">
-            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-[#8C7355]">
+            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
               Request ID
             </th>
-            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-[#8C7355]">
+            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
               User ID
             </th>
-            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-[#8C7355]">
+            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
               Title
             </th>
-            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-[#8C7355]">
+            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
               Date Submitted
             </th>
-            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-[#8C7355]">
+            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
               Status
             </th>
-            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-[#8C7355] text-right">
+            <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary text-right">
               Actions
             </th>
           </tr>
@@ -54,7 +54,7 @@ export default function RequestsTable({ requests }: RequestsTableProps) {
               <td className="px-8 py-6 font-['Noto_Serif'] font-bold text-on-surface">
                 #{request.id}
               </td>
-              <td className="px-8 py-6 text-[#8C7355]">{request.userId}</td>
+              <td className="px-8 py-6 text-secondary">{request.userId}</td>
               <td className="px-8 py-6">
                 <div className="flex flex-col">
                   <span className="font-semibold text-on-surface">
@@ -62,7 +62,7 @@ export default function RequestsTable({ requests }: RequestsTableProps) {
                   </span>
                 </div>
               </td>
-              <td className="px-8 py-6 text-body-md">
+              <td className="px-8 py-6 text-on-surface">
                 {new Date(request.createdAtUtc).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'short',
@@ -77,7 +77,7 @@ export default function RequestsTable({ requests }: RequestsTableProps) {
               <td className="px-8 py-6 text-right">
                 <button
                   onClick={() => navigate(`/requests/${request.id}`)}
-                  className="px-4 py-2 text-primary-container font-bold border border-primary-container/30 rounded-lg cursor-pointer hover:bg-primary-container hover:text-white transition-all"
+                  className="px-4 py-2 text-primary-container font-bold border border-primary-container/30 rounded-lg cursor-pointer hover:bg-primary-container hover:text-surface transition-all"
                 >
                   View
                 </button>
