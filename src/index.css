@@ -18,6 +18,13 @@ textarea:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px var(--color-surface-container-lowest) inset !important;
+  -webkit-text-fill-color: var(--color-on-surface) !important;
+}
+
 @theme {
   --color-primary: #755b00;
   --color-primary-container: #c49b1a;
