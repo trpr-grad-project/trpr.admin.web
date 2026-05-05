@@ -3,10 +3,7 @@ import loginBackground from "../../../assets/images/loginBackground.png";
 import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import { setCredentials } from "../../../store/slices/authSlice";
-import axiosInstance from "../../../api/axiosInstance";
+import { useAuth } from "../../../hooks/useAuth";
 
 const validationSchema = Yup.object({
   identifier: Yup.string().email("Invalid email address").required("Email is required"),
@@ -16,8 +13,7 @@ const validationSchema = Yup.object({
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { handleLogin } = useAuth();
 
   const formik = useFormik({
     initialValues: {
@@ -28,13 +24,7 @@ export default function Login() {
     onSubmit: async (values, { setSubmitting }) => {
       setError(null);
       try {
-        const response = await axiosInstance.post("/auth/login", values);
-        dispatch(setCredentials({
-          accessToken: response.data.accessToken,
-          refreshToken: response.data.refreshToken,
-          profileSetupCompleted: response.data.profileSetupCompleted,
-        }));
-        navigate("/requests");
+        await handleLogin(values.identifier, values.password);
       } catch {
         setError("Invalid email or password.");
       } finally {
@@ -70,7 +60,6 @@ export default function Login() {
         </div>
 
         <form onSubmit={formik.handleSubmit} className="px-8 pb-6 space-y-5">
-
           <div className="space-y-2">
             <label className="block text-sm font-medium text-on-surface">
               Email Address

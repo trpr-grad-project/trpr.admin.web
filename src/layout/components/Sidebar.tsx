@@ -1,12 +1,15 @@
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
   LogOut,
   LayoutDashboard,
   ArrowUpFromLine,
   Landmark
 } from "lucide-react";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function Sidebar() {
+  const { handleLogout } = useAuth();
+
   return (
     <aside className="hidden md:flex fixed left-0 h-screen w-72 bg-surface border-r border-outline-variant flex-col py-8 z-50">
       {/* Logo */}
@@ -48,15 +51,15 @@ export default function Sidebar() {
       {/* Bottom */}
       <div className="px-6 mt-auto">
         <div className="mt-8 border-t border-outline-variant pt-4">
-          <Link
-            to="#"
-            className="text-secondary hover:text-primary-container px-6 py-4 flex items-center gap-4 transition-colors"
+          <button
+            onClick={handleLogout}
+            className="text-secondary hover:text-primary-container px-6 py-4 flex items-center gap-4 transition-colors cursor-pointer w-full"
           >
             <LogOut />
-            <button className="font-['Noto_Serif'] font-semibold text-lg">
+            <span className="font-['Noto_Serif'] font-semibold text-lg">
               Logout
-            </button>
-          </Link>
+            </span>
+          </button>
         </div>
       </div>
     </aside>
