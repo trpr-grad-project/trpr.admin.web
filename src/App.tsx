@@ -4,7 +4,7 @@ import DashboardLayout from './layout/DashboardLayout'
 import RequestDetails from './Features/upgradeRequests/pages/RequestDetails';
 import UpgradeRequests from './Features/upgradeRequests/pages/UpgradeRequests';
 import Login from './Features/Auth/Pages/Login';
-import ProtectedRoute from './ProtectedRoute';
+import ProtectedRoute from './routes/ProtectedRoute';
 
 function App() {
   return (
