@@ -1,4 +1,4 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import {
   LogOut,
   LayoutDashboard,
@@ -9,11 +9,15 @@ import { useAuth } from "../../hooks/useAuth";
 
 export default function Sidebar() {
   const { handleLogout } = useAuth();
+  const navigate = useNavigate();
 
   return (
     <aside className="hidden md:flex fixed left-0 h-screen w-72 bg-surface border-r border-outline-variant flex-col py-8 z-50">
       {/* Logo */}
-      <div className="px-8 mb-12">
+      <div
+        className="px-8 mb-12 cursor-pointer"
+        onClick={() => navigate('/dashboard')}
+      >
         <div className="flex items-center gap-3 mb-2">
           <div className="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container shadow-md">
             <Landmark/>
@@ -30,16 +34,28 @@ export default function Sidebar() {
       {/* Links */}
       <nav className="flex-1 space-y-1">
         <NavLink
-          to="#"
-          className="text-secondary hover:text-primary-container hover:bg-surface-container px-6 py-4 flex items-center gap-3 transition-all duration-300"
+          to="/dashboard"
+          className={({ isActive }) =>
+            `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
+              isActive
+                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
+                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+            }`
+          }
         >
           <LayoutDashboard />
           <span className="font-['Noto_Serif'] font-semibold">Dashboard</span>
         </NavLink>
 
         <NavLink
-          to="#"
-          className="bg-surface-container text-primary-container border-r-4 border-primary-container px-6 py-4 flex items-center gap-3"
+          to="/requests"
+          className={({ isActive }) =>
+            `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
+              isActive
+                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
+                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+            }`
+          }
         >
           <ArrowUpFromLine />
           <span className="font-['Noto_Serif'] font-semibold">

@@ -31,7 +31,7 @@ export default function RequestsTable({ requests }: RequestsTableProps) {
               User ID
             </th>
             <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
-              Title
+              Subject
             </th>
             <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
               Date Submitted
