@@ -69,7 +69,7 @@ input:-webkit-autofill:focus {
 @layer base {
   .dark {
     --color-primary: #d5a804;
-    --color-primary-container: #c09703;
+    --color-primary-container: #deae00;
 
     --color-background: #111311;
     --color-surface: #111311;
