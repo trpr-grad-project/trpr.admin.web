@@ -1,10 +1,16 @@
 import type { Document } from "../../../types/upgradeRequest";
+import { useState } from "react";
+import ImageModal from "../../../Components/UI/ImageModal";
+
 
 interface CertificatesProps {
   certificates: Document[];
 }
 
 export default function Certificates({ certificates }: CertificatesProps) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
+
   return (
     <div className="space-y-3">
       <p className="text-xs font-bold text-secondary uppercase tracking-widest">
@@ -18,7 +24,9 @@ export default function Certificates({ certificates }: CertificatesProps) {
             className="bg-surface-container-low border border-outline-variant/30 rounded-lg overflow-hidden group hover:border-primary transition-allC"
           >
             {/* IMAGE */}
-            <div className="aspect-video overflow-hidden cursor-zoom-in">
+            <div 
+            className="aspect-video overflow-hidden cursor-zoom-in"
+            onClick={() => setSelectedImage(cert.url)}>
               <img
                 src={cert.url}
                 alt={cert.name}
@@ -35,6 +43,11 @@ export default function Certificates({ certificates }: CertificatesProps) {
           </div>
         ))}
       </div>
+
+      <ImageModal
+        image={selectedImage}
+        onClose={() => setSelectedImage(null)}
+      />
     </div>
   );
 }
