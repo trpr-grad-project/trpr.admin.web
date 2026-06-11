@@ -2,8 +2,6 @@ export type RequestStatus = 'pending' | 'approved' | 'denied';
 
 export interface Document {
   name: string;
-  size: string;
-  uploadedAt: string;
   url: string;
 }
 

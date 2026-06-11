@@ -1,4 +1,3 @@
-import { Eye, File } from "lucide-react";
 import type { Document } from "../../../types/upgradeRequest";
 
 interface CertificatesProps {
@@ -12,39 +11,29 @@ export default function Certificates({ certificates }: CertificatesProps) {
         Certificates
       </p>
 
-      <div className="bg-surface border border-outline-variant/30 rounded-lg overflow-hidden">
-        <div className="divide-y divide-outline-variant/10">
-          {certificates.map((cert) => (
-            <div
-              key={cert.name}
-              className="p-4 flex items-center justify-between hover:bg-surface-container-low transition-colors"
-            >
-              <div className="flex items-center gap-3">
-                <File className="text-primary" />
-                <div>
-                  <p className="text-sm font-bold text-on-surface">
-                    {cert.name}
-                  </p>
-                  <p className="text-[10px] text-secondary">
-                    Uploaded{" "}
-                    {new Date(cert.uploadedAt).toLocaleDateString("en-US", {
-                      year: "numeric",
-                      month: "short",
-                      day: "numeric",
-                    })}{" "}
-                    • {cert.size}
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => window.open(cert.url, "_blank")}
-                className="text-primary hover:bg-primary-container/10 p-2 rounded-lg transition-colors cursor-pointer"
-              >
-                <Eye />
-              </button>
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        {certificates.map((cert) => (
+          <div
+            key={cert.name}
+            className="bg-surface-container-low border border-outline-variant/30 rounded-lg overflow-hidden group hover:border-primary transition-allC"
+          >
+            {/* IMAGE */}
+            <div className="aspect-video overflow-hidden cursor-zoom-in">
+              <img
+                src={cert.url}
+                alt={cert.name}
+                className="w-full h-full object-cover group-hover:transition-transform duration-300"
+              />
             </div>
-          ))}
-        </div>
+
+            {/* CONTENT */}
+            <div className="p-4 bg-surface-container-low">
+              <p className="text-sm font-bold text-on-surface truncate">
+                {cert.name}
+              </p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );

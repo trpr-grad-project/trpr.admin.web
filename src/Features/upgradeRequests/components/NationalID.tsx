@@ -14,7 +14,7 @@ export default function NationalID({ front, back }: NationalIDProps) {
       </p>
 
       <div className="grid grid-cols-2 gap-4">
-        <div className="group relative bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant/30 aspect-video hover:border-primary transition-all cursor-zoom-in">
+        <div className="group relative bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant/30 aspect-video hover:border-primary transition-all cursor-zoom-in flex items-center justify-center duration-200">
           <img
             className="w-full h-full object-cover"
             src={front}
@@ -22,7 +22,7 @@ export default function NationalID({ front, back }: NationalIDProps) {
           />
         </div>
 
-        <div className="group relative bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant/30 aspect-video hover:border-primary transition-all cursor-zoom-in flex items-center justify-center">
+        <div className="group relative bg-surface-container-low rounded-lg overflow-hidden border border-outline-variant/30 aspect-video hover:border-primary transition-all cursor-zoom-in flex items-center justify-center duration-200">
           {back ? (
             <img
               className="w-full h-full object-cover"
