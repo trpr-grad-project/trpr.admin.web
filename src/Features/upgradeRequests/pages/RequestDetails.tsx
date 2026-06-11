@@ -85,7 +85,6 @@ export default function RequestDetails() {
               <UserInfo
                 userName={request.userName}
                 createdAtUtc={request.createdAtUtc}
-                languages={request.languages}
               />
 
               <RequestTitleAndDesc

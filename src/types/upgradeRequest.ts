@@ -15,7 +15,6 @@ export interface UpgradeRequest {
   description: string;
   createdAtUtc: string;
   status: RequestStatus;
-  languages: string[];
   nationalIdFront: string;
   nationalIdBack: string | null;
   certificates: Document[];
