@@ -36,10 +36,11 @@ axiosInstance.interceptors.response.use(
         );
 
         store.dispatch(setCredentials({
-          accessToken: response.data.accessToken,
-          refreshToken: response.data.refreshToken,
-          profileSetupCompleted: store.getState().auth.profileSetupCompleted,
-        }));
+  accessToken: response.data.accessToken,
+  refreshToken: response.data.refreshToken,
+  profileSetupCompleted: store.getState().auth.profileSetupCompleted,
+  user: store.getState().auth.user,
+}));
 
         originalRequest.headers.Authorization = `Bearer ${response.data.accessToken}`;
         return axiosInstance(originalRequest);
