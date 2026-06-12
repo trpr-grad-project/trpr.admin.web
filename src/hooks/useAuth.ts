@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { logout, setCredentials } from '../store/slices/authSlice';
 import axiosInstance from '../api/axiosInstance';
 
+
 export function useAuth() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

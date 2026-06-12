@@ -3,7 +3,7 @@ import { store } from '../store';
 import { setCredentials, logout } from '../store/slices/authSlice';
 
 const axiosInstance = axios.create({
-  baseURL: '/api/users/api/v1',
+  baseURL: '/api/v1',
 });
 
 axiosInstance.interceptors.request.use((config) => {
@@ -31,7 +31,7 @@ axiosInstance.interceptors.response.use(
 
       try {
         const response = await axios.post(
-          'http://localhost:5000/users/api/v1/auth/refresh-token',
+          'http://localhost:5001/api/v1/auth/refresh-token',
           { token: refreshToken }
         );
 
