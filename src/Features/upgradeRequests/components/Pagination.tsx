@@ -1,20 +1,31 @@
-import { ChevronLeft, ChevronRight } from "lucide-react";
-
+import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 interface PaginationProps {
   page: number;
   pageSize: number;
   totalCount: number;
   onPageChange: (page: number) => void;
+  onPageSizeChange: (pageSize: number) => void;
 }
 
-export default function Pagination({ page, pageSize, totalCount, onPageChange }: PaginationProps) {
+export default function Pagination({
+  page,
+  pageSize,
+  totalCount,
+  onPageChange,
+  onPageSizeChange,
+}: PaginationProps) {
   const totalPages = Math.ceil(totalCount / pageSize);
-  const from = (page - 1) * pageSize + 1;
+
+  const from = totalCount === 0 ? 0 : (page - 1) * pageSize + 1;
   const to = Math.min(page * pageSize, totalCount);
 
   const getVisiblePages = (): number[] => {
-    if (page <= 2) return Array.from({ length: Math.min(3, totalPages) }, (_, i) => i + 1);
-    if (page >= totalPages - 1) return [totalPages - 2, totalPages - 1, totalPages].filter(p => p > 0);
+    if (page <= 2)
+      return Array.from({ length: Math.min(3, totalPages) }, (_, i) => i + 1);
+
+    if (page >= totalPages - 1)
+      return [totalPages - 2, totalPages - 1, totalPages].filter((p) => p > 0);
+
     return [page - 1, page, page + 1];
   };
 
@@ -23,18 +34,45 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
   const showEndEllipsis = visiblePages[visiblePages.length - 1] < totalPages;
 
   return (
-    <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-      <p className="text-sm text-secondary font-['Noto_Serif'] italic">
-        Showing {from} to {to} of {totalCount} requests
+    <div className="grid grid-cols-1 gap-4 md:grid-cols-[auto_1fr_auto] md:items-center">
+      {/* Left */}
+      <div className="flex items-center gap-3">
+        <span className="text-[13px] font-medium uppercase text-secondary">
+          Page Size
+        </span>
+
+        <div className="relative">
+          <select
+            value={pageSize}
+            onChange={(e) => onPageSizeChange(Number(e.target.value))}
+            className="appearance-none h-10 w-20 rounded-xl border border-outline-variant/30 bg-surface-container-lowest px-3 pr-8 text-sm font-medium text-on-surface outline-none focus:ring-2 focus:ring-primary-container cursor-pointer"
+          >
+            <option value={10}>10</option>
+            <option value={20}>20</option>
+            <option value={30}>30</option>
+            <option value={40}>40</option>
+            <option value={50}>50</option>
+          </select>
+
+          <div className="pointer-events-none absolute inset-y-0 right-3 flex items-center text-on-surface">
+            <ChevronDown className="w-5 h-5" />
+          </div>
+        </div>
+      </div>
+
+      {/* Center */}
+      <p className="text-center text-[13px] font-medium uppercase tracking-wide text-secondary">
+        Showing {from}-{to} of {totalCount} results
       </p>
 
-      <div className="flex items-center gap-2">
+      {/* Right */}
+      <div className="flex items-center justify-end gap-2">
         <button
           onClick={() => onPageChange(page - 1)}
           disabled={page === 1}
           className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-secondary hover:bg-surface-container transition-colors disabled:opacity-50 cursor-pointer"
         >
-          <ChevronLeft />
+          <ChevronLeft size={18} />
         </button>
 
         {showStartEllipsis && (
@@ -45,7 +83,8 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
             >
               1
             </button>
-            <span className="px-2 text-secondary">...</span>
+
+            <span className="px-1 text-secondary">...</span>
           </>
         )}
 
@@ -65,7 +104,8 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
 
         {showEndEllipsis && (
           <>
-            <span className="px-2 text-secondary">...</span>
+            <span className="px-1 text-secondary">...</span>
+
             <button
               onClick={() => onPageChange(totalPages)}
               className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-on-surface hover:bg-surface-container transition-colors font-bold cursor-pointer"
@@ -80,7 +120,7 @@ export default function Pagination({ page, pageSize, totalCount, onPageChange }:
           disabled={page === totalPages}
           className="w-10 h-10 flex items-center justify-center rounded-lg border border-outline-variant/30 text-secondary hover:bg-surface-container transition-colors disabled:opacity-50 cursor-pointer"
         >
-          <ChevronRight />
+          <ChevronRight size={18} />
         </button>
       </div>
     </div>

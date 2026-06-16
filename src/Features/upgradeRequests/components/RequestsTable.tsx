@@ -1,18 +1,18 @@
 import { useNavigate } from 'react-router-dom';
-import type { RequestStatus, UpgradeRequest } from '../../../types/upgradeRequest';
+import type { ApiUpgradeRequest } from '../../../types/upgradeRequest';
 
 interface RequestsTableProps {
-  requests: UpgradeRequest[];
+  requests: ApiUpgradeRequest[];
 }
 
-function getStatusStyles(status: RequestStatus): string {
+function getStatusStyles(status: string): string {
   switch (status) {
-    case 'pending':
-      return 'bg-primary-container text-on-primary-container';
-    case 'approved':
+    case 'Approved':
       return 'bg-success-container text-success';
-    case 'denied':
+    case 'Rejected':
       return 'bg-error-container text-error';
+    default:
+      return 'bg-primary-container text-on-primary-container';
   }
 }
 
@@ -31,7 +31,7 @@ export default function RequestsTable({ requests }: RequestsTableProps) {
               User ID
             </th>
             <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
-              Subject
+              User Name
             </th>
             <th className="px-8 py-5 text-xs font-label-sm uppercase tracking-widest text-secondary">
               Date Submitted
@@ -46,32 +46,30 @@ export default function RequestsTable({ requests }: RequestsTableProps) {
         </thead>
 
         <tbody className="divide-y divide-outline-variant/10">
-          {requests.map((request: UpgradeRequest) => (
+          {requests.map((request: ApiUpgradeRequest) => (
             <tr
               key={request.id}
               className="hover:bg-surface-container-lowest/50 transition-colors"
             >
               <td className="px-8 py-6 font-['Noto_Serif'] font-bold text-on-surface">
-                #{request.id}
+                #{request.id.slice(0, 8)}
               </td>
-              <td className="px-8 py-6 text-secondary">{request.userId}</td>
-              <td className="px-8 py-6">
-                <div className="flex flex-col">
-                  <span className="font-semibold text-on-surface">
-                    {request.title}
-                  </span>
-                </div>
+              <td className="px-8 py-6 text-secondary font-mono text-sm">
+                #{request.userId.slice(0, 8)}
+              </td>
+              <td className="px-8 py-6 text-on-surface font-semibold">
+                {request.userName}
               </td>
               <td className="px-8 py-6 text-on-surface">
-                {new Date(request.createdAtUtc).toLocaleDateString('en-US', {
+                {new Date(request.createdAt).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'short',
                   day: 'numeric',
                 })}
               </td>
               <td className="px-8 py-6">
-                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${getStatusStyles(request.status)}`}>
-                  {request.status}
+                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${getStatusStyles(request.approveStatus)}`}>
+                  {request.approveStatus}
                 </span>
               </td>
               <td className="px-8 py-6 text-right">

@@ -35,3 +35,21 @@ export interface PastRequest {
   status: RequestStatus;
   rejectionReason: string | null;
 }
+
+// API types
+export interface ApiUpgradeRequest {
+  id: string;
+  userName: string;
+  userId: string;
+  subject: string | null;
+  approveStatus: string;
+  createdAt: string;
+}
+
+export interface ApiPaginatedResponse<T> {
+  items: T[];
+  page: number;
+  pageSize: number;
+  totalItems: number;
+  totalPages: number;
+}
