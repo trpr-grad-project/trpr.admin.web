@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../index';
-import type { ApiUpgradeRequest, ApiPaginatedResponse } from '../../types/upgradeRequest';
+import type { ApiUpgradeRequest, ApiPaginatedResponse, ApiRequestDetails } from '../../types/upgradeRequest';
 
 export type ApiStatus = 'Pending' | 'Approved' | 'Rejected';
 
@@ -35,7 +35,12 @@ export const upgradeRequestsApi = createApi({
         params: { page, pageSize, sortByUpdatedate, status },
       }),
     }),
+    getUpgradeRequestDetails: builder.query<ApiRequestDetails[], string>({
+      query: (requestId) => ({
+        url: `/guide/${requestId}`,
+      }),
+    }),
   }),
 });
 
-export const { useGetUpgradeRequestsQuery } = upgradeRequestsApi;
+export const { useGetUpgradeRequestsQuery, useGetUpgradeRequestDetailsQuery } = upgradeRequestsApi;

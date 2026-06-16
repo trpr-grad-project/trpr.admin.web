@@ -28,7 +28,7 @@ export default function ImageModal({ image, onClose }: ImageModalProps) {
       <img
         src={image}
         alt="preview"
-        className="h-[95vh] object-contain rounded-lg shadow-2xl"
+        className="h-[95vh] max-w-[70vw] object-contain rounded-lg shadow-2xl"
         onClick={(e) => e.stopPropagation()} 
       />
     </div>

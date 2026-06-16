@@ -36,7 +36,6 @@ export interface PastRequest {
   rejectionReason: string | null;
 }
 
-// API types
 export interface ApiUpgradeRequest {
   id: string;
   userName: string;
@@ -52,4 +51,30 @@ export interface ApiPaginatedResponse<T> {
   pageSize: number;
   totalItems: number;
   totalPages: number;
+}
+
+export interface ApiDocument {
+  type: 'IDFront' | 'IDBack' | 'Certificate';
+  file: string;
+}
+
+export interface ApiRequestDetails {
+  id: string;
+  status: string;
+  rejectionReason: string | null;
+  adminId: string | null;
+  reviewedAt: string | null;
+  createdAt: string;
+  updatedAt: string;
+  documents: ApiDocument[];
+  user: {
+    id: string;
+    userName: string;
+    firstName: string;
+    lastName: string;
+    isVerified: boolean;
+    twoFactorEnabled: boolean;
+    roles: string[];
+    profile: null;
+  };
 }
