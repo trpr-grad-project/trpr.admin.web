@@ -5,6 +5,7 @@ import RequestDetails from './Features/upgradeRequests/pages/RequestDetails';
 import UpgradeRequests from './Features/upgradeRequests/pages/UpgradeRequests';
 import Login from './Features/Auth/Pages/Login';
 import ProtectedRoute from './routes/ProtectedRoute';
+import UsersManagement from './Features/usersManagement/pages/UsersManagement';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/" element={<DashboardLayout />}>
             <Route index element={<Navigate to="/requests" replace />} />
             <Route path="dashboard" element={<div>Dashboard Coming Soon</div>} />
+            <Route path="users" element={<UsersManagement/>} />
             <Route path="requests" element={<UpgradeRequests />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />
           </Route>

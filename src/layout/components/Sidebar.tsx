@@ -3,7 +3,8 @@ import {
   LogOut,
   LayoutDashboard,
   ArrowUpFromLine,
-  Landmark
+  Landmark,
+  UsersRound
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -60,6 +61,22 @@ export default function Sidebar() {
           <ArrowUpFromLine />
           <span className="font-['Noto_Serif'] font-semibold">
             Upgrade Requests
+          </span>
+        </NavLink>
+
+        <NavLink
+          to="/users"
+          className={({ isActive }) =>
+            `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
+              isActive
+                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
+                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+            }`
+          }
+        >
+          <UsersRound />
+          <span className="font-['Noto_Serif'] font-semibold">
+            Users Management
           </span>
         </NavLink>
       </nav>
