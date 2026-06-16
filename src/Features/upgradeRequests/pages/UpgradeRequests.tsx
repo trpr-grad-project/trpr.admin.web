@@ -1,6 +1,6 @@
 import { useState } from "react";
 import Filters from "../components/Filters";
-import Pagination from "../components/Pagination";
+import Pagination from "../../../Components/UI/Pagination";
 import RequestsTable from "../components/RequestsTable";
 import type { RequestStatus } from "../../../types/upgradeRequest";
 import { useGetUpgradeRequestsQuery } from "../../../store/api/upgradeRequestsApi";
