@@ -1,6 +1,6 @@
 import { useParams, useNavigate } from "react-router-dom";
 import { ChevronRight, ShieldCheck, ArrowLeft } from "lucide-react";
-import PastRequests from "../components/PastRequests";
+import RequestsHistory from "../components/RequestsHistory";
 import HelpWidget from "../components/HelpWidget";
 import UserInfo from "../components/UserInfo";
 import NationalID from "../components/NationalID";
@@ -10,7 +10,6 @@ import ApprovedRequest from "../components/ApprovedRequest";
 import DenyRequest from "../components/DenyRequest";
 import DeniedRequest from "../components/DeniedRequest";
 import { useGetUpgradeRequestDetailsQuery } from "../../../store/api/upgradeRequestsApi";
-import { mockPastRequests } from "../../../mocks/upgradeRequests.mock";
 
 function getStatusBadgeStyles(status: string): string {
   switch (status) {
@@ -38,9 +37,7 @@ export default function RequestDetails() {
   const { requestId } = useParams();
   const navigate = useNavigate();
 
-  const { data, isLoading, isError } = useGetUpgradeRequestDetailsQuery(
-    requestId!,
-  );
+  const { data, isLoading, isError } = useGetUpgradeRequestDetailsQuery(requestId!);
 
   if (isLoading)
     return (
@@ -56,11 +53,9 @@ export default function RequestDetails() {
       </div>
     );
 
-  const request = data[0];
-  const idFront =
-    request.documents.find((d) => d.type === "IDFront")?.file ?? null;
-  const idBack =
-    request.documents.find((d) => d.type === "IDBack")?.file ?? null;
+  const request = data.find(r => r.id === requestId) ?? data[0];
+  const idFront = request.documents.find((d) => d.type === "IDFront")?.file ?? null;
+  const idBack = request.documents.find((d) => d.type === "IDBack")?.file ?? null;
   const certificates = request.documents
     .filter((d) => d.type === "Certificate")
     .map((d) => ({ name: "Certificate", url: d.file }));
@@ -156,7 +151,7 @@ export default function RequestDetails() {
 
         <section className="col-span-4 space-y-8">
           <div className="bg-surface border border-outline-variant/30 rounded-lg p-6">
-            <PastRequests pastRequests={mockPastRequests} />
+            <RequestsHistory requests={data} currentRequestId={requestId!} />
           </div>
           <div className="bg-surface-container-low rounded-lg p-6 border border-outline-variant/30 grid grid-cols-9">
             <HelpWidget />

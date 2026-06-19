@@ -11,10 +11,10 @@ export default function ApprovedRequest({
 }: ApprovedRequestProps) {
   return (
     <div className="pt-10">
-      <div className="p-8 rounded-lg border border-success-container/50 bg-success-container/20 flex items-start gap-4">
+      <div className="p-8 rounded-lg border border-success-container/50 bg-success-container/20 grid grid-cols-9">
         <CircleCheck className="text-success w-8 h-8 mt-3" />
 
-        <div className="space-y-3">
+        <div className="space-y-3 col-span-8">
           <h4 className="font-h3 text-xl text-success font-bold">
             Decision Recorded
           </h4>

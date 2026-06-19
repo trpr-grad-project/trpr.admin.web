@@ -9,9 +9,9 @@ interface DeniedRequestProps {
 export default function DeniedRequest({ reviewedAt, reviewedBy, rejectionReason }: DeniedRequestProps) {
   return (
     <div className="pt-10">
-      <div className="p-8 rounded-lg border border-error-container/50 bg-error-container/20 flex items-start gap-4">
+      <div className="p-8 rounded-lg border border-error-container/50 bg-error-container/20 grid grid-cols-9">
         <CircleX className="text-error w-8 h-8 mt-3" />
-        <div className="space-y-3">
+        <div className="space-y-3 col-span-8">
           <h4 className="font-h3 text-xl text-error font-bold">Decision Recorded</h4>
           <p className="text-body-md text-on-surface">
             This request was denied on{' '}

@@ -21,7 +21,7 @@ export default function Filters({ status, onStatusChange }: FiltersProps) {
           >
             <option value="pending">Pending</option>
             <option value="approved">Approved</option>
-            <option value="denied">Denied</option>
+            <option value="denied">Rejected</option>
           </select>
           <ChevronDown className="absolute w-5 h-5 right-3 top-1/2 -translate-y-1/2 text-secondary pointer-events-none" />
         </div>
