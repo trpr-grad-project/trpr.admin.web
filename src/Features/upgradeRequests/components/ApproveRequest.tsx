@@ -1,6 +1,24 @@
-import {CircleCheck} from 'lucide-react'
+import { CircleCheck, Loader2 } from 'lucide-react';
+import { useChangeRequestStatusMutation } from '../../../store/api/upgradeRequestsApi';
+import { useNavigate } from 'react-router-dom';
 
-export default function ApproveRequest() {
+interface ApproveRequestProps {
+  requestId: string;
+}
+
+export default function ApproveRequest({ requestId }: ApproveRequestProps) {
+  const [changeStatus, { isLoading }] = useChangeRequestStatusMutation();
+  const navigate = useNavigate();
+
+  async function handleApprove() {
+    await changeStatus({
+      upgradeRequestId: requestId,
+      status: 0,
+      rejectionReason: null,
+    });
+    navigate(-1);
+  }
+
   return (
     <div className="space-y-4 flex flex-col justify-between">
       <div>
@@ -12,9 +30,13 @@ export default function ApproveRequest() {
           criteria for the Elite status.
         </p>
       </div>
-      <button className="w-full py-4 bg-primary text-surface font-bold rounded-lg hover:bg-primary-container transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer">
-        <CircleCheck/>
-        Approve Request
+      <button
+        onClick={handleApprove}
+        disabled={isLoading}
+        className="w-full py-4 bg-primary text-surface font-bold rounded-lg hover:bg-primary-container transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
+      >
+        {isLoading ? <Loader2 className="animate-spin" /> : <CircleCheck />}
+        {isLoading ? 'Approving...' : 'Approve Request'}
       </button>
     </div>
   );

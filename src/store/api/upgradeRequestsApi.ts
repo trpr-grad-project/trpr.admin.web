@@ -11,6 +11,12 @@ interface GetRequestsParams {
   status: ApiStatus;
 }
 
+interface ChangeStatusParams {
+  upgradeRequestId: string;
+  status: 0 | 1 | 2;
+  rejectionReason: string | null;
+}
+
 export const upgradeRequestsApi = createApi({
   reducerPath: 'upgradeRequestsApi',
   baseQuery: fetchBaseQuery({
@@ -40,7 +46,18 @@ export const upgradeRequestsApi = createApi({
         url: `/guide/${requestId}`,
       }),
     }),
+    changeRequestStatus: builder.mutation<void, ChangeStatusParams>({
+      query: (body) => ({
+        url: '/guide/change-status',
+        method: 'POST',
+        body,
+      }),
+    }),
   }),
 });
 
-export const { useGetUpgradeRequestsQuery, useGetUpgradeRequestDetailsQuery } = upgradeRequestsApi;
+export const { 
+  useGetUpgradeRequestsQuery, 
+  useGetUpgradeRequestDetailsQuery,
+  useChangeRequestStatusMutation,
+} = upgradeRequestsApi;

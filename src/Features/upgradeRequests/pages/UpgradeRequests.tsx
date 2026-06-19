@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import Filters from "../components/Filters";
 import Pagination from "../../../Components/UI/Pagination";
 import RequestsTable from "../components/RequestsTable";
@@ -13,31 +13,29 @@ const statusMap: Record<RequestStatus, ApiStatus> = {
 };
 
 export default function UpgradeRequests() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [statusFilter, setStatusFilter] = useState<RequestStatus>("pending");
-  const [sort, setSort] = useState<"newest" | "oldest">("newest");
-  const [pageSize, setPageSize] = useState(10);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const statusFilter = (searchParams.get("status") as RequestStatus) || "pending";
+  const pageSize = Number(searchParams.get("pageSize")) || 10;
 
   const { data, isLoading, isError } = useGetUpgradeRequestsQuery({
     page: currentPage,
     pageSize,
-    sortByUpdatedate: sort === "newest",
+    sortByUpdatedate: true,
     status: statusMap[statusFilter],
   });
 
   function handleStatusChange(newStatus: RequestStatus) {
-    setStatusFilter(newStatus);
-    setCurrentPage(1);
+    setSearchParams({ page: "1", status: newStatus, pageSize: String(pageSize) });
   }
 
-  function handleSortChange(newSort: "newest" | "oldest") {
-    setSort(newSort);
-    setCurrentPage(1);
+  function handlePageChange(newPage: number) {
+    setSearchParams({ page: String(newPage), status: statusFilter, pageSize: String(pageSize) });
   }
 
   function handlePageSizeChange(newPageSize: number) {
-    setPageSize(newPageSize);
-    setCurrentPage(1);
+    setSearchParams({ page: "1", status: statusFilter, pageSize: String(newPageSize) });
   }
 
   return (
@@ -45,9 +43,7 @@ export default function UpgradeRequests() {
       <div className="bg-surface/40 pb-3 border-b border-outline-variant/70 flex items-center justify-between">
         <Filters
           status={statusFilter}
-          sort={sort}
           onStatusChange={handleStatusChange}
-          onSortChange={handleSortChange}
         />
       </div>
 
@@ -81,7 +77,7 @@ export default function UpgradeRequests() {
                 page={data.page}
                 pageSize={pageSize}
                 totalCount={data.totalItems}
-                onPageChange={setCurrentPage}
+                onPageChange={handlePageChange}
                 onPageSizeChange={handlePageSizeChange}
               />
             </div>
