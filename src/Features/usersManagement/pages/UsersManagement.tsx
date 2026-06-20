@@ -1,4 +1,3 @@
-import { UserRoundPlus } from "lucide-react";
 import UsersSearch from "../components/UsersSearch";
 import UsersTable from "../components/UsersTable";
 import Pagination from "../../../Components/UI/Pagination";
@@ -18,8 +17,7 @@ export default function UsersManagement() {
 
   return (
     <section className="flex-1 flex flex-col">
-      <header className="flex justify-between items-end mb-10">
-        <div>
+      <header className="mb-10">
           <h2 className="text-on-surface mb-2 text-[40px] font-bold font-[Noto_Serif]">
             Users Management
           </h2>
@@ -27,11 +25,6 @@ export default function UsersManagement() {
             Manage portal users, assign administrative roles, and monitor
             account status across the TouRA ecosystem.
           </p>
-        </div>
-        <button className="bg-primary text-on-primary px-6 py-3 rounded-lg flex items-center gap-2 font-bold shadow-lg shadow-primary/10 hover:shadow-primary/20 hover:scale-[1.02] transition-all cursor-pointer">
-          <UserRoundPlus />
-          <span>Add New User</span>
-        </button>
       </header>
 
       <UsersSearch
