@@ -19,6 +19,9 @@ interface ChangeStatusParams {
 
 export const upgradeRequestsApi = createApi({
   reducerPath: 'upgradeRequestsApi',
+  keepUnusedDataFor: 0,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1',
     prepareHeaders: (headers, { getState }) => {

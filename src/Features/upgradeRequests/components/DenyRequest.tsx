@@ -57,7 +57,7 @@ export default function DenyRequest({ requestId }: DenyRequestProps) {
         className="w-full py-4 bg-error text-surface font-bold rounded-lg hover:opacity-90 transition-all flex items-center justify-center gap-2 shadow-sm cursor-pointer disabled:opacity-60 disabled:cursor-not-allowed"
       >
         {isLoading ? <Loader2 className="animate-spin" /> : <CircleX />}
-        {isLoading ? 'Denying...' : 'Deny Request'}
+        {isLoading ? 'Rejecting...' : 'Reject Request'}
       </button>
     </div>
   );
