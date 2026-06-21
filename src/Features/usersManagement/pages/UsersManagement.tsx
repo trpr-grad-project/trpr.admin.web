@@ -1,13 +1,15 @@
 import UsersSearch from "../components/UsersSearch";
 import UsersTable from "../components/UsersTable";
 import Pagination from "../../../Components/UI/Pagination";
-import { useState } from "react";
 import { useGetUsersQuery } from "../../../store/api/usersApi";
+import { useSearchParams } from "react-router-dom";
 
 export default function UsersManagement() {
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(10);
-  const [search, setSearch] = useState("");
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const pageSize = Number(searchParams.get("pageSize")) || 10;
+  const search = searchParams.get("search") || "";
 
   const { data, isLoading, isError } = useGetUsersQuery({
     page: currentPage,
@@ -15,24 +17,33 @@ export default function UsersManagement() {
     search: search || undefined,
   });
 
+  function handleSearchChange(val: string) {
+    setSearchParams({ page: "1", pageSize: String(pageSize), search: val });
+  }
+
+  function handlePageChange(page: number) {
+    setSearchParams({ page: String(page), pageSize: String(pageSize), search });
+  }
+
+  function handlePageSizeChange(size: number) {
+    setSearchParams({ page: "1", pageSize: String(size), search });
+  }
+
   return (
     <section className="flex-1 flex flex-col">
       <header className="mb-10">
-          <h2 className="text-on-surface mb-2 text-[40px] font-bold font-[Noto_Serif]">
-            Users Management
-          </h2>
-          <p className="text-secondary font-['Noto_Serif'] italic text-sm">
-            Manage portal users, assign administrative roles, and monitor
-            account status across the TouRA ecosystem.
-          </p>
+        <h2 className="text-on-surface mb-2 text-[40px] font-bold font-[Noto_Serif]">
+          Users Management
+        </h2>
+        <p className="text-secondary font-['Noto_Serif'] italic text-sm">
+          Manage portal users, assign administrative roles, and monitor
+          account status across the TouRA ecosystem.
+        </p>
       </header>
 
       <UsersSearch
         search={search}
-        onSearchChange={(val) => {
-          setSearch(val);
-          setCurrentPage(1);
-        }}
+        onSearchChange={handleSearchChange}
       />
 
       <section className="bg-surface-container-lowest rounded-xl shadow-2xl shadow-secondary/5 border border-outline-variant/20 overflow-hidden">
@@ -56,11 +67,8 @@ export default function UsersManagement() {
                 page={data.page}
                 pageSize={pageSize}
                 totalCount={data.totalItems}
-                onPageChange={setCurrentPage}
-                onPageSizeChange={(size) => {
-                  setPageSize(size);
-                  setCurrentPage(1);
-                }}
+                onPageChange={handlePageChange}
+                onPageSizeChange={handlePageSizeChange}
               />
             </div>
           </>

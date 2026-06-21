@@ -7,9 +7,6 @@ export default function DeleteUser() {
         <Trash2 size={18} />
         Delete User
       </button>
-      <p className="text-[10px] text-secondary text-center mt-3 uppercase tracking-widest opacity-70">
-        This action cannot be undone
-      </p>
     </div>
   );
 }
