@@ -8,6 +8,22 @@ export interface UserProfile {
     nativeName: string;
     icon: string;
   }[];
+  interests: {
+    id: string;
+    icon: string;
+    name: string;
+  }[];
+  vibes: {
+    id: string;
+    thumbnail: string;
+    description: string;
+    name: string;
+  }[];
+  notificationSettings: {
+    tripUpdates: boolean;
+    messages: boolean;
+    promotions: boolean;
+  };
 }
 
 export interface ApiUser {

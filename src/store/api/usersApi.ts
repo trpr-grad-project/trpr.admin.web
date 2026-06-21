@@ -1,6 +1,6 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 import type { RootState } from '../index';
-import type { ApiUsersResponse } from '../../types/user';
+import type { ApiUsersResponse, ApiUser } from '../../types/user';
 
 interface GetUsersParams {
   page: number;
@@ -10,6 +10,9 @@ interface GetUsersParams {
 
 export const usersApi = createApi({
   reducerPath: 'usersApi',
+  keepUnusedDataFor: 0,
+  refetchOnFocus: true,
+  refetchOnReconnect: true,
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1',
     prepareHeaders: (headers, { getState }) => {
@@ -36,7 +39,12 @@ export const usersApi = createApi({
         },
       }),
     }),
+    getUserById: builder.query<ApiUser, string>({
+      query: (id) => ({
+        url: `/users/${id}`,
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery } = usersApi;
+export const { useGetUsersQuery, useGetUserByIdQuery } = usersApi;

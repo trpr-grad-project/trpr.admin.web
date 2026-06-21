@@ -6,6 +6,7 @@ import UpgradeRequests from './Features/upgradeRequests/pages/UpgradeRequests';
 import Login from './Features/Auth/Pages/Login';
 import ProtectedRoute from './routes/ProtectedRoute';
 import UsersManagement from './Features/usersManagement/pages/UsersManagement';
+import UserDetails from './Features/usersManagement/pages/UserDetails';
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
             <Route path="users" element={<UsersManagement/>} />
             <Route path="requests" element={<UpgradeRequests />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />
+            <Route path="users/:userId" element={<UserDetails />} />
           </Route>
         </Route>
       </Routes>
