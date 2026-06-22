@@ -12,7 +12,7 @@ export default function UserProfile({ profile }: UserProfileProps) {
         <FileUser className="text-primary" />
         <h3 className="text-primary font-bold text-2xl">Profile</h3>
       </header>
-      <p className="text-secondary italic text-sm">No profile available.</p>
+      <p className="text-secondary text-sm">No profile available.</p>
     </div>
   );
 
@@ -38,7 +38,7 @@ export default function UserProfile({ profile }: UserProfileProps) {
               <span key={l.id} className="px-3 py-1 rounded-full border border-outline-variant/30 bg-surface-container text-secondary text-sm font-medium">
                 {l.name}
               </span>
-            )) : <span className="text-secondary text-sm italic">None</span>}
+            )) : <span className="text-secondary text-sm">None</span>}
           </div>
         </div>
 
@@ -49,7 +49,7 @@ export default function UserProfile({ profile }: UserProfileProps) {
               <span key={i.id} className="px-3 py-1 rounded-full border border-tertiary-container/30 bg-tertiary-container/15 text-tertiary text-sm font-medium">
                 {i.name}
               </span>
-            )) : <span className="text-secondary text-sm italic">None</span>}
+            )) : <span className="text-secondary text-sm">None</span>}
           </div>
         </div>
 
@@ -60,7 +60,7 @@ export default function UserProfile({ profile }: UserProfileProps) {
               <span key={v.id} className="px-3 py-1 rounded-full border border-primary-container/20 bg-primary-container/15 text-primary-container text-sm font-medium">
                 {v.name}
               </span>
-            )) : <span className="text-secondary text-sm italic">None</span>}
+            )) : <span className="text-secondary text-sm">None</span>}
           </div>
         </div>
       </div>
