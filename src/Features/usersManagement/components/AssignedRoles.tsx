@@ -1,6 +1,10 @@
 import { Settings } from "lucide-react";
+import { useState } from "react";
+import AssignRolesModal from "./AssignRolesModal";
 
 interface AssignedRolesProps {
+  userId: string;
+  userName: string;
   roles: string[];
 }
 
@@ -13,15 +17,18 @@ function getRoleStyles(role: string): string {
   }
 }
 
-export default function AssignedRoles({ roles }: AssignedRolesProps) {
-  const hasUserRole = roles.some(r => r.toLowerCase() === 'user');
-  const displayRoles = hasUserRole ? roles : ['User', ...roles];
+export default function AssignedRoles({ userId, userName, roles }: AssignedRolesProps) {
+  const [showModal, setShowModal] = useState(false);
+  const displayRoles = roles.length === 0 ? ["User"] : roles;
 
   return (
     <div className="bg-surface-container-lowest p-6 rounded-xl shadow-sm border border-outline-variant/20">
       <div className="flex justify-between items-center mb-4">
         <h3 className="text-secondary text-xs uppercase tracking-widest font-bold">Assigned Roles</h3>
-        <button className="p-2 rounded-full cursor-pointer hover:bg-surface-container transition-colors">
+        <button
+          onClick={() => setShowModal(true)}
+          className="p-2 rounded-full cursor-pointer hover:bg-surface-container transition-colors"
+        >
           <Settings className="text-primary w-5 h-5" />
         </button>
       </div>
@@ -33,6 +40,15 @@ export default function AssignedRoles({ roles }: AssignedRolesProps) {
           </div>
         ))}
       </div>
+
+      {showModal && (
+        <AssignRolesModal
+          userId={userId}
+          userName={userName}
+          currentRoles={roles}
+          onClose={() => setShowModal(false)}
+        />
+      )}
     </div>
   );
 }

@@ -70,7 +70,7 @@ export default function DeleteUserModal({
 
         <button
           onClick={onCancel}
-          className="absolute top-4 right-4 text-error rounded-full w-9 h-9 flex items-center justify-center hover:bg-error-container/50 transition-colors cursor-pointer"
+          className="absolute top-4 right-4 text-error rounded-full w-9 h-9 flex items-center justify-center hover:bg-error-container/50 transition cursor-pointer"
         >
           <X />
         </button>

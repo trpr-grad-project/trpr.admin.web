@@ -8,6 +8,11 @@ interface GetUsersParams {
   search?: string;
 }
 
+interface UpdateRolesParams {
+  userId: string;
+  roles: string[];
+}
+
 export const usersApi = createApi({
   reducerPath: 'usersApi',
   keepUnusedDataFor: 0,
@@ -50,7 +55,19 @@ export const usersApi = createApi({
         method: 'DELETE',
       }),
     }),
+    updateUserRoles: builder.mutation<void, UpdateRolesParams>({
+      query: ({ userId, roles }) => ({
+        url: `/users/${userId}/roles`,
+        method: 'PUT',
+        body: { roles },
+      }),
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useGetUserByIdQuery, useDeleteUserMutation } = usersApi;
+export const { 
+  useGetUsersQuery, 
+  useGetUserByIdQuery, 
+  useDeleteUserMutation,
+  useUpdateUserRolesMutation,
+} = usersApi;

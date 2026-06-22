@@ -57,8 +57,15 @@ export default function UserDetails() {
         </div>
 
         <div className="col-span-12 lg:col-span-4 space-y-8">
-          <AssignedRoles roles={user.roles} />
-          <DeleteUser userId={user.id} userName={`${user.firstName} ${user.lastName}`} />
+          <AssignedRoles
+            userId={user.id}
+            userName={`${user.firstName} ${user.lastName}`}
+            roles={user.roles}
+          />
+          <DeleteUser
+            userId={user.id}
+            userName={`${user.firstName} ${user.lastName}`}
+          />
         </div>
       </section>
     </section>

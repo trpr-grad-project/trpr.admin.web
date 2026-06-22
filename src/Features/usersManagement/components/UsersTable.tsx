@@ -49,12 +49,8 @@ export default function UsersTable({ users }: UsersTableProps) {
 
         <tbody className="divide-y divide-outline-variant/10">
           {users.map((user) => {
-            const hasUserRole = user.roles.some(
-              (r) => r.toLowerCase() === "user",
-            );
-            const displayRoles = hasUserRole
-              ? user.roles
-              : ["User", ...user.roles];
+            const displayRoles =
+              user.roles.length === 0 ? ["User"] : user.roles;
 
             return (
               <tr
@@ -64,10 +60,13 @@ export default function UsersTable({ users }: UsersTableProps) {
                 <td className="px-8 py-6 font-mono text-sm text-secondary">
                   #{user.id.slice(0, 8)}
                 </td>
+
                 <td className="px-8 py-6 font-semibold text-on-surface">
                   {user.firstName} {user.lastName}
                 </td>
+
                 <td className="px-8 py-6 text-on-surface">{user.userName}</td>
+
                 <td className="px-8 py-6">
                   <div className="flex flex-wrap gap-2">
                     {displayRoles.map((role) => (
@@ -80,6 +79,7 @@ export default function UsersTable({ users }: UsersTableProps) {
                     ))}
                   </div>
                 </td>
+
                 <td className="px-8 py-6 text-right">
                   <button
                     onClick={() =>
