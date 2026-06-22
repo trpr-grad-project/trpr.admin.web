@@ -17,7 +17,7 @@ function getRoleStyles(role: string): string {
   }
 }
 
-export default function AssignedRoles({ userId, userName, roles }: AssignedRolesProps) {
+export default function AssignedRoles({ userId, roles }: AssignedRolesProps) {
   const [showModal, setShowModal] = useState(false);
   const displayRoles = roles.length === 0 ? ["User"] : roles;
 
@@ -44,7 +44,6 @@ export default function AssignedRoles({ userId, userName, roles }: AssignedRoles
       {showModal && (
         <AssignRolesModal
           userId={userId}
-          userName={userName}
           currentRoles={roles}
           onClose={() => setShowModal(false)}
         />

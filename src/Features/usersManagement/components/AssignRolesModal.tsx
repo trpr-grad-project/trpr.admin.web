@@ -6,14 +6,12 @@ const AVAILABLE_ROLES = ["Admin", "Company", "Guide"];
 
 interface AssignRolesModalProps {
   userId: string;
-  userName: string;
   currentRoles: string[];
   onClose: () => void;
 }
 
 export default function AssignRolesModal({
   userId,
-  userName,
   currentRoles,
   onClose,
 }: AssignRolesModalProps) {
@@ -88,13 +86,6 @@ export default function AssignRolesModal({
               <h2 className="text-2xl font-bold text-on-surface">
                 Manage Roles
               </h2>
-
-              <p className="text-secondary mt-1">
-                Assign permissions for{" "}
-                <span className="text-on-surface font-medium">
-                  {userName}
-                </span>
-              </p>
             </div>
 
             <button
