@@ -26,8 +26,7 @@ export default function ApproveRequest({ requestId }: ApproveRequestProps) {
           Approve Request
         </h4>
         <p className="text-sm leading-6 font-medium text-secondary mt-2">
-          Verify that all documents are valid and the user meets all eligibility
-          criteria for the Elite status.
+          Carefully review all applicant information and supporting documents before approving the request.
         </p>
       </div>
       <button

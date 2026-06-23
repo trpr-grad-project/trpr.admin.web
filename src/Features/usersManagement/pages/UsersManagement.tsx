@@ -36,8 +36,7 @@ export default function UsersManagement() {
           Users Management
         </h2>
         <p className="text-secondary font-['Noto_Serif'] italic text-sm">
-          Manage portal users, assign administrative roles, and monitor
-          account status across the TouRA ecosystem.
+          Manage user accounts, roles, and access permissions across the TouRA platform.
         </p>
       </header>
 

@@ -6,11 +6,12 @@ export default function HelpWidget() {
       <Info className="text-tertiary w-5 h-5 col-span-1" />
       <div className="col-span-8">
         <p className="font-bold text-on-surface text-sm uppercase tracking-tight">
-          Review Protocol
+          Review Guidelines
         </p>
         <p className="text-xs text-secondary mt-2 leading-relaxed">
-          Ensure all ID and license numbers match government databases before
-          approval. Refer to Section 4.2 of the Guide Code.
+          Review all applicant information carefully before taking action. When
+          rejecting a request, provide a specific and detailed explanation for
+          the decision.
         </p>
       </div>
     </>

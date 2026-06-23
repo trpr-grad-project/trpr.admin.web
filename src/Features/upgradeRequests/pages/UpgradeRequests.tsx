@@ -58,7 +58,7 @@ export default function UpgradeRequests() {
           Upgrade Requests
         </h2>
         <p className="text-secondary font-['Noto_Serif'] italic text-sm">
-          Manage and verify royal tier account elevations.
+          Review, approve, or reject guide upgrade requests and manage verification decisions.
         </p>
       </header>
 
