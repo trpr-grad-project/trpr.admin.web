@@ -7,7 +7,7 @@ export default function UserInfo({ userName, createdAtUtc }: UserInfoProps) {
   return (
     <div className="grid grid-cols-2  pb-8 border-b border-outline-variant/20">
       <div>
-        <p className="text-label-sm text-secondary mb-1">USER NAME</p>
+        <p className="text-label-sm text-secondary mb-1">FULL NAME</p>
         <p className="font-bold text-xl text-on-surface">{userName}</p>
       </div>
       <div>
