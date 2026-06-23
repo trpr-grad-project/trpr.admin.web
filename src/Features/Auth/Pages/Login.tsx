@@ -6,7 +6,9 @@ import * as Yup from "yup";
 import { useAuth } from "../../../hooks/useAuth";
 
 const validationSchema = Yup.object({
-  identifier: Yup.string().email("Invalid email address").required("Email is required"),
+  identifier: Yup.string()
+    .email("Invalid email address")
+    .required("Email is required"),
   password: Yup.string().required("Password is required"),
 });
 
@@ -25,8 +27,12 @@ export default function Login() {
       setError(null);
       try {
         await handleLogin(values.identifier, values.password);
-      } catch {
-        setError("Invalid email or password.");
+      } catch (error: unknown) {
+        if (error instanceof Error && error.message === "UNAUTHORIZED") {
+          setError("Access denied. Admin access is required to view this page.");
+        } else {
+          setError("Invalid email or password.");
+        }
       } finally {
         setSubmitting(false);
       }
@@ -41,7 +47,6 @@ export default function Login() {
       <div className="absolute inset-0 bg-surface/50"></div>
 
       <div className="relative w-full max-w-120 bg-surface-container-lowest rounded-xl shadow-xl overflow-hidden border border-outline-variant/30">
-        
         <div className="px-8 pt-10 pb-6 text-center">
           <div className="flex items-center justify-center gap-2 mb-3">
             <div className="bg-primary-container text-on-primary p-2 rounded-lg">
@@ -132,9 +137,7 @@ export default function Login() {
             )}
           </div>
 
-          {error && (
-            <p className="text-sm text-error text-center">{error}</p>
-          )}
+          {error && <p className="text-sm text-error text-center">{error}</p>}
 
           <button
             type="submit"
@@ -152,7 +155,9 @@ export default function Login() {
                 <Loader2 size={20} className="animate-spin" />
                 Logging in...
               </span>
-            ) : "Login"}
+            ) : (
+              "Login"
+            )}
           </button>
         </form>
 
@@ -160,9 +165,13 @@ export default function Login() {
           <p className="text-xs text-secondary">
             © 2024 TouRA Travel Solutions. All rights reserved.
             <br />
-            <a className="hover:underline mt-1 inline-block" href="#">Privacy Policy</a>{" "}
+            <a className="hover:underline mt-1 inline-block" href="#">
+              Privacy Policy
+            </a>{" "}
             •{" "}
-            <a className="hover:underline" href="#">Terms of Service</a>
+            <a className="hover:underline" href="#">
+              Terms of Service
+            </a>
           </p>
         </div>
       </div>

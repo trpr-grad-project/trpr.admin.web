@@ -21,6 +21,11 @@ export function useAuth() {
     
     const decoded = jwtDecode<TokenPayload>(response.data.accessToken);
 
+    const isAdmin = decoded.realm_access.roles.includes('Admin');
+    if (!isAdmin) {
+      throw new Error('UNAUTHORIZED');
+    }
+
     dispatch(setCredentials({
       accessToken: response.data.accessToken,
       refreshToken: response.data.refreshToken,
