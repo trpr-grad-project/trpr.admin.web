@@ -17,7 +17,6 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardLayout />}>
             <Route index element={<Navigate to="/requests" replace />} />
-            <Route path="dashboard" element={<div>Dashboard Coming Soon</div>} />
             <Route path="users" element={<UsersManagement/>} />
             <Route path="requests" element={<UpgradeRequests />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />

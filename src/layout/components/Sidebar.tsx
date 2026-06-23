@@ -1,7 +1,6 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   LogOut,
-  LayoutDashboard,
   ArrowUpFromLine,
   Landmark,
   UsersRound
@@ -17,7 +16,7 @@ export default function Sidebar() {
       {/* Logo */}
       <div
         className="px-8 mb-12 cursor-pointer"
-        onClick={() => navigate('/dashboard')}
+        onClick={() => navigate('/requests')}
       >
         <div className="flex items-center gap-3 mb-2">
           <div className="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container shadow-md">
@@ -27,27 +26,10 @@ export default function Sidebar() {
             TOURA ADMIN
           </h2>
         </div>
-        <p className="text-secondary text-sm font-medium font-['Noto_Serif'] tracking-widest uppercase">
-          Royal Overseer
-        </p>
       </div>
 
       {/* Links */}
       <nav className="flex-1 space-y-1">
-        <NavLink
-          to="/dashboard"
-          className={({ isActive }) =>
-            `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
-              isActive
-                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
-                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
-            }`
-          }
-        >
-          <LayoutDashboard />
-          <span className="font-['Noto_Serif'] font-semibold">Dashboard</span>
-        </NavLink>
-
         <NavLink
           to="/requests"
           className={({ isActive }) =>
