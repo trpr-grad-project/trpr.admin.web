@@ -24,6 +24,7 @@ export const usersApi = createApi({
   keepUnusedDataFor: 0,
   refetchOnFocus: true,
   refetchOnReconnect: true,
+  tagTypes: ['User'],
   baseQuery: fetchBaseQuery({
     baseUrl: '/api/v1',
     prepareHeaders: (headers, { getState }) => {
@@ -49,17 +50,20 @@ export const usersApi = createApi({
           ...(search ? { Search: search } : {}),
         },
       }),
+      providesTags: ['User'],
     }),
     getUserById: builder.query<ApiUser, string>({
       query: (id) => ({
         url: `/users/${id}`,
       }),
+      providesTags: ['User'],
     }),
     deleteUser: builder.mutation<void, string>({
       query: (id) => ({
         url: `/users/${id}`,
         method: 'DELETE',
       }),
+      invalidatesTags: ['User'],
     }),
     updateUserRoles: builder.mutation<void, UpdateRolesParams>({
       query: ({ userId, roles }) => ({
@@ -67,6 +71,7 @@ export const usersApi = createApi({
         method: 'PUT',
         body: { roles },
       }),
+      invalidatesTags: ['User'],
     }),
     updateUserName: builder.mutation<void, UpdateNameParams>({
       query: ({ userId, firstName, lastName }) => ({
@@ -74,6 +79,7 @@ export const usersApi = createApi({
         method: 'PUT',
         body: { firstName, lastName },
       }),
+      invalidatesTags: ['User'],
     }),
   }),
 });
