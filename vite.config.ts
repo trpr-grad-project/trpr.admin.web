@@ -10,7 +10,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api/v1': {
-        target: 'http://localhost:5001',
+        target: 'http://trpr.backend:5001',
         changeOrigin: true,
       }
     }
