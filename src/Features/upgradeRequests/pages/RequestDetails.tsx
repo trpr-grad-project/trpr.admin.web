@@ -38,9 +38,6 @@ export default function RequestDetails() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
-  console.log("all params =", searchParams.toString());
-  console.log("from =", searchParams.get("from"));
-
   const { data, isLoading, isError } = useGetUpgradeRequestDetailsQuery(
     requestId!,
   );
