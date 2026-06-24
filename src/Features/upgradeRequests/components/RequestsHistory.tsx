@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import type { ApiRequestDetails } from '../../../types/upgradeRequest';
+import { useNavigate, useSearchParams } from "react-router-dom";
+import type { ApiRequestDetails } from "../../../types/upgradeRequest";
 
 interface RequestsHistoryProps {
   requests: ApiRequestDetails[];
@@ -8,9 +8,9 @@ interface RequestsHistoryProps {
 
 function getStatusStyles(status: string): string {
   switch (status) {
-    case 'Approved':
+    case "Approved":
       return "bg-success-container/20 text-success border-success-container/50";
-    case 'Rejected':
+    case "Rejected":
       return "bg-error-container text-error border-error-container/30";
     default:
       return "bg-tertiary/10 text-secondary border-tertiary-container/30";
@@ -19,6 +19,7 @@ function getStatusStyles(status: string): string {
 
 export default function RequestsHistory({ requests }: RequestsHistoryProps) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const pastRequests = requests;
 
   return (
@@ -35,18 +36,28 @@ export default function RequestsHistory({ requests }: RequestsHistoryProps) {
             <div
               key={req.id}
               className="relative pl-6 border-l-2 border-primary/20 cursor-pointer"
-              onClick={() => navigate(`/requests/${req.id}`)}
+              onClick={() =>
+                navigate(
+                  `/requests/${req.id}?from=${encodeURIComponent(
+                    searchParams.get("from") || "",
+                  )}`,
+                )
+              }
             >
               <div className="absolute -left-1.25 top-0 w-2 h-2 rounded-full bg-primary"></div>
               <p className="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">
-                {new Date(req.createdAt).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
+                {new Date(req.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
                 })}
               </p>
-              <p className="font-bold text-sm text-on-surface">#{req.id.slice(0, 8)}</p>
-              <p className={`text-[10px] font-bold uppercase mt-1 inline-block px-2 py-0.5 rounded border ${getStatusStyles(req.status)}`}>
+              <p className="font-bold text-sm text-on-surface">
+                #{req.id.slice(0, 8)}
+              </p>
+              <p
+                className={`text-[10px] font-bold uppercase mt-1 inline-block px-2 py-0.5 rounded border ${getStatusStyles(req.status)}`}
+              >
                 {req.status}
               </p>
               {req.rejectionReason && (

@@ -1,4 +1,4 @@
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate, useSearchParams } from "react-router-dom";
 import { ChevronRight, ShieldCheck, ArrowLeft } from "lucide-react";
 import RequestsHistory from "../components/RequestsHistory";
 import HelpWidget from "../components/HelpWidget";
@@ -36,8 +36,14 @@ function getDotStyles(status: string): string {
 export default function RequestDetails() {
   const { requestId } = useParams();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
-  const { data, isLoading, isError } = useGetUpgradeRequestDetailsQuery(requestId!);
+  console.log("all params =", searchParams.toString());
+  console.log("from =", searchParams.get("from"));
+
+  const { data, isLoading, isError } = useGetUpgradeRequestDetailsQuery(
+    requestId!,
+  );
 
   if (isLoading)
     return (
@@ -53,9 +59,11 @@ export default function RequestDetails() {
       </div>
     );
 
-  const request = data.find(r => r.id === requestId) ?? data[0];
-  const idFront = request.documents.find((d) => d.type === "IDFront")?.file ?? null;
-  const idBack = request.documents.find((d) => d.type === "IDBack")?.file ?? null;
+  const request = data.find((r) => r.id === requestId) ?? data[0];
+  const idFront =
+    request.documents.find((d) => d.type === "IDFront")?.file ?? null;
+  const idBack =
+    request.documents.find((d) => d.type === "IDBack")?.file ?? null;
   const certificates = request.documents
     .filter((d) => d.type === "Certificate")
     .map((d) => ({ name: "Certificate", url: d.file }));
@@ -73,7 +81,10 @@ export default function RequestDetails() {
           </div>
           <div className="flex items-center gap-3">
             <button
-              onClick={() => navigate(-1)}
+              onClick={() => {
+                const from = searchParams.get("from") || "";
+                navigate(`/requests?${decodeURIComponent(from)}`);
+              }}
               className="w-9 h-9 flex items-center justify-center rounded-full border border-outline-variant/70 hover:bg-surface-container transition-colors cursor-pointer"
             >
               <ArrowLeft className="w-4 h-4 text-primary" />

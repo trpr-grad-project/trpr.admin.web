@@ -1,5 +1,5 @@
-import { useNavigate } from 'react-router-dom';
-import type { ApiUpgradeRequest } from '../../../types/upgradeRequest';
+import { useNavigate, useSearchParams } from "react-router-dom";
+import type { ApiUpgradeRequest } from "../../../types/upgradeRequest";
 
 interface RequestsTableProps {
   requests: ApiUpgradeRequest[];
@@ -7,17 +7,18 @@ interface RequestsTableProps {
 
 function getStatusStyles(status: string): string {
   switch (status) {
-    case 'Approved':
-      return 'bg-success-container text-success';
-    case 'Rejected':
-      return 'bg-error-container text-error';
+    case "Approved":
+      return "bg-success-container text-success";
+    case "Rejected":
+      return "bg-error-container text-error";
     default:
-      return 'bg-primary-container text-on-primary-container';
+      return "bg-primary-container text-on-primary-container";
   }
 }
 
 export default function RequestsTable({ requests }: RequestsTableProps) {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
 
   return (
     <div className="overflow-x-auto">
@@ -61,20 +62,28 @@ export default function RequestsTable({ requests }: RequestsTableProps) {
                 {request.userName}
               </td>
               <td className="px-8 py-6 text-on-surface">
-                {new Date(request.createdAt).toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'short',
-                  day: 'numeric',
+                {new Date(request.createdAt).toLocaleDateString("en-US", {
+                  year: "numeric",
+                  month: "short",
+                  day: "numeric",
                 })}
               </td>
               <td className="px-8 py-6">
-                <span className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${getStatusStyles(request.approveStatus)}`}>
+                <span
+                  className={`px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider shadow-sm ${getStatusStyles(request.approveStatus)}`}
+                >
                   {request.approveStatus}
                 </span>
               </td>
               <td className="px-8 py-6 text-right">
                 <button
-                  onClick={() => navigate(`/requests/${request.id}`)}
+                  onClick={() =>
+                    navigate(
+                      `/requests/${request.id}?from=${encodeURIComponent(
+                        searchParams.toString(),
+                      )}`,
+                    )
+                  }
                   className="px-4 py-2 text-primary-container font-bold border border-primary-container/30 rounded-lg cursor-pointer hover:bg-primary-container hover:text-surface transition-all"
                 >
                   View
