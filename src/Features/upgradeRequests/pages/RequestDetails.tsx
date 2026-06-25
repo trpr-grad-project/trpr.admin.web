@@ -4,7 +4,7 @@ import RequestsHistory from "../components/RequestsHistory";
 import HelpWidget from "../components/HelpWidget";
 import UserInfo from "../components/UserInfo";
 import NationalID from "../components/NationalID";
-import Certificates from "../components/Certificates";
+import Documents from "../components/Documents";
 import ApproveRequest from "../components/ApproveRequest";
 import ApprovedRequest from "../components/ApprovedRequest";
 import DenyRequest from "../components/DenyRequest";
@@ -65,6 +65,10 @@ export default function RequestDetails() {
     .filter((d) => d.type === "Certificate")
     .map((d) => ({ name: "Certificate", url: d.file }));
 
+  const licenses = request.documents
+    .filter((d) => d.type === "License")
+    .map((d) => ({ name: "License", url: d.file }));
+
   return (
     <section className="flex-1 relative">
       <header className="flex justify-between items-end">
@@ -124,8 +128,13 @@ export default function RequestDetails() {
               {(idFront || idBack) && (
                 <NationalID front={idFront ?? ""} back={idBack} />
               )}
+
               {certificates.length > 0 && (
-                <Certificates certificates={certificates} />
+                <Documents title="Certificates" documents={certificates} />
+              )}
+
+              {licenses.length > 0 && (
+                <Documents title="Licenses" documents={licenses} />
               )}
             </div>
           </div>

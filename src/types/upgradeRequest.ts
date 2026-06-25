@@ -54,7 +54,7 @@ export interface ApiPaginatedResponse<T> {
 }
 
 export interface ApiDocument {
-  type: 'IDFront' | 'IDBack' | 'Certificate';
+  type: 'IDFront' | 'IDBack' | 'Certificate' | 'License';
   file: string;
 }
 
