@@ -135,8 +135,8 @@ export default function PlacesManagement() {
 
       <section className="space-y-6">
         {/* HEADER */}
-        <div className="grid grid-cols-12 px-10 font-label-sm text-secondary uppercase tracking-[0.15em] text-sm font-semibold">
-          <div className="col-span-4">Place</div>
+        <div className="grid grid-cols-11 px-10 font-label-sm text-secondary uppercase tracking-[0.15em] text-sm font-semibold">
+          <div className="col-span-3">Place</div>
           <div className="col-span-2">Governorate</div>
           <div className="col-span-3">Tags</div>
           <div className="col-span-2">Coordinates</div>
@@ -147,10 +147,10 @@ export default function PlacesManagement() {
         <div className="space-y-4">
           {/* ROW 1 */}
           <div
-            className="grid grid-cols-12 items-center px-10 py-6 rounded-2xl bg-surface border border-outline-variant/20
+            className="grid grid-cols-11 items-center px-10 py-6 rounded-2xl bg-surface border border-outline-variant/20
             hover:bg-surface-container-lowest hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
           >
-            <div className="col-span-4 flex flex-col gap-1">
+            <div className="col-span-3 flex flex-col gap-1">
               <span className="font-bold text-lg text-on-surface">
                 Karnak Temple
               </span>

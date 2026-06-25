@@ -1,4 +1,4 @@
-import { X, MapPinned, FileText, Building2, Tag } from "lucide-react";
+import { X, MapPinned, FileText, Building2, Tag, Plus } from "lucide-react";
 import { useEffect } from "react";
 
 interface AddPlaceModalProps {
@@ -118,8 +118,15 @@ export default function AddPlaceModal({ isOpen, onClose }: AddPlaceModalProps) {
                 Tags (Multi-select)
               </label>
 
-              <div className="min-h-14 rounded-xl border border-outline-variant/30 bg-surface px-4 py-3 flex items-center text-secondary">
-                Tags selector will be added here
+              <div className="min-h-14 rounded-xl border border-outline-variant/30 bg-surface px-4 py-3 flex items-center flex-wrap gap-3">
+                <button
+                  type="button"
+                  className="px-3.5 py-2 rounded-full bg-surface-container-low border border-outline-variant/30 text-secondary font-medium hover:border-primary/30 hover:text-primary
+                  hover:bg-primary/5 transition-all cursor-pointer flex items-center gap-1.5"
+                >
+                  <Plus className="w-4 h-4" />
+                  <span>Add Tag</span>
+                </button>
               </div>
             </div>
           </div>
@@ -141,7 +148,7 @@ export default function AddPlaceModal({ isOpen, onClose }: AddPlaceModalProps) {
                   readOnly
                   value=""
                   placeholder="Select from map"
-                  className="w-full px-4 py-3 rounded-xl border border-outline-variant/30 bg-surface text-on-surface"
+                  className="w-full px-4 py-3 rounded-xl border border-outline-variant/30 bg-surface outline-0 text-on-surface focus:border-primary"
                 />
               </div>
 
@@ -154,29 +161,43 @@ export default function AddPlaceModal({ isOpen, onClose }: AddPlaceModalProps) {
                   readOnly
                   value=""
                   placeholder="Select from map"
-                  className="w-full px-4 py-3 rounded-xl border border-outline-variant/30 bg-surface text-on-surface"
+                  className="w-full px-4 py-3 rounded-xl border border-outline-variant/30 bg-surface text-on-surface outline-0 focus:border-primary"
                 />
               </div>
             </div>
 
-            <button
-              type="button"
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-primary/10 text-primary border border-primary/20 hover:bg-primary/15 transition-colors cursor-pointer"
-            >
-              <MapPinned className="w-5 h-5" />
-              Select Location From Map
-            </button>
+            {/* Map Selector */}
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-secondary font-bold">
+                  Location
+                </label>
+              </div>
 
-            <div className="mt-5 rounded-xl border border-dashed border-outline-variant/40 bg-surface h-40 flex flex-col items-center justify-center">
-              <MapPinned className="w-8 h-8 text-secondary mb-2" />
+              <button
+                type="button"
+                className="group w-full h-65 rounded-2xl border-2 border-dashed border-outline-variant/40 bg-surface flex flex-col items-center justify-center gap-4
+                hover:border-primary hover:bg-primary/5 transition-all duration-300 cursor-pointer"
+              >
+                <div className="w-18 h-18 rounded-full bg-primary/10 flex items-center justify-center group-hover:scale-105 transition-transform">
+                  <MapPinned className="w-10 h-10 text-primary" />
+                </div>
 
-              <p className="font-semibold text-on-surface">
-                No Location Selected
-              </p>
+                <div className="space-y-1">
+                  <p className="text-lg font-bold text-on-surface">
+                    Click to Select Location
+                  </p>
 
-              <p className="text-sm text-secondary">
-                Choose a location from the map.
-              </p>
+                  <p className="text-sm text-secondary">
+                    Choose the place on the map to automatically fill the
+                    latitude and longitude.
+                  </p>
+                </div>
+
+                <div className="mt-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold group-hover:bg-primary group-hover:text-on-primary transition-all">
+                  Open Map
+                </div>
+              </button>
             </div>
           </div>
         </div>
