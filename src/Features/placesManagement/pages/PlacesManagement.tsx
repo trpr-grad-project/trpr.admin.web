@@ -2,13 +2,16 @@ import {
   MapPinPlus,
   MapPinned,
   Search,
-  Funnel,
-  RotateCcw,
   MapPin,
   ChevronDown,
 } from "lucide-react";
+import { useState } from "react";
+import AddPlaceModal from "../components/AddPlaceModal";
 
 export default function PlacesManagement() {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+
   return (
     <section className="flex-1 flex flex-col">
       <header className="mb-10 flex justify-between items-center">
@@ -26,6 +29,7 @@ export default function PlacesManagement() {
           <button
             className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-primary text-on-primary font-bold text-lg shadow-lg shadow-primary/10 cursor-pointer
             hover:shadow-primary/20 hover:-translate-y-0.5 transition-all duration-200"
+            onClick={() => setIsAddModalOpen(true)}
           >
             <MapPinPlus className="h-7.5 w-7.5" />
             <span>Add Place</span>
@@ -33,7 +37,7 @@ export default function PlacesManagement() {
         </div>
       </header>
 
-      <section className="mb-8 bg-surface-container border border-outline-variant/20 rounded-xl p-6">
+      <section className="mb-10 bg-surface-container border border-outline-variant/20 rounded-xl p-6">
         {/* Search */}
         <div className="relative mb-6">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary" />
@@ -115,117 +119,100 @@ export default function PlacesManagement() {
 
           <div className="flex gap-3">
             <button
-              className="px-5 py-2.5 rounded-lg border border-outline-variant/50 bg-surface-container-lowest text-on-surface font-semibold flex items-center gap-2
+              className="px-5 py-2.5 rounded-lg border border-outline-variant/50 bg-surface-container-lowest text-on-surface font-semibold
             hover:bg-surface-container-low hover:border-primary/30 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
             >
-              <RotateCcw />
-              <span>Reset Filters</span>
+              Reset Filters
             </button>
 
             <button
-              className="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-semibold hover:opacity-90 transition-opacity cursor-pointer
-            flex items-center gap-2"
-            >
-              <Funnel />
-              <span>Apply Filters</span>
+              className="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-semibold hover:opacity-90 transition-opacity cursor-pointer">
+              Apply Filters
             </button>
           </div>
         </div>
       </section>
 
-      <section className="space-y-4">
-        {/* HEADER ROW */}
-        <div className="grid grid-cols-12 px-10 mb-4 font-label-sm text-outline uppercase tracking-widest text-[11px]">
-          <div className="col-span-4">Place Title & Category</div>
+      <section className="space-y-6">
+        {/* HEADER */}
+        <div className="grid grid-cols-12 px-10 font-label-sm text-secondary uppercase tracking-[0.15em] text-sm font-semibold">
+          <div className="col-span-4">Place</div>
           <div className="col-span-2">Governorate</div>
           <div className="col-span-3">Tags</div>
-          <div className="col-span-2">Coordinates (Lat / Lon)</div>
-
-          {/* ✅ Actions column مستقل */}
+          <div className="col-span-2">Coordinates</div>
           <div className="col-span-1 text-right">Actions</div>
         </div>
 
         {/* ROWS */}
-        <div className="space-y-3">
+        <div className="space-y-4">
           {/* ROW 1 */}
-          <div className="grid grid-cols-12 items-center bg-surface-container-low px-10 py-6 rounded-2xl border border-outline-variant/10">
+          <div
+            className="grid grid-cols-12 items-center px-10 py-6 rounded-2xl bg-surface border border-outline-variant/20
+            hover:bg-surface-container-lowest hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
+          >
             <div className="col-span-4 flex flex-col gap-1">
-              <span className="font-h3 text-[18px]">Karnak Temple</span>
-              <span className="text-label-sm text-secondary uppercase tracking-wider font-semibold opacity-70">
+              <span className="font-bold text-lg text-on-surface">
+                Karnak Temple
+              </span>
+
+              <span className="text-xs text-secondary uppercase tracking-wider font-semibold">
                 Ancient Monument
               </span>
             </div>
 
-            <div className="col-span-2 text-on-surface-variant font-medium">
-              Luxor
-            </div>
+            <div className="col-span-2 font-medium text-on-surface">Luxor</div>
 
             <div className="col-span-3">
               <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 text-[10px] font-bold uppercase rounded-full border">
+                <span className="px-3 py-1 rounded-full bg-primary-container/30 text-primary text-[10px] font-bold uppercase tracking-wider">
                   Historical
                 </span>
-                <span className="px-3 py-1 text-[10px] font-bold uppercase rounded-full border">
+                <span className="px-3 py-1 rounded-full bg-primary-container/30 text-primary text-[10px] font-bold uppercase tracking-wider">
                   UNESCO
                 </span>
               </div>
             </div>
 
-            <div className="col-span-2 font-mono text-[13px] text-outline leading-tight">
-              <div>Lat: 25.7188° N</div>
-              <div>Lon: 32.6573° E</div>
-            </div>
+            <div className="col-span-2">
+              <div className="space-y-1 text-sm">
+                <div className="flex gap-2">
+                  <span className="text-secondary font-medium">Lat:</span>
+                  <span className="font-mono text-on-surface">25.7188</span>
+                </div>
 
-            {/* ✅ Actions column */}
-            <div className="col-span-1 text-right">
-              <button className="text-primary font-bold hover:underline">
-                Edit
-              </button>
-            </div>
-          </div>
-
-          {/* ROW 2 */}
-          <div className="grid grid-cols-12 items-center bg-surface-container-low px-10 py-6 rounded-2xl border border-outline-variant/10">
-            <div className="col-span-4 flex flex-col gap-1">
-              <span className="font-h3 text-[18px]">Giza Plateau</span>
-              <span className="text-label-sm text-secondary uppercase tracking-wider font-semibold opacity-70">
-                Wonder of the World
-              </span>
-            </div>
-
-            <div className="col-span-2">Giza</div>
-
-            <div className="col-span-3">
-              <div className="flex flex-wrap gap-2">
-                <span className="px-3 py-1 text-[10px] font-bold uppercase rounded-full border">
-                  Pyramids
-                </span>
+                <div className="flex gap-2">
+                  <span className="text-secondary font-medium">Lng:</span>
+                  <span className="font-mono text-on-surface">32.6573</span>
+                </div>
               </div>
             </div>
 
-            <div className="col-span-2 font-mono text-[13px]">
-              <div>Lat: 29.9792° N</div>
-              <div>Lon: 31.1342° E</div>
-            </div>
-
-            {/* ✅ Actions */}
             <div className="col-span-1 text-right">
-              <button className="text-primary font-bold hover:underline">
+              <button
+                className="px-4 py-2 rounded-lg border border-primary/20 text-primary font-semibold 
+                hover:bg-primary hover:text-on-primary transition-all cursor-pointer"
+              >
                 Edit
               </button>
             </div>
           </div>
         </div>
 
-        {/* Empty state */}
-        <div className="hidden flex-col items-center justify-center py-24 text-center">
-          No places found
+        {/* LOADING */}
+        <div className="space-y-4">
+          {[...Array(3)].map((_, index) => (
+            <div
+              key={index}
+              className="h-28 rounded-2xl bg-surface-container animate-pulse border border-outline-variant/10"
+            />
+          ))}
         </div>
 
-        {/* Loading */}
-        <div className="pt-16 pb-12 flex flex-col items-center justify-center">
-          Loading...
-        </div>
+        {/* Modal */}
+      <AddPlaceModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+      />
       </section>
     </section>
   );
