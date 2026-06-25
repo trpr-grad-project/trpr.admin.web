@@ -7,6 +7,7 @@ import Login from './Features/Auth/Pages/Login';
 import ProtectedRoute from './routes/ProtectedRoute';
 import UsersManagement from './Features/usersManagement/pages/UsersManagement';
 import UserDetails from './Features/usersManagement/pages/UserDetails';
+import PlacesManagement from './Features/placesManagement/pages/PlacesManagement';
 
 function App() {
   return (
@@ -17,8 +18,9 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/" element={<DashboardLayout />}>
             <Route index element={<Navigate to="/requests" replace />} />
-            <Route path="users" element={<UsersManagement/>} />
             <Route path="requests" element={<UpgradeRequests />} />
+            <Route path="users" element={<UsersManagement/>} />
+            <Route path="places" element={<PlacesManagement />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />
             <Route path="users/:userId" element={<UserDetails />} />
           </Route>

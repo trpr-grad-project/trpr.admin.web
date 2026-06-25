@@ -3,7 +3,8 @@ import {
   LogOut,
   ArrowUpFromLine,
   Landmark,
-  UsersRound
+  UsersRound,
+  MapPinned
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -59,6 +60,22 @@ export default function Sidebar() {
           <UsersRound />
           <span className="font-['Noto_Serif'] font-semibold">
             Users Management
+          </span>
+        </NavLink>
+
+        <NavLink
+          to="/places"
+          className={({ isActive }) =>
+            `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
+              isActive
+                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
+                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+            }`
+          }
+        >
+          <MapPinned />
+          <span className="font-['Noto_Serif'] font-semibold">
+            Places Management
           </span>
         </NavLink>
       </nav>
