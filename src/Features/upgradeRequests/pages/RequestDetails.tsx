@@ -110,7 +110,7 @@ export default function RequestDetails() {
 
       <div className="grid grid-cols-12 gap-8 items-start mt-10">
         <section className="col-span-8 space-y-8">
-          <div className="bg-surface rounded-lg border border-outline-variant/30 overflow-hidden">
+          <div className="bg-surface-container-lowest rounded-lg border border-outline-variant/30 overflow-hidden">
             <div className="p-8 space-y-8">
               <UserInfo
                 userName={`${request.user.firstName} ${request.user.lastName}`}
@@ -141,7 +141,7 @@ export default function RequestDetails() {
 
           {request.status === "Pending" && (
             <div className="pt-10">
-              <div className="p-8 rounded-lg border border-outline-variant/30 space-y-6 bg-surface">
+              <div className="p-8 rounded-lg border border-outline-variant/30 space-y-6 bg-surface-container-lowest">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   <ApproveRequest requestId={request.id} />
                   <DenyRequest requestId={request.id} />
@@ -167,7 +167,7 @@ export default function RequestDetails() {
         </section>
 
         <section className="col-span-4 space-y-8">
-          <div className="bg-surface border border-outline-variant/30 rounded-lg p-6">
+          <div className="bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-6">
             <RequestsHistory requests={data} currentRequestId={requestId!} />
           </div>
           <div className="bg-surface-container-low rounded-lg p-6 border border-outline-variant/30 grid grid-cols-9">

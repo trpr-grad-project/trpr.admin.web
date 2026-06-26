@@ -41,7 +41,7 @@ export default function DenyRequest({ requestId }: DenyRequestProps) {
             setReason(e.target.value);
             setError(false);
           }}
-          className={`outline-0 w-full bg-surface text-on-surface rounded-lg border p-4 placeholder-secondary/70 text-sm focus:ring-1 focus:ring-error focus:border-error ${
+          className={`outline-0 w-full bg-surface-container-lowest text-on-surface rounded-lg border p-4 placeholder-secondary/70 text-sm focus:ring-1 focus:ring-error focus:border-error ${
             error ? 'border-error' : 'border-outline-variant'
           }`}
           placeholder="State clearly why the request was rejected..."

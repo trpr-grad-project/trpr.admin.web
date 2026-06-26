@@ -48,11 +48,8 @@ export default function SupportManagement() {
         bg-surface-container-lowest text-on-surface shadow-sm outline-none
         focus:border-primary"
             >
-              <option>All Statuses</option>
-              <option>Open</option>
-              <option>Pending</option>
-              <option>Resolved</option>
-              <option>Closed</option>
+              <option>Unread</option>
+              <option>Read</option>
             </select>
 
             <ChevronDown className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-secondary pointer-events-none" />
