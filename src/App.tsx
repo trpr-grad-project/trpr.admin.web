@@ -1,5 +1,6 @@
 import './App.css'
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import "leaflet/dist/leaflet.css";
 import DashboardLayout from './layout/DashboardLayout'
 import RequestDetails from './Features/upgradeRequests/pages/RequestDetails';
 import UpgradeRequests from './Features/upgradeRequests/pages/UpgradeRequests';
