@@ -25,7 +25,7 @@ export default function PlacesList({
         {places.map((place) => (
           <div
             key={place.id}
-            className="grid grid-cols-11 items-center px-10 py-6 rounded-2xl bg-surface border border-outline-variant/20
+            className="grid grid-cols-11 items-center px-10 py-6 rounded-2xl bg-surface-container-low border border-outline-variant/20
             hover:bg-surface-container-lowest hover:border-primary/20 hover:shadow-lg hover:shadow-primary/5 transition-all duration-300"
           >
             {/* Place */}
