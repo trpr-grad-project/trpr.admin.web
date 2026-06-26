@@ -9,6 +9,7 @@ import UsersManagement from './Features/usersManagement/pages/UsersManagement';
 import UserDetails from './Features/usersManagement/pages/UserDetails';
 import PlacesManagement from './Features/placesManagement/pages/PlacesManagement';
 import SupportManagement from './Features/supportManagement/pages/SupportManagement';
+import SupportRequest from './Features/supportManagement/pages/SupportRequest';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
             <Route path="support" element={<SupportManagement />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />
             <Route path="users/:userId" element={<UserDetails />} />
+            <Route path="support/:supportId" element={<SupportRequest/>} />
           </Route>
         </Route>
       </Routes>
