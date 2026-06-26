@@ -8,6 +8,7 @@ import ProtectedRoute from './routes/ProtectedRoute';
 import UsersManagement from './Features/usersManagement/pages/UsersManagement';
 import UserDetails from './Features/usersManagement/pages/UserDetails';
 import PlacesManagement from './Features/placesManagement/pages/PlacesManagement';
+import SupportManagement from './Features/supportManagement/pages/SupportManagement';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
             <Route path="requests" element={<UpgradeRequests />} />
             <Route path="users" element={<UsersManagement/>} />
             <Route path="places" element={<PlacesManagement />} />
+            <Route path="support" element={<SupportManagement />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />
             <Route path="users/:userId" element={<UserDetails />} />
           </Route>

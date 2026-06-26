@@ -4,7 +4,8 @@ import {
   ArrowUpFromLine,
   Landmark,
   UsersRound,
-  MapPinned
+  MapPinned,
+  MessageCircleMore
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -76,6 +77,22 @@ export default function Sidebar() {
           <MapPinned />
           <span className="font-['Noto_Serif'] font-semibold">
             Places Management
+          </span>
+        </NavLink>
+
+        <NavLink
+          to="/support"
+          className={({ isActive }) =>
+            `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
+              isActive
+                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
+                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+            }`
+          }
+        >
+          <MessageCircleMore />
+          <span className="font-['Noto_Serif'] font-semibold">
+            Support Management
           </span>
         </NavLink>
       </nav>

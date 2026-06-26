@@ -119,14 +119,14 @@ export default function PlacesManagement() {
 
           <div className="flex gap-3">
             <button
-              className="px-5 py-2.5 rounded-lg border border-outline-variant/50 bg-surface-container-lowest text-on-surface font-semibold
+              className="px-5 py-2.5 rounded-lg border border-outline-variant/50 bg-surface-container-lowest text-on-surface font-semibold w-33
             hover:bg-surface-container-low hover:border-primary/30 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
             >
               Reset Filters
             </button>
 
             <button
-              className="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-semibold hover:opacity-90 transition-opacity cursor-pointer">
+              className="px-5 py-2.5 rounded-lg bg-primary text-on-primary font-semibold w-36 hover:opacity-90 transition-opacity cursor-pointer">
               Apply Filters
             </button>
           </div>

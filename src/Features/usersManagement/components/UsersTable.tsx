@@ -57,7 +57,7 @@ export default function UsersTable({ users }: UsersTableProps) {
                 key={user.id}
                 className="hover:bg-surface-container-lowest/50 transition-colors"
               >
-                <td className="px-8 py-6 font-mono text-sm text-secondary">
+                <td className="px-8 py-6 font-['Noto_Serif'] text-on-surface font-bold">
                   #{user.id.slice(0, 8)}
                 </td>
 
