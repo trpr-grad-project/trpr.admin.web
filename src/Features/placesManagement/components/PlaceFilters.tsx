@@ -94,7 +94,7 @@ export default function PlaceFilters({
           Selected Location
         </p>
 
-        <div className="flex w-fit items-center gap-3 px-4 py-3 rounded-xl border border-dashed border-outline-variant/40 bg-surface-container-lowest">
+        <div className="flex w-fit items-center gap-3 px-4 py-3 rounded-xl border border-outline-variant/40 bg-surface-container-lowest">
           <MapPin className="w-5 h-5 text-on-surface" />
 
           {latitude && longitude ? (
