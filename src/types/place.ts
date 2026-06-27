@@ -45,3 +45,13 @@ export interface ApiPlacesResponse {
   nextCursor: string | null;
   hasNextPage: boolean;
 }
+
+export interface SavePlaceRequest {
+  title: string;
+  description: string;
+  categoryId: string;
+  governorateId: string;
+  latitude: string;
+  longitude: string;
+  tagIds: string[];
+}

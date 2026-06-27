@@ -2,7 +2,7 @@ import { MapPinPlus } from "lucide-react";
 import { useEffect, useState } from "react";
 import type { ApiPlace } from "../../../types/place";
 
-import AddPlaceModal from "../components/AddPlaceModal";
+import PlaceModal from "../components/PlaceModal";
 import PlaceFilters from "../components/PlaceFilters";
 import PlacesList from "../components/PlacesList";
 import PlacesLoading from "../components/PlacesLoading";
@@ -130,9 +130,16 @@ export default function PlacesManagement() {
         </>
       )}
 
-      <AddPlaceModal
+      <PlaceModal
         isOpen={isAddModalOpen}
         onClose={() => setIsAddModalOpen(false)}
+        formData={
+          formData ?? {
+            categories: [],
+            governorates: [],
+            tags: [],
+          }
+        }
       />
     </section>
   );

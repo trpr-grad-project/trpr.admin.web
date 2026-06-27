@@ -3,12 +3,14 @@ import type { RootState } from "../index";
 import type {
   PlacesFormData,
   ApiPlacesResponse,
+  ApiPlace,
+  SavePlaceRequest,
 } from "../../types/place";
 
 interface GetPlacesParams {
   governorateId?: string;
   longitude?: string;
- latitude?: string;
+  latitude?: string;
   radiusInMeters?: string;
   title?: string;
   lastPlaceId?: string;
@@ -17,6 +19,7 @@ interface GetPlacesParams {
 
 export const placesApi = createApi({
   reducerPath: "placesApi",
+
   keepUnusedDataFor: 0,
   refetchOnFocus: true,
   refetchOnReconnect: true,
@@ -35,8 +38,9 @@ export const placesApi = createApi({
 
       if (token) headers.set("Authorization", `Bearer ${token}`);
       if (userId) headers.set("X-User-Id", userId);
-      if (userRole)
+      if (userRole) {
         headers.set("X-User-Role", JSON.stringify([userRole]));
+      }
 
       return headers;
     },
@@ -76,10 +80,35 @@ export const placesApi = createApi({
 
       providesTags: ["Place"],
     }),
+
+    createPlace: builder.mutation<ApiPlace, SavePlaceRequest>({
+      query: (body) => ({
+        url: "/places",
+        method: "POST",
+        body,
+      }),
+
+      invalidatesTags: ["Place"],
+    }),
+
+    updatePlace: builder.mutation<
+      ApiPlace,
+      { id: string; body: SavePlaceRequest }
+    >({
+      query: ({ id, body }) => ({
+        url: `/places/${id}`,
+        method: "PUT",
+        body,
+      }),
+
+      invalidatesTags: ["Place"],
+    }),
   }),
 });
 
 export const {
   useGetPlacesFormDataQuery,
   useGetPlacesQuery,
+  useCreatePlaceMutation,
+  useUpdatePlaceMutation,
 } = placesApi;
