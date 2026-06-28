@@ -7,6 +7,7 @@ import PlaceFilters from "../components/PlaceFilters";
 import PlacesList from "../components/PlacesList";
 import PlacesLoading from "../components/PlacesLoading";
 import PlacesCursor from "../components/PlacesCursor";
+import MapPickerModal from "../components/MapPickerModal";
 
 import {
   useGetPlacesFormDataQuery,
@@ -21,8 +22,10 @@ export default function PlacesManagement() {
   const [governorateId, setGovernorateId] = useState("");
   const [radius, setRadius] = useState("");
 
-  const [latitude] = useState<string>();
-  const [longitude] = useState<string>();
+  const [latitude, setLatitude] = useState<string>();
+  const [longitude, setLongitude] = useState<string>();
+
+  const [isMapOpen, setIsMapOpen] = useState(false);
 
   // Cursor
   const [lastPlaceId, setLastPlaceId] = useState<string>();
@@ -53,7 +56,15 @@ export default function PlacesManagement() {
   }, [data, lastPlaceId]);
 
   function handleChooseLocation() {
-    // later
+    setIsMapOpen(true);
+  }
+
+  function handleLocationChange(lat: string, lng: string) {
+    setLatitude(lat);
+    setLongitude(lng);
+
+    setPlaces([]);
+    setLastPlaceId(undefined);
   }
 
   function handleEdit(place: ApiPlace) {
@@ -124,7 +135,10 @@ export default function PlacesManagement() {
 
       {!isLoading && !isError && (
         <>
-          <PlacesList places={places} onEdit={handleEdit} />
+          <PlacesList
+            places={places}
+            onEdit={handleEdit}
+          />
 
           <PlacesCursor
             hasNextPage={data?.hasNextPage ?? false}
@@ -148,6 +162,15 @@ export default function PlacesManagement() {
             tags: [],
           }
         }
+      />
+
+      <MapPickerModal
+        isOpen={isMapOpen}
+        onClose={() => setIsMapOpen(false)}
+        onConfirm={() => setIsMapOpen(false)}
+        latitude={latitude ?? ""}
+        longitude={longitude ?? ""}
+        onLocationChange={handleLocationChange}
       />
     </section>
   );

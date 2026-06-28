@@ -34,14 +34,14 @@ export default function PlaceFilters({
     <section className="bg-surface-container border border-outline-variant/20 rounded-xl p-6">
       {/* Search */}
       <div className="relative mb-6">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary" />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-secondary w-5 h-5" />
 
         <input
           value={title}
           onChange={(e) => onTitleChange(e.target.value)}
           type="text"
           placeholder="Search places..."
-          className="w-full pl-10 pr-4 py-2 rounded-xl border border-outline-variant/50 bg-surface-container-lowest text-on-surface outline-none focus:border-primary transition-colors"
+          className="w-full pl-10 pr-4 py-3 rounded-xl border border-outline-variant/50 bg-surface-container-lowest text-on-surface outline-none focus:border-primary transition-colors"
         />
       </div>
 
@@ -52,7 +52,7 @@ export default function PlaceFilters({
           <select
             value={governorateId}
             onChange={(e) => onGovernorateChange(e.target.value)}
-            className="w-full appearance-none px-4 py-3.5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest text-on-surface font-medium shadow-sm outline-none focus:border-primary"
+            className="w-full appearance-none px-4 py-3 rounded-xl border border-outline-variant/30 bg-surface-container-lowest text-on-surface shadow-sm outline-none focus:border-primary"
           >
             <option value="">All Governorates</option>
 
@@ -67,23 +67,22 @@ export default function PlaceFilters({
         </div>
 
         {/* Radius */}
-        <div>
-          <input
-            value={radius}
-            onChange={(e) => onRadiusChange(e.target.value)}
-            type="number"
-            placeholder="Search radius (meters)"
-            disabled={!latitude || !longitude}
-            className="w-full px-4 py-3.5 rounded-xl border border-outline-variant/30 bg-surface-container-lowest text-on-surface shadow-sm outline-none placeholder:text-secondary focus:border-primary disabled:opacity-50 disabled:cursor-not-allowed"
-          />
-        </div>
+        <input
+          value={radius}
+          onChange={(e) => onRadiusChange(e.target.value)}
+          type="number"
+          placeholder="Radius (meters)"
+          disabled={!latitude || !longitude}
+          className="w-full px-4 py-3 rounded-xl border border-outline-variant/30 bg-surface-container-lowest text-on-surface shadow-sm outline-none placeholder:text-secondary focus:border-primary disabled:opacity-50 disabled:cursor-not-allowed"
+        />
 
-        {/* Choose on Map */}
+        {/* Map */}
         <button
+          type="button"
           onClick={onChooseLocation}
-          className="flex items-center justify-center gap-3 px-5 py-3.5 rounded-xl border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/40 shadow-sm hover:shadow-md transition-all duration-200 cursor-pointer"
+          className="flex items-center justify-center gap-3 px-5 py-3 rounded-xl border border-primary/20 bg-primary/5 text-primary hover:bg-primary/10 hover:border-primary/40 transition-all cursor-pointer"
         >
-          <MapPinned />
+          <MapPinned className="w-5 h-5" />
           <span className="font-medium">Choose on Map</span>
         </button>
       </div>
@@ -94,11 +93,11 @@ export default function PlaceFilters({
           Selected Location
         </p>
 
-        <div className="flex w-fit items-center gap-3 px-4 py-3 rounded-xl border border-outline-variant/40 bg-surface-container-lowest">
-          <MapPin className="w-5 h-5 text-on-surface" />
+        <div className="inline-flex items-center gap-3 px-4 py-3 rounded-xl border border-outline-variant/40 bg-surface-container-lowest">
+          <MapPin className="w-5 h-5 text-primary" />
 
           {latitude && longitude ? (
-            <div className="flex gap-4">
+            <div className="flex gap-6">
               <span className="text-sm font-medium text-on-surface">
                 Lat: {latitude}
               </span>
@@ -108,9 +107,9 @@ export default function PlaceFilters({
               </span>
             </div>
           ) : (
-            <p className="text-sm font-medium text-on-surface">
+            <span className="text-sm text-secondary">
               No location selected
-            </p>
+            </span>
           )}
         </div>
       </div>
