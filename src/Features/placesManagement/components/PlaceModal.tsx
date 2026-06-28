@@ -59,6 +59,10 @@ export default function PlaceModal({
   useEffect(() => {
     if (!isOpen) return;
 
+    setErrors({});
+    setIsTagsOpen(false);
+    setIsMapOpen(false);
+
     if (place) {
       setForm({
         title: place.title,

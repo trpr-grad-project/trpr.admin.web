@@ -14,7 +14,8 @@ import {
 } from "../../../store/api/placesApi";
 
 export default function PlacesManagement() {
-  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const [isPlaceModalOpen, setIsPlaceModalOpen] = useState(false);
+  const [selectedPlace, setSelectedPlace] = useState<ApiPlace | undefined>();
 
   const [title, setTitle] = useState("");
   const [governorateId, setGovernorateId] = useState("");
@@ -56,8 +57,8 @@ export default function PlacesManagement() {
   }
 
   function handleEdit(place: ApiPlace) {
-    console.log(place);
-    // Edit Modal
+    setSelectedPlace(place);
+    setIsPlaceModalOpen(true);
   }
 
   return (
@@ -75,7 +76,10 @@ export default function PlacesManagement() {
         </div>
 
         <button
-          onClick={() => setIsAddModalOpen(true)}
+          onClick={() => {
+            setSelectedPlace(undefined);
+            setIsPlaceModalOpen(true);
+          }}
           className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-primary text-on-primary font-bold text-lg shadow-lg shadow-primary/10 hover:shadow-primary/20 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
         >
           <MapPinPlus className="h-7 w-7" />
@@ -131,8 +135,12 @@ export default function PlacesManagement() {
       )}
 
       <PlaceModal
-        isOpen={isAddModalOpen}
-        onClose={() => setIsAddModalOpen(false)}
+        isOpen={isPlaceModalOpen}
+        onClose={() => {
+          setIsPlaceModalOpen(false);
+          setSelectedPlace(undefined);
+        }}
+        place={selectedPlace}
         formData={
           formData ?? {
             categories: [],
