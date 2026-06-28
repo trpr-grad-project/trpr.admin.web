@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import Pagination from "../../../Components/UI/Pagination";
 import Filters from "../components/Filters";
@@ -23,37 +23,9 @@ export default function SupportManagement() {
     searchParams.get("nameSearch") || "",
   );
 
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [status, setStatus] = useState<SupportStatus>(currentStatus);
-
-  // Subject + Username Search
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setSearchParams({
-        page: "1",
-        pageSize: String(pageSize),
-        status,
-        subjectSearch,
-        nameSearch,
-      });
-    }, 500);
-
-    return () => clearTimeout(timer);
-  }, [subjectSearch, nameSearch, pageSize, status, setSearchParams]);
-
-  // Status Filter
-  useEffect(() => {
-    const handler = setTimeout(() => {
-      setSearchParams({
-        page: "1",
-        pageSize: String(pageSize),
-        status,
-        subjectSearch,
-        nameSearch,
-      });
-    }, 500);
-
-    return () => clearTimeout(handler);
-  }, [status, subjectSearch, nameSearch, pageSize, setSearchParams]);
 
   const { data, isLoading, isError } = useGetSupportRequestsQuery({
     page: currentPage,
@@ -62,6 +34,54 @@ export default function SupportManagement() {
     subjectSearch,
     nameSearch,
   });
+
+  function handleSubjectChange(value: string) {
+    setSubjectSearch(value);
+
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      setSearchParams({
+        page: "1",
+        pageSize: String(pageSize),
+        status,
+        subjectSearch: value,
+        nameSearch,
+      });
+    }, 500);
+  }
+
+  function handleNameChange(value: string) {
+    setNameSearch(value);
+
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
+
+    debounceRef.current = setTimeout(() => {
+      setSearchParams({
+        page: "1",
+        pageSize: String(pageSize),
+        status,
+        subjectSearch,
+        nameSearch: value,
+      });
+    }, 500);
+  }
+
+  function handleStatusChange(value: SupportStatus) {
+    setStatus(value);
+
+    setSearchParams({
+      page: "1",
+      pageSize: String(pageSize),
+      status: value,
+      subjectSearch,
+      nameSearch,
+    });
+  }
 
   function handlePageChange(newPage: number) {
     setSearchParams({
@@ -100,9 +120,9 @@ export default function SupportManagement() {
           subjectSearch={subjectSearch}
           nameSearch={nameSearch}
           status={status}
-          onSubjectChange={setSubjectSearch}
-          onNameChange={setNameSearch}
-          onStatusChange={setStatus}
+          onSubjectChange={handleSubjectChange}
+          onNameChange={handleNameChange}
+          onStatusChange={handleStatusChange}
         />
       </div>
 

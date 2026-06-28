@@ -3,6 +3,7 @@ import UsersTable from "../components/UsersTable";
 import Pagination from "../../../Components/UI/Pagination";
 import { useGetUsersQuery } from "../../../store/api/usersApi";
 import { useSearchParams } from "react-router-dom";
+import { useRef } from "react";
 
 export default function UsersManagement() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -11,16 +12,27 @@ export default function UsersManagement() {
   const pageSize = Number(searchParams.get("pageSize")) || 10;
   const search = searchParams.get("search") || "";
 
+  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const { data, isLoading, isError } = useGetUsersQuery({
     page: currentPage,
     pageSize,
     search: search || undefined,
   });
 
-  function handleSearchChange(val: string) {
-    setSearchParams({ page: "1", pageSize: String(pageSize), search: val });
-  }
+  function handleSearchChange(value: string) {
+    if (debounceRef.current) {
+      clearTimeout(debounceRef.current);
+    }
 
+    debounceRef.current = setTimeout(() => {
+      setSearchParams({
+        page: "1",
+        pageSize: String(pageSize),
+        search: value,
+      });
+    }, 500);
+  }
   function handlePageChange(page: number) {
     setSearchParams({ page: String(page), pageSize: String(pageSize), search });
   }
@@ -36,14 +48,12 @@ export default function UsersManagement() {
           Users Management
         </h2>
         <p className="text-secondary font-['Noto_Serif'] italic text-sm">
-          Manage user accounts, roles, and access permissions across the TouRA platform.
+          Manage user accounts, roles, and access permissions across the TouRA
+          platform.
         </p>
       </header>
 
-      <UsersSearch
-        search={search}
-        onSearchChange={handleSearchChange}
-      />
+      <UsersSearch search={search} onSearchChange={handleSearchChange} />
 
       <section className="bg-surface-container-lowest rounded-xl shadow-2xl shadow-secondary/5 border border-outline-variant/20 overflow-hidden">
         {isLoading && (
