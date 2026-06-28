@@ -19,6 +19,16 @@ interface PlaceModalProps {
   formData: PlacesFormData;
 }
 
+const initialForm: SavePlaceRequest = {
+  title: "",
+  description: "",
+  categoryId: "",
+  governorateId: "",
+  latitude: "",
+  longitude: "",
+  tagIds: [],
+};
+
 export default function PlaceModal({
   isOpen,
   onClose,
@@ -26,11 +36,13 @@ export default function PlaceModal({
   formData,
 }: PlaceModalProps) {
   const isEdit = !!place;
+
   const [createPlace, { isLoading: isCreating }] = useCreatePlaceMutation();
 
   const [updatePlace, { isLoading: isUpdating }] = useUpdatePlaceMutation();
 
   const isSaving = isCreating || isUpdating;
+
   const [errors, setErrors] = useState<
     Partial<Record<keyof SavePlaceRequest, string>>
   >({});
@@ -38,17 +50,15 @@ export default function PlaceModal({
   const [isTagsOpen, setIsTagsOpen] = useState(false);
   const [isMapOpen, setIsMapOpen] = useState(false);
 
-  const [form, setForm] = useState<SavePlaceRequest>({
-    title: "",
-    description: "",
-    categoryId: "",
-    governorateId: "",
-    latitude: "",
-    longitude: "",
-    tagIds: [],
-  });
+  const [form, setForm] = useState<SavePlaceRequest>(initialForm);
+
+  const categories = formData?.categories ?? [];
+  const governorates = formData?.governorates ?? [];
+  const tags = formData?.tags ?? [];
 
   useEffect(() => {
+    if (!isOpen) return;
+
     if (place) {
       setForm({
         title: place.title,
@@ -60,22 +70,18 @@ export default function PlaceModal({
         tagIds: place.tags.map((tag) => tag.id),
       });
     } else {
-      setForm({
-        title: "",
-        description: "",
-        categoryId: "",
-        governorateId: "",
-        latitude: "",
-        longitude: "",
-        tagIds: [],
-      });
+      setForm(initialForm);
     }
-  }, [place, isOpen]);
+
+    setErrors({});
+    setIsTagsOpen(false);
+    setIsMapOpen(false);
+  }, [isOpen, place]);
 
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-    }
+    if (!isOpen) return;
+
+    document.body.style.overflow = "hidden";
 
     return () => {
       document.body.style.overflow = "auto";
@@ -89,12 +95,6 @@ export default function PlaceModal({
       longitude: lng,
     }));
   }
-
-  if (!isOpen) return null;
-
-  const categories = formData.categories;
-  const governorates = formData.governorates;
-  const tags = formData.tags;
 
   function validateForm() {
     const newErrors: Partial<Record<keyof SavePlaceRequest, string>> = {};
@@ -124,7 +124,7 @@ export default function PlaceModal({
     }
 
     if (form.tagIds.length === 0) {
-      newErrors.tagIds = "Select at least one tag";
+      newErrors.tagIds = "Please select at least one tag";
     }
 
     setErrors(newErrors);
@@ -132,8 +132,16 @@ export default function PlaceModal({
     return Object.keys(newErrors).length === 0;
   }
 
+  function resetModal() {
+    setForm(initialForm);
+    setErrors({});
+    setIsTagsOpen(false);
+    setIsMapOpen(false);
+  }
+
   async function handleSave() {
     if (!validateForm()) return;
+
     try {
       if (isEdit && place) {
         await updatePlace({
@@ -144,66 +152,85 @@ export default function PlaceModal({
         await createPlace(form).unwrap();
       }
 
+      resetModal();
       onClose();
-    } catch (error) {
-      console.error(error);
+    } catch (err) {
+      console.error(err);
     }
   }
 
+  if (!isOpen) return null;
+
   return (
-    <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-6">
-      <div className="w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface shadow-2xl flex flex-col">
-        {/* Header */}
-        <div className="flex items-center justify-between px-8 py-6 border-b border-outline-variant/20">
-          <div>
-            <h3 className="text-2xl font-bold text-on-surface">
-              {isEdit ? "Edit Place" : "Add New Place"}
-            </h3>
+    <>
+      <div className="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm flex items-center justify-center p-6">
+        <div className="w-full max-w-5xl max-h-[90vh] overflow-hidden rounded-2xl border border-outline-variant/30 bg-surface shadow-2xl flex flex-col">
+          {/* Header */}
+          <div className="flex items-center justify-between px-8 py-6 border-b border-outline-variant/20">
+            <div>
+              <h3 className="text-2xl font-bold text-on-surface">
+                {isEdit ? "Edit Place" : "Add New Place"}
+              </h3>
+            </div>
+
+            <button
+              onClick={() => {
+                resetModal();
+                onClose();
+              }}
+              className="text-secondary rounded-full w-9 h-9 flex items-center justify-center hover:bg-secondary-container transition cursor-pointer"
+            >
+              <X />
+            </button>
           </div>
 
-          <button
-            onClick={onClose}
-            className="text-secondary rounded-full w-9 h-9 flex items-center justify-center hover:bg-secondary-container transition cursor-pointer"
-          >
-            <X />
-          </button>
-        </div>
+          {/* Body */}
+          <div className="flex-1 overflow-y-auto p-8 space-y-8">
+            <BasicInfoSection form={form} setForm={setForm} errors={errors} />
 
-        {/* Body */}
-        <div className="flex-1 overflow-y-auto p-8 space-y-8">
-          <BasicInfoSection form={form} setForm={setForm} errors={errors} />
+            <ClassificationSection
+              form={form}
+              setForm={setForm}
+              categories={categories}
+              governorates={governorates}
+              tags={tags}
+              isTagsOpen={isTagsOpen}
+              setIsTagsOpen={setIsTagsOpen}
+              errors={errors}
+            />
 
-          <ClassificationSection
-            form={form}
-            setForm={setForm}
-            categories={categories}
-            governorates={governorates}
-            tags={tags}
-            isTagsOpen={isTagsOpen}
-            setIsTagsOpen={setIsTagsOpen}
-            errors={errors}
-          />
+            <LocationSection
+              form={form}
+              onOpenMap={() => setIsMapOpen(true)}
+              errors={errors}
+            />
+          </div>
 
-          <LocationSection
-            form={form} onOpenMap={() => setIsMapOpen(true)} errors={errors}/>
-        </div>
+          {/* Footer */}
+          <div className="px-8 py-6 border-t border-outline-variant/20 bg-surface-container-low">
+            <div className="max-w-lg mx-auto flex gap-12">
+              <button
+                onClick={() => {
+                  resetModal();
+                  onClose();
+                }}
+                className="flex-1 border border-outline-variant/30 text-secondary py-3.5 px-6 rounded-xl font-semibold hover:bg-surface-container transition-all cursor-pointer"
+              >
+                Cancel
+              </button>
 
-        {/* Footer */}
-        <div className="px-8 py-6 border-t border-outline-variant/20 bg-surface-container-low">
-          <div className="max-w-lg mx-auto flex gap-12">
-            <button
-              onClick={onClose}
-              className="flex-1 border border-outline-variant/30 text-secondary py-3.5 px-6 rounded-xlfont-semibold hover:bg-surface-container transition-all cursor-pointer">
-              Cancel
-            </button>
-
-            <button
-              onClick={handleSave}
-              disabled={isSaving}
-              className="flex-1 bg-primary text-on-primary py-3.5 px-6 rounded-xl font-bold text-base
-              hover:opacity-90 disabled:opacity-50 transition-all flex items-center justify-center gap-2 cursor-pointer">
-              {isSaving ? "Saving..." : isEdit ? "Save Changes" : "Save Place"}
-            </button>
+              <button
+                onClick={handleSave}
+                disabled={isSaving}
+                className="flex-1 bg-primary text-on-primary py-3.5 px-6 rounded-xl font-bold text-base hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed transition-all cursor-pointer"
+              >
+                {isSaving
+                  ? "Saving..."
+                  : isEdit
+                    ? "Save Changes"
+                    : "Save Place"}
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -216,6 +243,6 @@ export default function PlaceModal({
         longitude={form.longitude}
         onLocationChange={handleLocationChange}
       />
-    </div>
+    </>
   );
 }

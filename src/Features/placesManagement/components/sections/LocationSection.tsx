@@ -12,6 +12,8 @@ export default function LocationSection({
   onOpenMap,
   errors,
 }: LocationSectionProps) {
+  const hasLocationError = !!errors.latitude || !!errors.longitude;
+
   return (
     <div className="rounded-2xl border border-outline-variant/20 p-6 bg-surface-container-low">
       <div className="flex items-center gap-2 mb-5">
@@ -33,12 +35,11 @@ export default function LocationSection({
             readOnly
             value={form.latitude}
             placeholder="Select from map"
-            className={`w-full px-4 py-3 rounded-xl bg-surface text-on-surface outline-none transition
-              ${
-                errors.latitude
-                  ? "border border-error"
-                  : "border border-outline-variant/30"
-              }`}
+            className={`w-full px-4 py-3 rounded-xl bg-surface text-on-surface outline-none transition ${
+              errors.latitude
+                ? "border border-error"
+                : "border border-outline-variant/30"
+            }`}
           />
 
           {errors.latitude && (
@@ -58,12 +59,11 @@ export default function LocationSection({
             readOnly
             value={form.longitude}
             placeholder="Select from map"
-            className={`w-full px-4 py-3 rounded-xl bg-surface text-on-surface outline-none transition
-              ${
-                errors.longitude
-                  ? "border border-error"
-                  : "border border-outline-variant/30"
-              }`}
+            className={`w-full px-4 py-3 rounded-xl bg-surface text-on-surface outline-none transition ${
+              errors.longitude
+                ? "border border-error"
+                : "border border-outline-variant/30"
+            }`}
           />
 
           {errors.longitude && (
@@ -77,11 +77,8 @@ export default function LocationSection({
       <button
         type="button"
         onClick={onOpenMap}
-        className={`group w-full h-64 rounded-2xl border-2 border-dashed bg-surface
-        flex flex-col items-center justify-center gap-4
-        transition-all duration-300 cursor-pointer
-        ${
-          errors.latitude || errors.longitude
+        className={`group w-full h-64 rounded-2xl border-2 border-dashed bg-surface flex flex-col items-center justify-center gap-4 transition-all duration-300 cursor-pointer ${
+          hasLocationError
             ? "border-error"
             : "border-outline-variant/40 hover:border-primary hover:bg-primary/5"
         }`}
@@ -105,6 +102,12 @@ export default function LocationSection({
           Open Map
         </div>
       </button>
+
+      {hasLocationError && (
+        <p className="mt-3 text-sm text-error">
+          Please choose a location from the map.
+        </p>
+      )}
     </div>
   );
 }
