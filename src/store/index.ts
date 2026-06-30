@@ -5,6 +5,7 @@ import { upgradeRequestsApi } from './api/upgradeRequestsApi';
 import { usersApi } from './api/usersApi';
 import { supportApi } from './api/supportApi';
 import { placesApi } from './api/placesApi';
+import { tripsApi } from './api/tripsApi';
 
 export const store = configureStore({
   reducer: {
@@ -13,13 +14,15 @@ export const store = configureStore({
     [usersApi.reducerPath]: usersApi.reducer,
     [supportApi.reducerPath]: supportApi.reducer,
     [placesApi.reducerPath]: placesApi.reducer,
+    [tripsApi.reducerPath]: tripsApi.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware()
       .concat(upgradeRequestsApi.middleware)
       .concat(usersApi.middleware)
       .concat(supportApi.middleware)
-      .concat(placesApi.middleware),
+      .concat(placesApi.middleware)
+      .concat(tripsApi.middleware),
 });
 
 setupListeners(store.dispatch);

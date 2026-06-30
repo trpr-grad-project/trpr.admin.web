@@ -3,7 +3,7 @@ import type { ApiPlace } from "../../../types/place";
 import type { PlacesFormData } from "../../../types/place";
 import { useState, useEffect } from "react";
 import type { SavePlaceRequest } from "../../../types/place";
-import MapPickerModal from "./MapPickerModal";
+import MapPickerModal from "../../../Components/UI/MapPickerModal";
 import BasicInfoSection from "./sections/BasicInfoSection";
 import ClassificationSection from "./sections/ClassificationSection";
 import LocationSection from "./sections/LocationSection";

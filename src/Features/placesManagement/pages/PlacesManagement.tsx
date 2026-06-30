@@ -7,7 +7,7 @@ import PlaceFilters from "../components/PlaceFilters";
 import PlacesList from "../components/PlacesList";
 import PlacesLoading from "../components/PlacesLoading";
 import PlacesCursor from "../components/PlacesCursor";
-import MapPickerModal from "../components/MapPickerModal";
+import MapPickerModal from "../../../Components/UI/MapPickerModal";
 
 import {
   useGetPlacesFormDataQuery,

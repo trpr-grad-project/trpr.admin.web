@@ -11,6 +11,7 @@ import UserDetails from './Features/usersManagement/pages/UserDetails';
 import PlacesManagement from './Features/placesManagement/pages/PlacesManagement';
 import SupportManagement from './Features/supportManagement/pages/SupportManagement';
 import SupportRequest from './Features/supportManagement/pages/SupportRequest';
+import TripsManagement from './Features/trips/pages/TripsManagement';
 
 function App() {
   return (
@@ -22,8 +23,9 @@ function App() {
           <Route path="/" element={<DashboardLayout />}>
             <Route index element={<Navigate to="/requests" replace />} />
             <Route path="requests" element={<UpgradeRequests />} />
-            <Route path="users" element={<UsersManagement/>} />
+            <Route path="trips" element={<TripsManagement />} />
             <Route path="places" element={<PlacesManagement />} />
+            <Route path="users" element={<UsersManagement/>} />
             <Route path="support" element={<SupportManagement />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />
             <Route path="users/:userId" element={<UserDetails />} />

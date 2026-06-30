@@ -5,7 +5,8 @@ import {
   Landmark,
   UsersRound,
   MapPinned,
-  MessageCircleMore
+  MessageCircleMore,
+  Route
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -49,7 +50,7 @@ export default function Sidebar() {
         </NavLink>
 
         <NavLink
-          to="/users"
+          to="/trips"
           className={({ isActive }) =>
             `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
               isActive
@@ -58,9 +59,9 @@ export default function Sidebar() {
             }`
           }
         >
-          <UsersRound />
+          <Route />
           <span className="font-['Noto_Serif'] font-semibold">
-            Users Management
+            Trips
           </span>
         </NavLink>
 
@@ -76,7 +77,23 @@ export default function Sidebar() {
         >
           <MapPinned />
           <span className="font-['Noto_Serif'] font-semibold">
-            Places Management
+            Places 
+          </span>
+        </NavLink>
+
+        <NavLink
+          to="/users"
+          className={({ isActive }) =>
+            `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
+              isActive
+                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
+                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+            }`
+          }
+        >
+          <UsersRound />
+          <span className="font-['Noto_Serif'] font-semibold">
+            Users 
           </span>
         </NavLink>
 
@@ -92,7 +109,7 @@ export default function Sidebar() {
         >
           <MessageCircleMore />
           <span className="font-['Noto_Serif'] font-semibold">
-            Support Management
+            Support
           </span>
         </NavLink>
       </nav>
