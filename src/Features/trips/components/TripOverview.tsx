@@ -1,148 +1,151 @@
-import {
-  CalendarDays,
-  Clock3,
-  Eye,
-  Globe,
-  Tag,
-  Users,
-} from "lucide-react";
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Navigation } from "swiper/modules";
+import { ChevronLeft, ChevronRight, Images } from "lucide-react";
+
+import ImageModal from "../../../Components/UI/ImageModal";
+
+import "swiper/css";
+import "swiper/css/navigation";
 
 export default function TripOverview() {
+  const images = [
+    "https://images.unsplash.com/photo-1548013146-72479768bada?w=1200",
+    "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?w=1200",
+    "https://images.unsplash.com/photo-1526772662000-3f88f10405ff?w=1200",
+  ];
+
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+
   return (
-    <section className="mt-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xl shadow-secondary/5 overflow-hidden">
-      <div className="grid lg:grid-cols-[420px_1fr]">
+    <>
+      <section className="mt-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xl shadow-secondary/5 overflow-hidden">
+        <div className="grid lg:grid-cols-2">
+          {/* ================= Images ================= */}
 
-        {/* Image */}
+          <div className="relative h-95 group overflow-hidden">
+            {/* Prev */}
 
-        <div className="min-h-90">
-          <img
-            src="https://images.unsplash.com/photo-1544735716-392fe2489ffa?w=1200"
-            alt=""
-            className="w-full h-full object-cover"
-          />
-        </div>
+            <button className="trip-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-surface/90 border border-outline-variant/30 text-primary shadow-lg hover:bg-surface transition flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer">
+              <ChevronLeft size={20} />
+            </button>
 
-        {/* Content */}
+            {/* Next */}
 
-        <div className="p-8">
+            <button className="trip-next absolute right-4 top-1/2 -translate-y-1/2 z-20 w-11 h-11 rounded-full bg-surface/90 border border-outline-variant/30 text-primary shadow-lg hover:bg-surface transition flex items-center justify-center opacity-0 group-hover:opacity-100 cursor-pointer">
+              <ChevronRight size={20} />
+            </button>
 
-          <div className="flex justify-between items-start gap-8">
+            {/* Images Count */}
 
-            <div>
+            <div className="absolute top-4 right-4 z-20 flex items-center gap-2 rounded-full bg-black/55 backdrop-blur-md px-3 py-1 text-white text-sm font-semibold">
+              <Images size={16} />
+              {images.length} Photos
+            </div>
 
-              <h3 className="font-['Noto_Serif'] text-3xl font-bold text-on-surface">
+            <Swiper
+              modules={[Navigation]}
+              slidesPerView={1}
+              spaceBetween={0}
+              navigation={{
+                prevEl: ".trip-prev",
+                nextEl: ".trip-next",
+              }}
+              className="w-full h-full"
+            >
+              {images.map((image, index) => (
+                <SwiperSlide key={index}>
+                  <img
+                    src={image}
+                    alt={`Trip ${index + 1}`}
+                    onClick={() => setSelectedImage(image)}
+                    className="w-full h-full object-cover cursor-zoom-in transition duration-300 hover:scale-[1.02]"
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
+
+          {/* ================= Content ================= */}
+
+          <div className="p-8 flex flex-col">
+            <div className="mb-6">
+              <h3 className="text-3xl font-bold font-['Noto_Serif'] text-on-surface mb-4">
                 Ancient Aswan Discovery
               </h3>
 
-              <p className="text-secondary leading-8 mt-4">
+              <p className="text-secondary leading-8">
                 Explore the timeless wonders of Aswan, including Philae Temple
-                and Abu Simbel while enjoying one unforgettable day filled with
-                history and culture.
+                and Abu Simbel while enjoying a complete guided cultural
+                experience.
               </p>
-
             </div>
 
-            <span className="px-5 py-3 rounded-xl bg-primary text-surface font-bold whitespace-nowrap">
-              1500 EGP
-            </span>
+            <div className="grid grid-cols-2 gap-5">
+              <div>
+                <p className="text-xs uppercase tracking-[0.15em] text-secondary">
+                  Theme
+                </p>
 
-          </div>
-
-          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-8 mt-10">
-
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mb-2">
-                Theme
-              </p>
-
-              <div className="flex items-center gap-2">
-                <Tag className="w-4 h-4 text-primary" />
-                <span className="text-on-surface">
-                  Historical
-                </span>
+                <h4 className="mt-1 font-bold text-on-surface">
+                  Adventure
+                </h4>
               </div>
-            </div>
 
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mb-2">
-                Visibility
-              </p>
+              <div>
+                <p className="text-xs uppercase tracking-[0.15em] text-secondary">
+                  Price
+                </p>
 
-              <div className="flex items-center gap-2">
-                <Eye className="w-4 h-4 text-primary" />
-                <span className="text-on-surface">
-                  Public
-                </span>
+                <h4 className="mt-1 font-bold text-on-surface">
+                  1500 EGP
+                </h4>
               </div>
-            </div>
 
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mb-2">
-                Publish Mode
-              </p>
+              <div>
+                <p className="text-xs uppercase tracking-[0.15em] text-secondary">
+                  Duration
+                </p>
 
-              <div className="flex items-center gap-2">
-                <Globe className="w-4 h-4 text-primary" />
-                <span className="text-on-surface">
-                  Bidding
-                </span>
-              </div>
-            </div>
-
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mb-2">
-                Start Date
-              </p>
-
-              <div className="flex items-center gap-2">
-                <CalendarDays className="w-4 h-4 text-primary" />
-                <span className="text-on-surface">
-                  15 Jul 2026
-                </span>
-              </div>
-            </div>
-
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mb-2">
-                Duration
-              </p>
-
-              <div className="flex items-center gap-2">
-                <Clock3 className="w-4 h-4 text-primary" />
-                <span className="text-on-surface">
+                <h4 className="mt-1 font-bold text-on-surface">
                   1 Day
-                </span>
+                </h4>
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-[0.15em] text-secondary">
+                  Participants
+                </p>
+
+                <h4 className="mt-1 font-bold text-on-surface">
+                  20
+                </h4>
               </div>
             </div>
 
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mb-2">
-                Participants
-              </p>
+            <div className="mt-auto pt-8 flex flex-wrap gap-3">
+              <span className="px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-semibold">
+                Public
+              </span>
 
-              <div className="flex items-center gap-2">
-                <Users className="w-4 h-4 text-primary" />
-                <span className="text-on-surface">
-                  8 / 20
-                </span>
-              </div>
-            </div>
+              <span className="px-4 py-2 rounded-full bg-tertiary/10 text-tertiary text-sm font-semibold">
+                Direct Publish
+              </span>
 
-            <div>
-              <p className="text-[10px] uppercase tracking-widest text-secondary mb-2">
-                Created At
-              </p>
-
-              <span className="text-on-surface">
-                30 Jun 2026
+              <span className="px-4 py-2 rounded-full bg-surface-container text-secondary text-sm">
+                📅 Starts 15 Jul 2026
               </span>
             </div>
-
           </div>
-
         </div>
+      </section>
 
-      </div>
-    </section>
+      {/* ================= Image Preview ================= */}
+
+      <ImageModal
+        image={selectedImage}
+        onClose={() => setSelectedImage(null)}
+      />
+    </>
   );
 }

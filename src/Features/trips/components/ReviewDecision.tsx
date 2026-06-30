@@ -44,7 +44,7 @@ export default function ReviewDecision() {
 
               <textarea
                 rows={3}
-                placeholder="State reason..."
+                placeholder="State clearly why the trip was rejected..."
                 className="w-full rounded-xl border border-outline-variant/30 bg-surface px-3 py-2 text-sm outline-none resize-none text-on-surface"
               />
             </div>

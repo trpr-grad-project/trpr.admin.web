@@ -53,7 +53,7 @@ export default function ParticipantsSection() {
                   </span>
                 </div>
 
-                <p className="text-secondary mt-2">@ahmedhassan</p>
+                <p className="text-secondary mt-2">ahmedhassan</p>
               </div>
             </div>
 

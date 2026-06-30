@@ -1,4 +1,3 @@
-
 export default function GuideBiddings() {
   return (
     <section className="mt-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xl shadow-secondary/5 p-8">
@@ -35,7 +34,11 @@ export default function GuideBiddings() {
                   Ahmed Hassan
                 </h4>
 
-                <p className="text-secondary mt-1">@ahmedhassan</p>
+                <p className="text-secondary mt-1">ahmedhassan</p>
+
+                <p className="text-xs text-secondary font-mono mt-1">
+                  ID: 123e4567-e89b-12d3-a456-426614174000
+                </p>
               </div>
             </div>
 
