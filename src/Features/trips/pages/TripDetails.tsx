@@ -131,7 +131,7 @@ export default function TripDetails() {
 
       <TripItinerary />
 
-      <ParticipantsSection />
+      <ParticipantsSection trip={trip}/>
 
       <GuideBiddings />
 
