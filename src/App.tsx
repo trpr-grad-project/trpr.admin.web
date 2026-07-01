@@ -12,7 +12,7 @@ import PlacesManagement from './Features/placesManagement/pages/PlacesManagement
 import SupportManagement from './Features/supportManagement/pages/SupportManagement';
 import SupportRequest from './Features/supportManagement/pages/SupportRequest';
 import TripsManagement from './Features/trips/pages/TripsManagement';
-// import TripDetails from './Features/trips/pages/TripDetails';
+import TripDetails from './Features/trips/pages/TripDetails';
 
 function App() {
   return (
@@ -25,11 +25,11 @@ function App() {
             <Route index element={<Navigate to="/requests" replace />} />
             <Route path="requests" element={<UpgradeRequests />} />
             <Route path="trips" element={<TripsManagement />} />
-            {/* <Route path="trips" element={<TripDetails/>} /> */}
             <Route path="places" element={<PlacesManagement />} />
             <Route path="users" element={<UsersManagement/>} />
             <Route path="support" element={<SupportManagement />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />
+            <Route path="trips/:tripId" element={<TripDetails/>} />
             <Route path="users/:userId" element={<UserDetails />} />
             <Route path="support/:supportId" element={<SupportRequest/>} />
           </Route>

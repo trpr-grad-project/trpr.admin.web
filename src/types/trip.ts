@@ -88,3 +88,86 @@ export interface TripsResponse {
 export interface TripFormData {
   themes: TripLookup[];
 }
+
+export interface TripUser {
+  id: string;
+  userName: string;
+  firstName: string;
+  lastName: string;
+
+  email: string | null;
+  phoneNumber: string | null;
+
+  rating: string;
+}
+
+export interface TripBidding {
+  id: string;
+
+  tripId: string;
+
+  guideId: string;
+
+  guideUsername: string;
+  guideFirstName: string;
+  guideLastName: string;
+
+  proposedPrice: string;
+
+  proposalMessage: string | null;
+
+  createdAtUTC: string;
+}
+
+export interface TripBiddingsPage {
+  items: TripBidding[];
+
+  nextCursor: string | null;
+
+  hasNextPage: boolean;
+}
+
+export interface TripDetailsResponse {
+  id: string;
+
+  createdByUser: TripUser;
+
+  creatorRoles: string[];
+
+  theme: string;
+
+  title: string;
+  description: string;
+
+  price: string;
+
+  autoApprove: boolean;
+
+  startDate: string;
+  tripTime: string;
+
+  imagesUrls: string[];
+
+  tripVisibility: number;
+
+  status: number;
+
+  publishMode: number;
+
+  rejectionReason: string | null;
+
+  segments: TripSegment[];
+
+  maxParticipantsCount: string;
+
+  approvedParticipants: TripUser[];
+
+  pendingParticipants: TripUser[];
+
+  guideId: string | null;
+
+  createdAtUTC: string;
+
+  biddingsPage: TripBiddingsPage;
+}
+

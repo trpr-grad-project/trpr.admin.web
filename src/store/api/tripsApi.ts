@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import type { RootState } from "../index";
 import type {
-  ApiTrip,
+  TripDetailsResponse,
   TripFormData,
   TripsResponse,
 } from "../../types/trip";
@@ -54,6 +54,7 @@ export const tripsApi = createApi({
 
       if (token) headers.set("Authorization", `Bearer ${token}`);
       if (userId) headers.set("X-User-Id", userId);
+
       if (userRole) {
         headers.set("X-User-Role", JSON.stringify([userRole]));
       }
@@ -111,12 +112,12 @@ export const tripsApi = createApi({
       providesTags: ["Trip"],
     }),
 
-    getTripDetails: builder.query<ApiTrip, string>({
+    getTripDetails: builder.query<TripDetailsResponse, string>({
       query: (id) => ({
         url: `/trip/${id}`,
       }),
 
-      providesTags: ["Trip"],
+      providesTags: (_result, _error, id) => [{ type: "Trip", id }],
     }),
 
     changeTripStatus: builder.mutation<void, ChangeTripStatusBody>({
@@ -137,3 +138,4 @@ export const {
   useGetTripDetailsQuery,
   useChangeTripStatusMutation,
 } = tripsApi;
+

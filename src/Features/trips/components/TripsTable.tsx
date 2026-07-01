@@ -86,7 +86,7 @@ export default function TripsTable({ trips, themes }: Props) {
 
               <td className="px-8 py-6 text-right">
                 <Link
-                  to={`/dashboard/trips/${trip.tripId}`}
+                  to={`/trips/${trip.tripId}`}
                   className="inline-block px-4 py-2 text-primary-container font-bold border border-primary-container/30 rounded-lg hover:bg-primary-container hover:text-surface transition-all"
                 >
                   View
