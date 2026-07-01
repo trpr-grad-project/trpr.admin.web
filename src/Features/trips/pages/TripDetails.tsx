@@ -133,7 +133,7 @@ export default function TripDetails() {
 
       <ParticipantsSection trip={trip}/>
 
-      <GuideBiddings />
+      <GuideBiddings trip={trip}/>
 
       <ReviewDecision />
 
