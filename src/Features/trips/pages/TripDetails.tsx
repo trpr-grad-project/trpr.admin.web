@@ -129,7 +129,7 @@ export default function TripDetails() {
 
       <TripCreator trip={trip}/>
 
-      <TripItinerary />
+      <TripItinerary trip={trip}/>
 
       <ParticipantsSection trip={trip}/>
 

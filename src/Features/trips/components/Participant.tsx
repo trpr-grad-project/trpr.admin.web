@@ -41,7 +41,7 @@ export default function Participant({ participant }: Props) {
               Email
             </p>
 
-            <p className="text-on-surface">{participant.email ?? "-"}</p>
+            <p className="text-on-surface">{participant.email ?? "No email"}</p>
           </div>
 
           <div>
@@ -50,7 +50,7 @@ export default function Participant({ participant }: Props) {
               Phone
             </p>
 
-            <p className="text-on-surface">{participant.phoneNumber ?? "-"}</p>
+            <p className="text-on-surface">{participant.phoneNumber ?? "No phone"}</p>
           </div>
         </div>
       </div>
