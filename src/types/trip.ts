@@ -47,26 +47,37 @@ export interface ApiTrip {
 
   createdByUser: string;
 
-  themeId: string;
+  theme: string;
 
   creatorRoles: string[];
 
   title: string;
+
+  autoApprove: boolean;
+
   description: string;
 
   price: string;
-  expectedDuration: string;
 
   startDate: string;
-  tripTime: string;
 
   imagesUrls: string[];
 
   tripVisibility: "Public" | "Private";
 
-  publishMode: "DirectPublish" | "Bidding";
+  status:
+  | "UnderReview"
+  | "Published"
+  | "Bidding"
+  | "Ready"
+  | "Started"
+  | "Finished"
+  | "Rejected"
+  | "Canceled";
 
   segments: TripSegment[];
+
+  tripTime: string;
 
   maxParticipantsCount: string;
 

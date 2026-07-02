@@ -201,10 +201,7 @@ export default function TripsManagement() {
 
         {data && (
           <>
-            <TripsTable
-              trips={data.items}
-              themes={tripFormData?.themes ?? []}
-            />
+            <TripsTable trips={data.items} />
             <div className="px-8 py-6 bg-surface-container-low rounded-b-xl">
               <Pagination
                 page={data.page}

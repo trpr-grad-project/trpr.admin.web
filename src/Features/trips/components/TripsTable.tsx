@@ -1,9 +1,8 @@
 import { Link } from "react-router-dom";
-import type { ApiTrip, TripLookup } from "../../../types/trip";
+import type { ApiTrip } from "../../../types/trip";
 
 interface Props {
   trips: ApiTrip[];
-  themes: TripLookup[];
 }
 
 const visibilityColors = {
@@ -11,11 +10,7 @@ const visibilityColors = {
   Private: "bg-error-container text-error",
 };
 
-export default function TripsTable({ trips, themes }: Props) {
-  const getThemeName = (themeId: string) => {
-    return themes.find((theme) => theme.id === themeId)?.name ?? "-";
-  };
-
+export default function TripsTable({ trips }: Props) {
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left border-collapse">
@@ -67,7 +62,7 @@ export default function TripsTable({ trips, themes }: Props) {
               </td>
 
               <td className="px-8 py-6 text-on-surface">
-                {getThemeName(trip.themeId)}
+                {trip.theme}
               </td>
 
               <td className="px-8 py-6 font-medium text-on-surface">
