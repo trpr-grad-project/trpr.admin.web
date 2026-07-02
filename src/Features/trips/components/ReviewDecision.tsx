@@ -1,4 +1,39 @@
-export default function ReviewDecision() {
+import { useState } from "react";
+import { useChangeTripStatusMutation } from "../../../store/api/tripsApi";
+
+interface Props {
+  tripId: string;
+}
+
+export default function ReviewDecision({ tripId }: Props) {
+  const [reason, setReason] = useState("");
+
+  const [changeTripStatus, { isLoading }] = useChangeTripStatusMutation();
+
+  const handleApprove = async () => {
+    try {
+      await changeTripStatus({
+        id: tripId,
+        isApproved: true,
+        rejectionReason: null,
+      }).unwrap();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleReject = async () => {
+    try {
+      await changeTripStatus({
+        id: tripId,
+        isApproved: false,
+        rejectionReason: reason.trim() || null,
+      }).unwrap();
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
     <section className="mt-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xl shadow-secondary/5 p-8">
       <div className="mb-6">
@@ -13,7 +48,6 @@ export default function ReviewDecision() {
 
       <div className="rounded-xl border border-outline-variant/20 bg-surface-container-lowest p-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          
           {/* Approve */}
           <div className="flex flex-col justify-between gap-5">
             <div>
@@ -26,16 +60,18 @@ export default function ReviewDecision() {
               </p>
             </div>
 
-            <button className="w-full py-3 rounded-xl bg-primary text-surface font-bold hover:opacity-90 transition">
-              Approve Trip
+            <button
+              onClick={handleApprove}
+              disabled={isLoading}
+              className="w-full py-3 rounded-xl bg-primary text-surface font-bold hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+            >
+              {isLoading ? "Processing..." : "Approve Trip"}
             </button>
           </div>
 
           {/* Reject */}
           <div className="space-y-4 border-l border-outline-variant/20 pl-6">
-            <h4 className="text-lg font-bold text-on-surface">
-              Reject Trip
-            </h4>
+            <h4 className="text-lg font-bold text-on-surface">Reject Trip</h4>
 
             <div>
               <label className="text-[10px] font-bold uppercase tracking-widest text-secondary mb-2 block">
@@ -44,13 +80,19 @@ export default function ReviewDecision() {
 
               <textarea
                 rows={3}
+                value={reason}
+                onChange={(e) => setReason(e.target.value)}
                 placeholder="State clearly why the trip was rejected..."
                 className="w-full rounded-xl border border-outline-variant/30 bg-surface px-3 py-2 text-sm outline-none resize-none text-on-surface"
               />
             </div>
 
-            <button className="w-full py-3 rounded-xl bg-error text-surface font-bold hover:opacity-90 transition">
-              Reject Trip
+            <button
+              onClick={handleReject}
+              disabled={isLoading}
+              className="w-full py-3 rounded-xl bg-error text-surface font-bold hover:opacity-90 transition disabled:opacity-60 disabled:cursor-not-allowed cursor-pointer"
+            >
+              {isLoading ? "Processing..." : "Reject Trip"}
             </button>
           </div>
         </div>

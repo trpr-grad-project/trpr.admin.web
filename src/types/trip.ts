@@ -150,7 +150,15 @@ export interface TripDetailsResponse {
 
   tripVisibility: number;
 
-  status: number;
+  status:
+  | "UnderReview"
+  | "Published"
+  | "Bidding"
+  | "Ready"
+  | "Started"
+  | "Finished"
+  | "Rejected"
+  | "Canceled";
 
   publishMode: number;
 
