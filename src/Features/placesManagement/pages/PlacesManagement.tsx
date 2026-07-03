@@ -128,17 +128,16 @@ export default function PlacesManagement() {
       {isLoading && places.length === 0 && <PlacesLoading />}
 
       {isError && (
-        <div className="flex items-center justify-center py-20 text-error">
-          Something went wrong. Please try again.
-        </div>
+        <section className="bg-surface-container-lowest rounded-xl shadow-2xl shadow-secondary/5 border border-outline-variant/20">
+          <div className="flex items-center justify-center py-20 text-error">
+            Something went wrong. Please try again.
+          </div>
+        </section>
       )}
 
       {!isLoading && !isError && (
         <>
-          <PlacesList
-            places={places}
-            onEdit={handleEdit}
-          />
+          <PlacesList places={places} onEdit={handleEdit} />
 
           <PlacesCursor
             hasNextPage={data?.hasNextPage ?? false}
