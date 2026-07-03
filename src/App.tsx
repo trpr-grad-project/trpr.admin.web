@@ -13,6 +13,7 @@ import SupportManagement from './Features/supportManagement/pages/SupportManagem
 import SupportRequest from './Features/supportManagement/pages/SupportRequest';
 import TripsManagement from './Features/trips/pages/TripsManagement';
 import TripDetails from './Features/trips/pages/TripDetails';
+import CompaniesManagement from './Features/companiesManagement/pages/CompaniesManagement';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
             <Route path="requests" element={<UpgradeRequests />} />
             <Route path="trips" element={<TripsManagement />} />
             <Route path="places" element={<PlacesManagement />} />
+            <Route path="companies" element={<CompaniesManagement />} />
             <Route path="users" element={<UsersManagement/>} />
             <Route path="support" element={<SupportManagement />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />

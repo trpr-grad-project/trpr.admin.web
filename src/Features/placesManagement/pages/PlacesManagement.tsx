@@ -98,7 +98,7 @@ export default function PlacesManagement() {
         </button>
       </header>
 
-      <div className="mb-10">
+      <div className="mb-6">
         <PlaceFilters
           title={title}
           governorateId={governorateId}

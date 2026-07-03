@@ -169,7 +169,7 @@ export default function TripsManagement() {
         </p>
       </header>
 
-      <div className="mb-10">
+      <div className="mb-6">
         <TripFilters
           filters={filters}
           themes={tripFormData?.themes ?? []}
