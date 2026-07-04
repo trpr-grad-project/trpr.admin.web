@@ -1,13 +1,18 @@
+import { useState } from "react";
 import { MapPinPlus } from "lucide-react";
+
 import CompaniesFilters from "../components/CompaniesFilters";
 import CompaniesTable from "../components/CompaniesTable";
+import AddCompanyModal from "../components/AddCompanyModal";
 
 export default function CompaniesManagement() {
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
   return (
     <section className="flex-1 flex flex-col">
       <header className="mb-10 flex justify-between items-center">
         <div>
-          <h2 className="text-on-surface mb-2 text-[40px] font-bold font-[Noto_Serif]">
+          <h2 className="text-on-surface mb-2 text-[40px] font-bold font-['Noto_Serif']">
             Companies Management
           </h2>
 
@@ -17,7 +22,10 @@ export default function CompaniesManagement() {
           </p>
         </div>
 
-        <button className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-primary text-on-primary font-bold text-lg shadow-lg shadow-primary/10 hover:shadow-primary/20 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer">
+        <button
+          onClick={() => setIsAddModalOpen(true)}
+          className="flex items-center gap-3 px-6 py-3.5 rounded-xl bg-primary text-on-primary font-bold text-lg shadow-lg shadow-primary/10 hover:shadow-primary/20 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+        >
           <MapPinPlus className="h-7 w-7" />
           <span>Add Company</span>
         </button>
@@ -32,9 +40,14 @@ export default function CompaniesManagement() {
         <CompaniesTable />
 
         <div className="px-8 py-6 bg-surface-container-low rounded-b-xl">
-          {/* pagination */}
+          {/* Pagination */}
         </div>
       </section>
+
+      <AddCompanyModal
+        isOpen={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+      />
     </section>
   );
 }
