@@ -1,3 +1,4 @@
+import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { MapPinPlus } from "lucide-react";
 
@@ -5,8 +6,67 @@ import CompaniesFilters from "../components/CompaniesFilters";
 import CompaniesTable from "../components/CompaniesTable";
 import AddCompanyModal from "../components/AddCompanyModal";
 
+import Pagination from "../../../Components/UI/Pagination";
+
+import { useGetCompaniesQuery } from "../../../store/api/companiesApi";
+
 export default function CompaniesManagement() {
+  const [searchParams, setSearchParams] = useSearchParams();
+
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+
+  const currentPage = Number(searchParams.get("page")) || 1;
+  const pageSize = Number(searchParams.get("pageSize")) || 10;
+
+  const identifier = searchParams.get("identifier") || "";
+  const companyName = searchParams.get("companyName") || "";
+
+  const filters = {
+    identifier,
+    companyName,
+  };
+
+  const { data, isLoading, isError } = useGetCompaniesQuery({
+    page: currentPage,
+    pageSize,
+
+    identifier: identifier || undefined,
+    companyName: companyName || undefined,
+  });
+
+  function handleFilterChange(key: string, value: string) {
+    const params = {
+      page: "1",
+      pageSize: String(pageSize),
+
+      identifier,
+      companyName,
+    };
+
+    params[key as keyof typeof params] = value;
+
+    setSearchParams(params);
+  }
+
+  function handlePageChange(page: number) {
+    setSearchParams({
+      page: String(page),
+      pageSize: String(pageSize),
+
+      identifier,
+      companyName,
+    });
+  }
+
+  function handlePageSizeChange(size: number) {
+    setSearchParams({
+      page: "1",
+      pageSize: String(size),
+
+      identifier,
+      companyName,
+    });
+  }
 
   return (
     <section className="flex-1 flex flex-col">
@@ -31,17 +91,39 @@ export default function CompaniesManagement() {
         </button>
       </header>
 
-      {/* Filters */}
       <section className="mb-6 bg-surface-container-low p-4 rounded-xl border border-outline-variant/20 shadow-2xl shadow-secondary/5">
-        <CompaniesFilters />
+        <CompaniesFilters
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
       </section>
 
       <section className="bg-surface-container-lowest rounded-xl shadow-2xl shadow-secondary/5 border border-outline-variant/20 overflow-hidden">
-        <CompaniesTable />
+        {isLoading && (
+          <div className="flex justify-center py-20">Loading...</div>
+        )}
 
-        <div className="px-8 py-6 bg-surface-container-low rounded-b-xl">
-          {/* Pagination */}
-        </div>
+        {isError && (
+          <div className="flex justify-center py-20 text-error">
+            Something went wrong.
+          </div>
+        )}
+
+        {data && (
+          <>
+            <CompaniesTable companies={data.items} />
+
+            <div className="px-8 py-6 bg-surface-container-low rounded-b-xl">
+              <Pagination
+                page={data.page}
+                pageSize={pageSize}
+                totalCount={data.totalItems}
+                onPageChange={handlePageChange}
+                onPageSizeChange={handlePageSizeChange}
+              />
+            </div>
+          </>
+        )}
       </section>
 
       <AddCompanyModal
