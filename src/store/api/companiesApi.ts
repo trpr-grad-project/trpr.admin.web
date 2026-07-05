@@ -62,6 +62,16 @@ export const companiesApi = createApi({
       providesTags: ["Company"],
     }),
 
+    getCompanyById: builder.query<Company, string>({
+      query: (id) => ({
+        url: `/company/${id}`,
+      }),
+
+      providesTags: (_result, _error, id) => [
+        { type: "Company", id },
+      ],
+    }),
+
     uploadCompanyLogo: builder.mutation<string[], File>({
       query: (file) => {
         const formData = new FormData();
@@ -90,6 +100,7 @@ export const companiesApi = createApi({
 
 export const {
   useGetCompaniesQuery,
+  useGetCompanyByIdQuery,
   useUploadCompanyLogoMutation,
   useCreateCompanyMutation,
 } = companiesApi;

@@ -14,7 +14,7 @@ import SupportRequest from './Features/supportManagement/pages/SupportRequest';
 import TripsManagement from './Features/trips/pages/TripsManagement';
 import TripDetails from './Features/trips/pages/TripDetails';
 import CompaniesManagement from './Features/companiesManagement/pages/CompaniesManagement';
-// import CompanyDetails from './Features/companiesManagement/pages/CompanyDetails';
+import CompanyDetails from './Features/companiesManagement/pages/CompanyDetails';
 
 function App() {
   return (
@@ -33,7 +33,7 @@ function App() {
             <Route path="support" element={<SupportManagement />} />
             <Route path="requests/:requestId" element={<RequestDetails />} />
             <Route path="trips/:tripId" element={<TripDetails/>} />
-            {/* <Route path="companies/:companyId" element={<CompanyDetails/>} /> */}
+            <Route path="companies/:companyId" element={<CompanyDetails/>} />
             <Route path="users/:userId" element={<UserDetails />} />
             <Route path="support/:supportId" element={<SupportRequest/>} />
           </Route>

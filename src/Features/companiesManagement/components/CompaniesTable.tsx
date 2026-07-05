@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import type { Company } from "../../../types/company";
 
 interface Props {
@@ -6,6 +6,8 @@ interface Props {
 }
 
 export default function CompaniesTable({ companies }: Props) {
+  const [searchParams] = useSearchParams();
+
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-left border-collapse">
@@ -62,8 +64,10 @@ export default function CompaniesTable({ companies }: Props) {
 
               <td className="px-8 py-6 text-right">
                 <Link
-                  to={`/companies/${company.id}`}
-                  className="inline-block px-4 py-2 text-primary-container font-bold border border-primary-container/30 rounded-lg hover:bg-primary-container hover:text-surface transition-all"
+                  to={`/companies/${company.id}?from=${encodeURIComponent(
+                    searchParams.toString(),
+                  )}`}
+                  className="inline-block px-4 py-2 text-primary-container font-bold border border-primary-container/30 rounded-lg hover:bg-primary-container hover:text-surface transition-all cursor-pointer"
                 >
                   View
                 </Link>

@@ -1,39 +1,76 @@
 import { ArrowLeft } from "lucide-react";
-import CompanyGuidesSection from "../components/CompanyGuidesSection";
+import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+
+import { useGetCompanyByIdQuery } from "../../../store/api/companiesApi";
+
+// import CompanyGuidesSection from "../components/CompanyGuidesSection";
 import CompanyDescription from "../components/CompanyDescription";
-import CompanyActionsCard from "../components/CompanyActionsCard";
+// import CompanyActionsCard from "../components/CompanyActionsCard";
 import CompanyInfoCard from "../components/CompanyInfoCard";
 import CompanyHeader from "../components/CompanyHeader";
 
 export default function CompanyDetails() {
+  const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const { companyId } = useParams();
+
+  const {
+    data: company,
+    isLoading,
+    isError,
+  } = useGetCompanyByIdQuery(companyId!);
+
+  if (isLoading) {
+    return (
+      <section className="flex-1 flex items-center justify-center">
+        <p className="text-secondary text-lg">Loading company...</p>
+      </section>
+    );
+  }
+
+  if (isError || !company) {
+    return (
+      <section className="flex-1 flex items-center justify-center">
+        <p className="text-error text-lg">Failed to load company.</p>
+      </section>
+    );
+  }
+
   return (
     <section className="flex-1">
       {/* Header */}
       <section className="mb-12">
         <div className="flex items-center gap-6">
-          <button className="w-9 h-9 flex items-center justify-center rounded-full border border-outline-variant/70 hover:bg-surface-container transition-colors cursor-pointer">
+          <button
+            onClick={() => {
+              const from = searchParams.get("from");
+
+              if (from) {
+                navigate(`/companies?${decodeURIComponent(from)}`);
+              } else {
+                navigate("/companies");
+              }
+            }}
+            className="w-9 h-9 flex items-center justify-center rounded-full border border-outline-variant/70 hover:bg-surface-container transition-colors cursor-pointer"
+          >
             <ArrowLeft className="w-4 h-4 text-primary" />
           </button>
 
-          <CompanyHeader />
+          <CompanyHeader company={company} />
         </div>
       </section>
 
       <div className="space-y-8">
-        {/* Top Section */}
         <div className="grid grid-cols-12 gap-8">
-          {/* Company Information */}
-          <CompanyInfoCard />
-
-          {/* Quick Actions */}
-          <CompanyActionsCard />
+          <CompanyInfoCard company={company} />
+          
+          {/* <CompanyActionsCard /> */}
         </div>
 
-        {/* Description */}
-        <CompanyDescription />
+        <CompanyDescription description={company.description} />
       </div>
 
-      <CompanyGuidesSection />
+      {/* <CompanyGuidesSection guides={company.guides} /> */}
     </section>
   );
 }
