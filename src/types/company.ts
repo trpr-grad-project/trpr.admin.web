@@ -35,3 +35,15 @@ export interface CompaniesResponse {
   totalItems: number;
   totalPages: number;
 }
+
+export interface CreateCompanyDto {
+  identifier: string;
+
+  name: string;
+
+  description: string;
+
+  logo: string;
+
+  password: string | null;
+}

@@ -1,5 +1,9 @@
 import { useState } from "react";
 import { X, Upload, Eye, EyeOff } from "lucide-react";
+import {
+  useCreateCompanyMutation,
+  useUploadCompanyLogoMutation,
+} from "../../../store/api/companiesApi";
 
 interface Props {
   isOpen: boolean;
@@ -7,18 +11,73 @@ interface Props {
 }
 
 export default function CompanyModal({ isOpen, onClose }: Props) {
+  const [uploadCompanyLogo] = useUploadCompanyLogoMutation();
+  const [createCompany] = useCreateCompanyMutation();
+
   const [logoPreview, setLogoPreview] = useState("");
+  const [logoFile, setLogoFile] = useState<File | null>(null);
+
   const [showPassword, setShowPassword] = useState(false);
+  const [isSaving, setIsSaving] = useState(false);
+
+  const [form, setForm] = useState({
+    identifier: "",
+    name: "",
+    description: "",
+    password: "",
+  });
 
   if (!isOpen) return null;
+
+  const resetForm = () => {
+    setForm({
+      identifier: "",
+      name: "",
+      description: "",
+      password: "",
+    });
+
+    setLogoPreview("");
+    setLogoFile(null);
+    setShowPassword(false);
+  };
 
   const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
 
-    const preview = URL.createObjectURL(file);
-    setLogoPreview(preview);
+    setLogoFile(file);
+    setLogoPreview(URL.createObjectURL(file));
+  };
+
+  const handleSave = async () => {
+    try {
+      setIsSaving(true);
+
+      let logo = "";
+
+      if (logoFile) {
+        const uploadedImages = await uploadCompanyLogo(logoFile).unwrap();
+
+        logo = uploadedImages[0];
+      }
+
+      await createCompany({
+        identifier: form.identifier,
+        name: form.name,
+        description: form.description,
+        logo,
+        password: form.password || null,
+      }).unwrap();
+
+      resetForm();
+      onClose();
+    } catch (error) {
+      console.error(error);
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   return (
@@ -31,7 +90,10 @@ export default function CompanyModal({ isOpen, onClose }: Props) {
           </h3>
 
           <button
-            onClick={onClose}
+            onClick={() => {
+              resetForm();
+              onClose();
+            }}
             className="text-secondary rounded-full w-9 h-9 flex items-center justify-center hover:bg-secondary-container transition cursor-pointer"
           >
             <X />
@@ -40,7 +102,6 @@ export default function CompanyModal({ isOpen, onClose }: Props) {
 
         {/* Body */}
         <div className="flex-1 overflow-y-auto p-8 space-y-8">
-          {/* Logo */}
           <div>
             <label className="block text-xs font-bold uppercase tracking-widest text-secondary mb-3">
               Company Logo
@@ -80,35 +141,37 @@ export default function CompanyModal({ isOpen, onClose }: Props) {
             </label>
           </div>
 
-          {/* Inputs */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {/* Identifier */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">
                 Identifier
               </label>
 
               <input
+                value={form.identifier}
+                onChange={(e) =>
+                  setForm({ ...form, identifier: e.target.value })
+                }
                 type="text"
                 placeholder="Enter company identifier"
                 className="w-full rounded-xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none focus:border-primary"
               />
             </div>
 
-            {/* Name */}
             <div>
               <label className="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">
                 Company Name
               </label>
 
               <input
+                value={form.name}
+                onChange={(e) => setForm({ ...form, name: e.target.value })}
                 type="text"
                 placeholder="Enter company name"
                 className="w-full rounded-xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none focus:border-primary"
               />
             </div>
 
-            {/* Password */}
             <div className="md:col-span-2">
               <label className="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">
                 Password
@@ -116,6 +179,10 @@ export default function CompanyModal({ isOpen, onClose }: Props) {
 
               <div className="relative">
                 <input
+                  value={form.password}
+                  onChange={(e) =>
+                    setForm({ ...form, password: e.target.value })
+                  }
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter company password"
                   className="w-full rounded-xl border border-outline-variant/30 bg-surface px-4 py-3 pr-12 text-sm text-on-surface outline-none focus:border-primary"
@@ -135,13 +202,16 @@ export default function CompanyModal({ isOpen, onClose }: Props) {
               </div>
             </div>
 
-            {/* Description */}
             <div className="md:col-span-2">
               <label className="block text-xs font-bold uppercase tracking-widest text-secondary mb-2">
                 Description
               </label>
 
               <textarea
+                value={form.description}
+                onChange={(e) =>
+                  setForm({ ...form, description: e.target.value })
+                }
                 rows={5}
                 placeholder="Write company description..."
                 className="w-full rounded-xl border border-outline-variant/30 bg-surface px-4 py-3 text-sm text-on-surface outline-none resize-none focus:border-primary"
@@ -154,14 +224,21 @@ export default function CompanyModal({ isOpen, onClose }: Props) {
         <div className="px-8 py-6 border-t border-outline-variant/20 bg-surface-container-low">
           <div className="max-w-lg mx-auto flex gap-12">
             <button
-              onClick={onClose}
+              onClick={() => {
+                resetForm();
+                onClose();
+              }}
               className="flex-1 border border-outline-variant/30 text-secondary py-3.5 px-6 rounded-xl font-semibold hover:bg-surface-container transition-all cursor-pointer"
             >
               Cancel
             </button>
 
-            <button className="flex-1 bg-primary text-on-primary py-3.5 px-6 rounded-xl font-bold text-base hover:opacity-90 transition-all cursor-pointer">
-              Save Company
+            <button
+              onClick={handleSave}
+              disabled={isSaving}
+              className="flex-1 bg-primary text-on-primary py-3.5 px-6 rounded-xl font-bold text-base hover:opacity-90 disabled:opacity-50 transition-all cursor-pointer"
+            >
+              {isSaving ? "Saving..." : "Save Company"}
             </button>
           </div>
         </div>
