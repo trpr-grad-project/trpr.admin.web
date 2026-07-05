@@ -6,7 +6,8 @@ import {
   UsersRound,
   MapPinned,
   MessageCircleMore,
-  Route
+  Route,
+  Building2,
 } from "lucide-react";
 import { useAuth } from "../../hooks/useAuth";
 
@@ -19,11 +20,11 @@ export default function Sidebar() {
       {/* Logo */}
       <div
         className="px-8 mb-12 cursor-pointer"
-        onClick={() => navigate('/requests')}
+        onClick={() => navigate("/requests")}
       >
         <div className="flex items-center gap-3 mb-2">
           <div className="w-10 h-10 bg-primary-container rounded-lg flex items-center justify-center text-on-primary-container shadow-md">
-            <Landmark/>
+            <Landmark />
           </div>
           <h2 className="text-xl text-primary-container tracking-[0.2em] font-['Noto_Serif'] font-black">
             TOURA ADMIN
@@ -38,8 +39,8 @@ export default function Sidebar() {
           className={({ isActive }) =>
             `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
               isActive
-                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
-                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+                ? "bg-surface-container text-primary-container border-r-4 border-primary-container"
+                : "text-secondary hover:text-primary-container hover:bg-surface-container"
             }`
           }
         >
@@ -54,15 +55,13 @@ export default function Sidebar() {
           className={({ isActive }) =>
             `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
               isActive
-                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
-                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+                ? "bg-surface-container text-primary-container border-r-4 border-primary-container"
+                : "text-secondary hover:text-primary-container hover:bg-surface-container"
             }`
           }
         >
           <Route />
-          <span className="font-['Noto_Serif'] font-semibold">
-            Trips
-          </span>
+          <span className="font-['Noto_Serif'] font-semibold">Trips</span>
         </NavLink>
 
         <NavLink
@@ -70,15 +69,27 @@ export default function Sidebar() {
           className={({ isActive }) =>
             `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
               isActive
-                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
-                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+                ? "bg-surface-container text-primary-container border-r-4 border-primary-container"
+                : "text-secondary hover:text-primary-container hover:bg-surface-container"
             }`
           }
         >
           <MapPinned />
-          <span className="font-['Noto_Serif'] font-semibold">
-            Places 
-          </span>
+          <span className="font-['Noto_Serif'] font-semibold">Places</span>
+        </NavLink>
+
+        <NavLink
+          to="/companies"
+          className={({ isActive }) =>
+            `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
+              isActive
+                ? "bg-surface-container text-primary-container border-r-4 border-primary-container"
+                : "text-secondary hover:text-primary-container hover:bg-surface-container"
+            }`
+          }
+        >
+          <Building2 />
+          <span className="font-['Noto_Serif'] font-semibold">Companies</span>
         </NavLink>
 
         <NavLink
@@ -86,15 +97,13 @@ export default function Sidebar() {
           className={({ isActive }) =>
             `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
               isActive
-                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
-                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+                ? "bg-surface-container text-primary-container border-r-4 border-primary-container"
+                : "text-secondary hover:text-primary-container hover:bg-surface-container"
             }`
           }
         >
           <UsersRound />
-          <span className="font-['Noto_Serif'] font-semibold">
-            Users 
-          </span>
+          <span className="font-['Noto_Serif'] font-semibold">Users</span>
         </NavLink>
 
         <NavLink
@@ -102,15 +111,13 @@ export default function Sidebar() {
           className={({ isActive }) =>
             `px-6 py-4 flex items-center gap-3 transition-all duration-300 ${
               isActive
-                ? 'bg-surface-container text-primary-container border-r-4 border-primary-container'
-                : 'text-secondary hover:text-primary-container hover:bg-surface-container'
+                ? "bg-surface-container text-primary-container border-r-4 border-primary-container"
+                : "text-secondary hover:text-primary-container hover:bg-surface-container"
             }`
           }
         >
           <MessageCircleMore />
-          <span className="font-['Noto_Serif'] font-semibold">
-            Support
-          </span>
+          <span className="font-['Noto_Serif'] font-semibold">Support</span>
         </NavLink>
       </nav>
 

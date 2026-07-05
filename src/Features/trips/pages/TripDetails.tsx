@@ -10,30 +10,30 @@ import ReviewDecision from "../components/ReviewDecision";
 import RejectionReason from "../components/RejectionReason";
 import TripOverview from "../components/TripOverview";
 
-function getStatusBadgeStyles(status: number): string {
+function getStatusBadgeStyles(status: string): string {
   switch (status) {
-    case 1: // UnderReview
-      return "bg-warning-container/20 text-warning border-warning-container/40";
+    case "UnderReview":
+      return "bg-tertiary-container/20 text-tertiary border-tertiary-container/40";
 
-    case 2: // Published
+    case "Published":
       return "bg-primary-container/20 text-primary border-primary-container/40";
 
-    case 3: // Bidding
-      return "bg-tertiary/10 text-tertiary border-tertiary-container/30";
+    case "Bidding":
+      return "bg-secondary-container/20 text-secondary border-secondary-container/40";
 
-    case 4: // Ready
+    case "Ready":
       return "bg-secondary-container/30 text-secondary border-secondary-container/40";
 
-    case 5: // Started
+    case "Started":
       return "bg-success-container/20 text-success border-success-container/30";
 
-    case 6: // Finished
+    case "Finished":
       return "bg-success/10 text-success border-success/30";
 
-    case 7: // Rejected
+    case "Rejected":
       return "bg-error-container/20 text-error border-error-container/40";
 
-    case 8: // Canceled
+    case "Canceled":
       return "bg-surface-container-high text-on-surface-variant border-outline-variant/40";
 
     default:
@@ -41,20 +41,20 @@ function getStatusBadgeStyles(status: number): string {
   }
 }
 
-function getStatusDot(status: number): string {
+function getStatusDot(status: string): string {
   switch (status) {
-    case 5:
-    case 6:
+    case "Started":
+    case "Finished":
       return "bg-success";
 
-    case 7:
+    case "Rejected":
       return "bg-error";
 
-    case 1:
-      return "bg-warning";
+    case "UnderReview":
+      return "bg-tertiary";
 
     default:
-      return "bg-tertiary";
+      return "bg-primary";
   }
 }
 
@@ -79,9 +79,8 @@ export default function TripDetails() {
       </div>
     );
   }
-
-  console.log(trip)
-
+  console.log(trip.status, typeof trip.status);
+  console.log(JSON.stringify(trip.status));
   return (
     <section className="flex-1 relative">
       <header className="flex justify-between items-end">
@@ -108,7 +107,6 @@ export default function TripDetails() {
           </div>
         </div>
 
-        {/* STATUS BADGE */}
         <div className="flex gap-4">
           <span
             className={`px-4 py-2 rounded-lg text-xs font-bold uppercase tracking-wider flex items-center gap-2 border ${getStatusBadgeStyles(
@@ -120,6 +118,7 @@ export default function TripDetails() {
                 trip.status,
               )}`}
             />
+
             {trip.status}
           </span>
         </div>
@@ -127,17 +126,19 @@ export default function TripDetails() {
 
       <TripOverview trip={trip} />
 
-      <TripCreator trip={trip}/>
+      <TripCreator trip={trip} />
 
-      <TripItinerary trip={trip}/>
+      <TripItinerary trip={trip} />
 
-      <ParticipantsSection trip={trip}/>
+      <ParticipantsSection trip={trip} />
 
-      <GuideBiddings trip={trip}/>
+      <GuideBiddings trip={trip} />
 
-      <ReviewDecision />
+      {trip.status === "UnderReview" && <ReviewDecision tripId={trip.id} />}
 
-      <RejectionReason />
+      {trip.status === "Rejected" && (
+        <RejectionReason rejectionReason={trip.rejectionReason} />
+      )}
     </section>
   );
 }

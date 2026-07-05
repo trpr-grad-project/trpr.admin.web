@@ -1,6 +1,12 @@
 import { CircleAlert } from "lucide-react";
 
-export default function RejectionReason() {
+interface Props {
+  rejectionReason: string | null;
+}
+
+export default function RejectionReason({
+  rejectionReason,
+}: Props) {
   return (
     <section className="mt-8 bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-xl shadow-secondary/5 p-8">
       <div className="mb-6">
@@ -30,10 +36,9 @@ export default function RejectionReason() {
           </div>
         </div>
 
-        {/* Reason box */}
         <div className="rounded-xl bg-surface border border-outline-variant/20 p-4">
           <p className="text-on-surface text-sm leading-7">
-            No rejection reason provided.
+            {rejectionReason || "No rejection reason provided."}
           </p>
         </div>
       </div>
