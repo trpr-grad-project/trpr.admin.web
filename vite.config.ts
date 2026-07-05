@@ -8,6 +8,10 @@ export default defineConfig({
     tailwindcss(),
   ],
   server: {
+    host: true,
+    allowedHosts: [
+      "srv1807577.hstgr.cloud"
+    ],
     proxy: {
       '/api/v1': {
         target: 'http://trpr.backend:8080',
