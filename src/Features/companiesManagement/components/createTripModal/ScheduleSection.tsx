@@ -1,3 +1,6 @@
+import { useRef } from "react";
+import { Calendar } from "lucide-react";
+
 import type { CreateCompanyTripDto } from "../../../../types/company";
 import type { FieldErrors } from "../CreateTripModal";
 
@@ -24,6 +27,9 @@ function toLocalInputValue(utcIso: string) {
 }
 
 export default function ScheduleSection({ trip, setTrip, errors }: Props) {
+  const startDateRef = useRef<HTMLInputElement | null>(null);
+  const endDateRef = useRef<HTMLInputElement | null>(null);
+
   return (
     <section className="space-y-6">
       <h3 className="text-xl font-bold font-['Noto_Serif'] text-on-surface">
@@ -37,19 +43,31 @@ export default function ScheduleSection({ trip, setTrip, errors }: Props) {
             Start Date
           </label>
 
-          <input
-            type="datetime-local"
-            value={toLocalInputValue(trip.startDate)}
-            onChange={(e) =>
-              setTrip((prev) => ({
-                ...prev,
-                startDate: toUtcIso(e.target.value),
-              }))
-            }
-            className={`w-full rounded-xl border text-on-surface bg-surface-container-low px-4 py-3 outline-none focus:border-primary ${
-              errors.startDate ? "border-error" : "border-outline-variant/30"
-            }`}
-          />
+          <div className="relative">
+            <input
+              ref={startDateRef}
+              type="datetime-local"
+              value={toLocalInputValue(trip.startDate)}
+              onChange={(e) =>
+                setTrip((prev) => ({
+                  ...prev,
+                  startDate: toUtcIso(e.target.value),
+                }))
+              }
+              className={`w-full rounded-xl border text-on-surface bg-surface-container-low px-4 py-3 pr-11 outline-none focus:border-primary [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:w-11 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer ${
+                errors.startDate ? "border-error" : "border-outline-variant/30"
+              }`}
+            />
+
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={() => startDateRef.current?.showPicker()}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none"
+            >
+              <Calendar size={18} />
+            </button>
+          </div>
 
           {errors.startDate && (
             <p className="text-xs text-error mt-1">{errors.startDate}</p>
@@ -62,19 +80,31 @@ export default function ScheduleSection({ trip, setTrip, errors }: Props) {
             End Date
           </label>
 
-          <input
-            type="datetime-local"
-            value={toLocalInputValue(trip.endDate)}
-            onChange={(e) =>
-              setTrip((prev) => ({
-                ...prev,
-                endDate: toUtcIso(e.target.value),
-              }))
-            }
-            className={`w-full rounded-xl border text-on-surface bg-surface-container-low px-4 py-3 outline-none focus:border-primary ${
-              errors.endDate ? "border-error" : "border-outline-variant/30"
-            }`}
-          />
+          <div className="relative">
+            <input
+              ref={endDateRef}
+              type="datetime-local"
+              value={toLocalInputValue(trip.endDate)}
+              onChange={(e) =>
+                setTrip((prev) => ({
+                  ...prev,
+                  endDate: toUtcIso(e.target.value),
+                }))
+              }
+              className={`w-full rounded-xl border text-on-surface bg-surface-container-low px-4 py-3 pr-11 outline-none focus:border-primary [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:w-11 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer ${
+                errors.endDate ? "border-error" : "border-outline-variant/30"
+              }`}
+            />
+
+            <button
+              type="button"
+              tabIndex={-1}
+              onClick={() => endDateRef.current?.showPicker()}
+              className="absolute right-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none"
+            >
+              <Calendar size={18} />
+            </button>
+          </div>
 
           {errors.endDate && (
             <p className="text-xs text-error mt-1">{errors.endDate}</p>

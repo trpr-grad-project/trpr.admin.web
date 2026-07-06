@@ -81,7 +81,7 @@ export default function PlaceSelector({ selectedPlaceIds, onChange }: Props) {
     onChange(selectedPlaceIds.filter((placeId) => placeId !== id));
   }
 
-  
+
   return (
     <div className="space-y-5">
       <div className="flex items-center justify-between">
@@ -123,7 +123,7 @@ export default function PlaceSelector({ selectedPlaceIds, onChange }: Props) {
 
       <SelectedPlaces places={selectedPlaces} onRemove={removePlace} />
 
-      <div className="rounded-xl border border-outline-variant/20 overflow-hidden">
+      <div className="rounded-xl border border-outline-variant/20 overflow-hidden bg-surface">
         <div className="max-h-64 overflow-y-auto divide-y divide-outline-variant/10">
           {isLoading ? (
             <div className="p-6 text-center text-secondary">Loading...</div>
@@ -149,9 +149,9 @@ export default function PlaceSelector({ selectedPlaceIds, onChange }: Props) {
                     }`}
                   >
                     <div>
-                      <p className="font-semibold">{place.title}</p>
+                      <p className="font-semibold text-on-surface">{place.title}</p>
 
-                      <p className="text-xs opacity-70">
+                      <p className="text-xs opacity-70 text-on-surface">
                         {place.category.name} • {place.governorate.name}
                       </p>
                     </div>

@@ -1,4 +1,5 @@
-import { Plus, Trash2 } from "lucide-react";
+import { useRef } from "react";
+import { Plus, Trash2, Calendar } from "lucide-react";
 import type { CreateCompanyTripDto } from "../../../../types/company";
 import type { SegmentErrors } from "../CreateTripModal";
 import PlaceSelector from "./PlaceSelector/PlaceSelector";
@@ -10,17 +11,11 @@ interface Props {
   segmentErrors: SegmentErrors[];
 }
 
-// Converts a <input type="datetime-local"> value (local time, no timezone info)
-// into a proper UTC ISO string for the API.
 function toUtcIso(value: string) {
   if (!value) return "";
   return new Date(value).toISOString();
 }
 
-// Converts a UTC ISO string (from the API/state) back into the local
-// "YYYY-MM-DDTHH:mm" format that <input type="datetime-local"> expects.
-// Without this, the input displays the raw UTC hour instead of the
-// user's local hour, so the displayed time silently shifts on reopen.
 function toLocalInputValue(utcIso: string) {
   if (!utcIso) return "";
   const date = new Date(utcIso);
@@ -34,6 +29,8 @@ export default function TripDaysSection({
   generalError,
   segmentErrors,
 }: Props) {
+  const dayDateRefs = useRef<Record<number, HTMLInputElement | null>>({});
+
   const addDay = () => {
     setTrip((prev) => ({
       ...prev,
@@ -115,26 +112,40 @@ export default function TripDaysSection({
                     Day Date
                   </label>
 
-                  <input
-                    type="datetime-local"
-                    value={toLocalInputValue(segment.dayDate)}
-                    onChange={(e) =>
-                      setTrip((prev) => ({
-                        ...prev,
-                        segments: prev.segments.map((s, i) =>
-                          i === index
-                            ? {
-                                ...s,
-                                dayDate: toUtcIso(e.target.value),
-                              }
-                            : s
-                        ),
-                      }))
-                    }
-                    className={`w-full rounded-xl border text-on-surface bg-surface px-4 py-3 outline-none focus:border-primary ${
-                      dayErrors.dayDate ? "border-error" : "border-outline-variant/30"
-                    }`}
-                  />
+                  <div className="relative">
+                    <input
+                      ref={(el) => {
+                        dayDateRefs.current[index] = el;
+                      }}
+                      type="datetime-local"
+                      value={toLocalInputValue(segment.dayDate)}
+                      onChange={(e) =>
+                        setTrip((prev) => ({
+                          ...prev,
+                          segments: prev.segments.map((s, i) =>
+                            i === index
+                              ? {
+                                  ...s,
+                                  dayDate: toUtcIso(e.target.value),
+                                }
+                              : s
+                          ),
+                        }))
+                      }
+                      className={`w-full rounded-xl border text-on-surface bg-surface px-4 py-3 pr-11 outline-none focus:border-primary [&::-webkit-calendar-picker-indicator]:opacity-0 [&::-webkit-calendar-picker-indicator]:absolute [&::-webkit-calendar-picker-indicator]:right-0 [&::-webkit-calendar-picker-indicator]:top-0 [&::-webkit-calendar-picker-indicator]:w-11 [&::-webkit-calendar-picker-indicator]:h-full [&::-webkit-calendar-picker-indicator]:cursor-pointer ${
+                        dayErrors.dayDate ? "border-error" : "border-outline-variant/30"
+                      }`}
+                    />
+
+                    <button
+                      type="button"
+                      tabIndex={-1}
+                      onClick={() => dayDateRefs.current[index]?.showPicker()}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-primary pointer-events-none"
+                    >
+                      <Calendar size={18} />
+                    </button>
+                  </div>
 
                   {dayErrors.dayDate && (
                     <p className="text-xs text-error mt-1">{dayErrors.dayDate}</p>
