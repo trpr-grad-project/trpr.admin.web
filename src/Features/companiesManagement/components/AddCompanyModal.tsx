@@ -2,7 +2,7 @@ import { useState } from "react";
 import { X, Upload, Eye, EyeOff } from "lucide-react";
 import {
   useCreateCompanyMutation,
-  useUploadCompanyLogoMutation,
+  useUploadImagesMutation,
 } from "../../../store/api/companiesApi";
 
 interface Props {
@@ -11,7 +11,7 @@ interface Props {
 }
 
 export default function CompanyModal({ isOpen, onClose }: Props) {
-  const [uploadCompanyLogo] = useUploadCompanyLogoMutation();
+  const [uploadImages] = useUploadImagesMutation();
   const [createCompany] = useCreateCompanyMutation();
 
   const [logoPreview, setLogoPreview] = useState("");
@@ -58,7 +58,7 @@ export default function CompanyModal({ isOpen, onClose }: Props) {
       let logo = "";
 
       if (logoFile) {
-        const uploadedImages = await uploadCompanyLogo(logoFile).unwrap();
+        const uploadedImages = await uploadImages(logoFile).unwrap();
 
         logo = uploadedImages[0];
       }

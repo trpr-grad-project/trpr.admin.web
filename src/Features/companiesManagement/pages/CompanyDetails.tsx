@@ -1,5 +1,6 @@
 import { ArrowLeft } from "lucide-react";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
 import { useGetCompanyByIdQuery } from "../../../store/api/companiesApi";
 
@@ -8,11 +9,14 @@ import CompanyDescription from "../components/CompanyDescription";
 import CompanyActionsCard from "../components/CompanyActionsCard";
 import CompanyInfoCard from "../components/CompanyInfoCard";
 import CompanyHeader from "../components/CompanyHeader";
+import CreateTripModal from "../components/CreateTripModal";
 
 export default function CompanyDetails() {
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { companyId } = useParams();
+
+  const [isCreateTripOpen, setIsCreateTripOpen] = useState(false);
 
   const {
     data: company,
@@ -37,40 +41,49 @@ export default function CompanyDetails() {
   }
 
   return (
-    <section className="flex-1">
-      {/* Header */}
-      <section className="mb-12">
-        <div className="flex items-center gap-6">
-          <button
-            onClick={() => {
-              const from = searchParams.get("from");
+    <>
+      <section className="flex-1">
+        {/* Header */}
+        <section className="mb-12">
+          <div className="flex items-center gap-6">
+            <button
+              onClick={() => {
+                const from = searchParams.get("from");
 
-              if (from) {
-                navigate(`/companies?${decodeURIComponent(from)}`);
-              } else {
-                navigate("/companies");
-              }
-            }}
-            className="w-9 h-9 flex items-center justify-center rounded-full border border-outline-variant/70 hover:bg-surface-container transition-colors cursor-pointer"
-          >
-            <ArrowLeft className="w-4 h-4 text-primary" />
-          </button>
+                if (from) {
+                  navigate(`/companies?${decodeURIComponent(from)}`);
+                } else {
+                  navigate("/companies");
+                }
+              }}
+              className="w-9 h-9 flex items-center justify-center rounded-full border border-outline-variant/70 hover:bg-surface-container transition-colors cursor-pointer"
+            >
+              <ArrowLeft className="w-4 h-4 text-primary" />
+            </button>
 
-          <CompanyHeader company={company} />
+            <CompanyHeader company={company} />
+          </div>
+        </section>
+
+        <div className="space-y-8">
+          <div className="grid grid-cols-13 gap-8">
+            <CompanyInfoCard company={company} />
+
+            <CompanyActionsCard
+              onCreateTrip={() => setIsCreateTripOpen(true)}
+            />
+          </div>
+
+          <CompanyDescription description={company.description} />
         </div>
+
+        <CompanyGuidesSection guides={company.guides} />
       </section>
 
-      <div className="space-y-8">
-        <div className="grid grid-cols-13 gap-8">
-          <CompanyInfoCard company={company} />
-          
-          <CompanyActionsCard />
-        </div>
-
-        <CompanyDescription description={company.description} />
-      </div>
-
-      <CompanyGuidesSection guides={company.guides} />
-    </section>
+      <CreateTripModal
+        isOpen={isCreateTripOpen}
+        onClose={() => setIsCreateTripOpen(false)}
+      />
+    </>
   );
 }

@@ -1,4 +1,8 @@
-export default function CompanyActionsCard() {
+interface Props {
+  onCreateTrip: () => void;
+}
+
+export default function CompanyActionsCard({ onCreateTrip }: Props) {
   return (
     <section className="col-span-4">
       <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-2xl shadow-secondary/5 p-8 h-fit">
@@ -11,7 +15,10 @@ export default function CompanyActionsCard() {
             Add Guide
           </button>
 
-          <button className="w-full py-2.5 rounded-xl border border-primary text-primary font-bold bg-surface-container-lowest hover:bg-surface-container-low transition cursor-pointer">
+          <button
+            onClick={onCreateTrip}
+            className="w-full py-2.5 rounded-xl border border-primary text-primary font-bold bg-surface-container-lowest hover:bg-surface-container-low transition cursor-pointer"
+          >
             Create Trip
           </button>
         </div>

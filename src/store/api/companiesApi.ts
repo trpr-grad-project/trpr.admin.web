@@ -4,6 +4,8 @@ import type {
   CompaniesResponse,
   Company,
   CreateCompanyDto,
+  CompanyGuide,
+  CreateCompanyTripDto,
 } from "../../types/company";
 
 interface GetCompaniesParams {
@@ -33,9 +35,13 @@ export const companiesApi = createApi({
       const userId = state.auth.user?.id;
       const userRole = state.auth.user?.role;
 
-      if (token) headers.set("Authorization", `Bearer ${token}`);
+      if (token) {
+        headers.set("Authorization", `Bearer ${token}`);
+      }
 
-      if (userId) headers.set("X-User-Id", userId);
+      if (userId) {
+        headers.set("X-User-Id", userId);
+      }
 
       if (userRole) {
         headers.set("X-User-Role", JSON.stringify([userRole]));
@@ -68,11 +74,20 @@ export const companiesApi = createApi({
       }),
 
       providesTags: (_result, _error, id) => [
-        { type: "Company", id },
+        {
+          type: "Company",
+          id,
+        },
       ],
     }),
 
-    uploadCompanyLogo: builder.mutation<string[], File>({
+    getCompanyGuides: builder.query<CompanyGuide[], void>({
+      query: () => ({
+        url: "/company/guides",
+      }),
+    }),
+
+    uploadImages: builder.mutation<string[], File>({
       query: (file) => {
         const formData = new FormData();
 
@@ -95,12 +110,27 @@ export const companiesApi = createApi({
 
       invalidatesTags: ["Company"],
     }),
+
+    createCompanyTrip: builder.mutation<
+      void,
+      CreateCompanyTripDto
+    >({
+      query: (body) => ({
+        url: "/trip/company",
+        method: "POST",
+        body,
+      }),
+
+      invalidatesTags: ["Company"],
+    }),
   }),
 });
 
 export const {
   useGetCompaniesQuery,
   useGetCompanyByIdQuery,
-  useUploadCompanyLogoMutation,
+  useGetCompanyGuidesQuery,
+  useUploadImagesMutation,
   useCreateCompanyMutation,
+  useCreateCompanyTripMutation,
 } = companiesApi;
