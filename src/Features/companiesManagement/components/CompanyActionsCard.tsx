@@ -1,9 +1,9 @@
 export default function CompanyActionsCard() {
   return (
-    <section className="col-span-3">
+    <section className="col-span-4">
       <div className="bg-surface-container-lowest rounded-2xl border border-outline-variant/20 shadow-2xl shadow-secondary/5 p-8 h-fit">
-        <h3 className="text-xl font-bold font-['Noto_Serif'] text-on-surface mb-4">
-          Quick Actions
+        <h3 className="text-xl font-bold font-['Noto_Serif'] text-on-surface mb-5">
+          Company Operations
         </h3>
 
         <div className="space-y-4">

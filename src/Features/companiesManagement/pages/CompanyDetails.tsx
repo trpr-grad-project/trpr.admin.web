@@ -3,9 +3,9 @@ import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 
 import { useGetCompanyByIdQuery } from "../../../store/api/companiesApi";
 
-// import CompanyGuidesSection from "../components/CompanyGuidesSection";
+import CompanyGuidesSection from "../components/CompanyGuidesSection";
 import CompanyDescription from "../components/CompanyDescription";
-// import CompanyActionsCard from "../components/CompanyActionsCard";
+import CompanyActionsCard from "../components/CompanyActionsCard";
 import CompanyInfoCard from "../components/CompanyInfoCard";
 import CompanyHeader from "../components/CompanyHeader";
 
@@ -61,16 +61,16 @@ export default function CompanyDetails() {
       </section>
 
       <div className="space-y-8">
-        <div className="grid grid-cols-12 gap-8">
+        <div className="grid grid-cols-13 gap-8">
           <CompanyInfoCard company={company} />
           
-          {/* <CompanyActionsCard /> */}
+          <CompanyActionsCard />
         </div>
 
         <CompanyDescription description={company.description} />
       </div>
 
-      {/* <CompanyGuidesSection guides={company.guides} /> */}
+      <CompanyGuidesSection guides={company.guides} />
     </section>
   );
 }
