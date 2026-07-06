@@ -16,6 +16,11 @@ interface GetCompaniesParams {
   companyName?: string;
 }
 
+interface AddGuideToCompanyParams {
+  companyId: string;
+  guideId: string;
+}
+
 export const companiesApi = createApi({
   reducerPath: "companiesApi",
 
@@ -123,6 +128,18 @@ export const companiesApi = createApi({
 
       invalidatesTags: ["Company"],
     }),
+    
+    addGuideToCompany: builder.mutation<void, AddGuideToCompanyParams>({
+      query: ({ companyId, guideId }) => ({
+        url: `/company/${companyId}/guides/${guideId}`,
+        method: "POST",
+      }),
+      
+      invalidatesTags: (_result, _error, { companyId }) => [
+        { type: "Company", id: companyId },
+        "Company",
+      ],
+    }),
   }),
 });
 
@@ -133,4 +150,5 @@ export const {
   useUploadImagesMutation,
   useCreateCompanyMutation,
   useCreateCompanyTripMutation,
+  useAddGuideToCompanyMutation,
 } = companiesApi;

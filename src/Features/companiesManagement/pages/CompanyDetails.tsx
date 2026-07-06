@@ -10,6 +10,7 @@ import CompanyActionsCard from "../components/CompanyActionsCard";
 import CompanyInfoCard from "../components/CompanyInfoCard";
 import CompanyHeader from "../components/CompanyHeader";
 import CreateTripModal from "../components/CreateTripModal";
+import AddGuideModal from "../components/AddGuideModal"; // TODO: adjust path if it lives elsewhere
 
 export default function CompanyDetails() {
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function CompanyDetails() {
   const { companyId } = useParams();
 
   const [isCreateTripOpen, setIsCreateTripOpen] = useState(false);
+  const [isAddGuideOpen, setIsAddGuideOpen] = useState(false);
 
   const {
     data: company,
@@ -71,6 +73,7 @@ export default function CompanyDetails() {
 
             <CompanyActionsCard
               onCreateTrip={() => setIsCreateTripOpen(true)}
+              onAddGuide={() => setIsAddGuideOpen(true)}
             />
           </div>
 
@@ -83,6 +86,12 @@ export default function CompanyDetails() {
       <CreateTripModal
         isOpen={isCreateTripOpen}
         onClose={() => setIsCreateTripOpen(false)}
+      />
+
+      <AddGuideModal
+        isOpen={isAddGuideOpen}
+        onClose={() => setIsAddGuideOpen(false)}
+        companyId={companyId!}
       />
     </>
   );
